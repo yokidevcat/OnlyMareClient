@@ -462,7 +462,7 @@ public partial class UiSharedService : DisposableMediatorSubscriberBase
         {
             if (IconButton(FontAwesomeIcon.Folder))
             {
-                FileDialogManager.OpenFolderDialog("Pick Mare Synchronos Storage Folder", (success, path) =>
+                FileDialogManager.OpenFolderDialog("Pick Lightless Sync Storage Folder", (success, path) =>
                 {
                     if (!success) return;
 
@@ -811,7 +811,7 @@ public partial class UiSharedService : DisposableMediatorSubscriberBase
 
         if (!_penumbraExists || !_glamourerExists)
         {
-            ImGui.TextColored(ImGuiColors.DalamudRed, "You need to install both Penumbra and Glamourer and keep them up to date to use Mare Synchronos.");
+            ImGui.TextColored(ImGuiColors.DalamudRed, "You need to install both Penumbra and Glamourer and keep them up to date to use Lightless Sync.");
             return false;
         }
 
