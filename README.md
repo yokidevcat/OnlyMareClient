@@ -1,7 +1,7 @@
-# Mare Synchronos Dalamud Plugin
+# Lightless Sync Dalamud Plugin
 
-Available at [This dalamud Repo](https://raw.githubusercontent.com/Penumbra-Sync/repo/main/plogonmaster.json)
+Available at [This dalamud Repo](https://raw.githubusercontent.com/Light-Public-Syncshells/repo/main/plogonmaster.json)
 
-# [Mare Synchronos Discord](https://discord.gg/5HVveFefcB)
+# [Lightless Sync Discord](https://discord.gg/dsbjcXMnhA)
 
 Readme TBD
