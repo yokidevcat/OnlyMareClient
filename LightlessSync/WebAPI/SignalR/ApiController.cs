@@ -21,8 +21,8 @@ namespace LightlessSync.WebAPI;
 #pragma warning disable MA0040
 public sealed partial class ApiController : DisposableMediatorSubscriberBase, ILightlessHubClient
 {
-    public const string MainServer = "Lunae Crescere Incipientis (Official Central Server)";
-    public const string MainServiceUri = "wss://LightlessSync.com";
+    public const string MainServer = "Follow the light (Official Central Server)";
+    public const string MainServiceUri = "wss://light-syncshell.com";
 
     private readonly DalamudUtilService _dalamudUtil;
     private readonly HubFactory _hubFactory;
