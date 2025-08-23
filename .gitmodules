@@ -1,6 +1,0 @@
-[submodule "MareAPI"]
-	path = MareAPI
-	url = https://github.com/Penumbra-Sync/api.git
-[submodule "LightlessAPI"]
-	path = LightlessAPI
-	url = https://github.com/Light-Public-Syncshells/LightlessAPI
