@@ -76,5 +76,5 @@
   <ItemGroup>
     <ProjectReference Include="..\LightlessAPI\LightlessSyncAPI\LightlessSync.API.csproj" />
   </ItemGroup>
-
+	
 </Project>

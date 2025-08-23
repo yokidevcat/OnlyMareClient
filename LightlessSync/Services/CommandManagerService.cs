@@ -13,7 +13,7 @@ namespace LightlessSync.Services;
 
 public sealed class CommandManagerService : IDisposable
 {
-    private const string _commandName = "/mare";
+    private const string _commandName = "/light";
 
     private readonly ApiController _apiController;
     private readonly ICommandManager _commandManager;
@@ -38,11 +38,11 @@ public sealed class CommandManagerService : IDisposable
         {
             HelpMessage = "Opens the Lightless Sync UI" + Environment.NewLine + Environment.NewLine +
                 "Additionally possible commands:" + Environment.NewLine +
-                "\t /mare toggle - Disconnects from Mare, if connected. Connects to Mare, if disconnected" + Environment.NewLine +
-                "\t /mare toggle on|off - Connects or disconnects to Mare respectively" + Environment.NewLine +
-                "\t /mare gpose - Opens the Mare Character Data Hub window" + Environment.NewLine +
-                "\t /mare analyze - Opens the Mare Character Data Analysis window" + Environment.NewLine +
-                "\t /mare settings - Opens the Mare Settings window"
+                "\t /light toggle - Disconnects from Mare, if connected. Connects to Mare, if disconnected" + Environment.NewLine +
+                "\t /light toggle on|off - Connects or disconnects to Mare respectively" + Environment.NewLine +
+                "\t /light gpose - Opens the Mare Character Data Hub window" + Environment.NewLine +
+                "\t /light analyze - Opens the Mare Character Data Analysis window" + Environment.NewLine +
+                "\t /light settings - Opens the Mare Settings window"
         });
     }
 
