@@ -22,7 +22,7 @@ namespace LightlessSync.WebAPI;
 public sealed partial class ApiController : DisposableMediatorSubscriberBase, ILightlessHubClient
 {
     public const string MainServer = "Follow the light (Official Central Server)";
-    public const string MainServiceUri = "wss://lightless-sync.org";
+    public const string MainServiceUri = "wss://sync.lightless-sync.org";
 
     private readonly DalamudUtilService _dalamudUtil;
     private readonly HubFactory _hubFactory;
