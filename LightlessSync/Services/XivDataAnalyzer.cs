@@ -5,7 +5,7 @@ using FFXIVClientStructs.Havok.Common.Base.Types;
 using FFXIVClientStructs.Havok.Common.Serialize.Util;
 using LightlessSync.FileCache;
 using LightlessSync.Interop.GameModel;
-using LightlessSync.MareConfiguration;
+using LightlessSync.LightlessConfiguration;
 using LightlessSync.PlayerData.Handlers;
 using Microsoft.Extensions.Logging;
 using System.Runtime.InteropServices;

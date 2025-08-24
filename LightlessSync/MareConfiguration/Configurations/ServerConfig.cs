@@ -1,10 +1,10 @@
-﻿using LightlessSync.MareConfiguration.Models;
+﻿using LightlessSync.LightlessConfiguration.Models;
 using LightlessSync.WebAPI;
 
-namespace LightlessSync.MareConfiguration.Configurations;
+namespace LightlessSync.LightlessConfiguration.Configurations;
 
 [Serializable]
-public class ServerConfig : IMareConfiguration
+public class ServerConfig : ILightlessConfiguration
 {
     public int CurrentServer { get; set; } = 0;
 

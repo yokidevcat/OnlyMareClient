@@ -13,8 +13,8 @@ using Dalamud.Utility;
 using LightlessSync.FileCache;
 using LightlessSync.Interop.Ipc;
 using LightlessSync.Localization;
-using LightlessSync.MareConfiguration;
-using LightlessSync.MareConfiguration.Models;
+using LightlessSync.LightlessConfiguration;
+using LightlessSync.LightlessConfiguration.Models;
 using LightlessSync.PlayerData.Pairs;
 using LightlessSync.Services;
 using LightlessSync.Services.Mediator;
@@ -39,11 +39,11 @@ public partial class UiSharedService : DisposableMediatorSubscriberBase
                                            ImGuiWindowFlags.NoScrollWithMouse;
 
     public readonly FileDialogManager FileDialogManager;
-    private const string _notesEnd = "##MARE_SYNCHRONOS_USER_NOTES_END##";
-    private const string _notesStart = "##MARE_SYNCHRONOS_USER_NOTES_START##";
+    private const string _notesEnd = "##LIGHTLESS_SYNC_USER_NOTES_END##";
+    private const string _notesStart = "##LIGHTLESS_SYNC_USER_NOTES_START##";
     private readonly ApiController _apiController;
     private readonly CacheMonitor _cacheMonitor;
-    private readonly MareConfigService _configService;
+    private readonly LightlessConfigService _configService;
     private readonly DalamudUtilService _dalamudUtil;
     private readonly IpcManager _ipcManager;
     private readonly Dalamud.Localization _localization;
@@ -75,10 +75,10 @@ public partial class UiSharedService : DisposableMediatorSubscriberBase
     private int _serverSelectionIndex = -1;
     public UiSharedService(ILogger<UiSharedService> logger, IpcManager ipcManager, ApiController apiController,
         CacheMonitor cacheMonitor, FileDialogManager fileDialogManager,
-        MareConfigService configService, DalamudUtilService dalamudUtil, IDalamudPluginInterface pluginInterface,
+        LightlessConfigService configService, DalamudUtilService dalamudUtil, IDalamudPluginInterface pluginInterface,
         ITextureProvider textureProvider,
         Dalamud.Localization localization,
-        ServerConfigurationManager serverManager, TokenProvider tokenProvider, MareMediator mediator) : base(logger, mediator)
+        ServerConfigurationManager serverManager, TokenProvider tokenProvider, LightlessMediator mediator) : base(logger, mediator)
     {
         _ipcManager = ipcManager;
         _apiController = apiController;
@@ -453,12 +453,12 @@ public partial class UiSharedService : DisposableMediatorSubscriberBase
 
     public void DrawCacheDirectorySetting()
     {
-        ColorTextWrapped("Note: The storage folder should be somewhere close to root (i.e. C:\\MareStorage) in a new empty folder. DO NOT point this to your game folder. DO NOT point this to your Penumbra folder.", ImGuiColors.DalamudYellow);
+        ColorTextWrapped("Note: The storage folder should be somewhere close to root (i.e. C:\\LightlessStorage) in a new empty folder. DO NOT point this to your game folder. DO NOT point this to your Penumbra folder.", ImGuiColors.DalamudYellow);
         var cacheDirectory = _configService.Current.CacheFolder;
         ImGui.InputText("Storage Folder##cache", ref cacheDirectory, 255, ImGuiInputTextFlags.ReadOnly);
 
         ImGui.SameLine();
-        using (ImRaii.Disabled(_cacheMonitor.MareWatcher != null))
+        using (ImRaii.Disabled(_cacheMonitor.LightlessWatcher != null))
         {
             if (IconButton(FontAwesomeIcon.Folder))
             {
@@ -484,7 +484,7 @@ public partial class UiSharedService : DisposableMediatorSubscriberBase
                     if (dirs.Any())
                     {
                         _cacheDirectoryHasOtherFilesThanCache = true;
-                        Logger.LogWarning("Found folders in {path} not belonging to Mare: {dirs}", path, string.Join(", ", dirs));
+                        Logger.LogWarning("Found folders in {path} not belonging to Lightless: {dirs}", path, string.Join(", ", dirs));
                     }
 
                     _isDirectoryWritable = IsDirectoryWritable(path);
@@ -500,13 +500,13 @@ public partial class UiSharedService : DisposableMediatorSubscriberBase
                     {
                         _configService.Current.CacheFolder = path;
                         _configService.Save();
-                        _cacheMonitor.StartMareWatcher(path);
+                        _cacheMonitor.StartLightlessWatcher(path);
                         _cacheMonitor.InvokeScan();
                     }
                 }, _dalamudUtil.IsWine ? @"Z:\" : @"C:\");
             }
         }
-        if (_cacheMonitor.MareWatcher != null)
+        if (_cacheMonitor.LightlessWatcher != null)
         {
             AttachToolTip("Stop the Monitoring before changing the Storage folder. As long as monitoring is active, you cannot change the Storage folder location.");
         }
@@ -525,7 +525,7 @@ public partial class UiSharedService : DisposableMediatorSubscriberBase
         }
         else if (_cacheDirectoryHasOtherFilesThanCache)
         {
-            ColorTextWrapped("Your selected directory has files or directories inside that are not Mare related. Use an empty directory or a previous Mare storage directory only.", ImGuiColors.DalamudRed);
+            ColorTextWrapped("Your selected directory has files or directories inside that are not Lightless related. Use an empty directory or a previous Lightless storage directory only.", ImGuiColors.DalamudRed);
         }
         else if (!_cacheDirectoryIsValidPath)
         {
@@ -539,7 +539,7 @@ public partial class UiSharedService : DisposableMediatorSubscriberBase
             _configService.Current.MaxLocalCacheInGiB = maxCacheSize;
             _configService.Save();
         }
-        DrawHelpText("The storage is automatically governed by Mare. It will clear itself automatically once it reaches the set capacity by removing the oldest unused files. You typically do not need to clear it yourself.");
+        DrawHelpText("The storage is automatically governed by Lightless. It will clear itself automatically once it reaches the set capacity by removing the oldest unused files. You typically do not need to clear it yourself.");
     }
 
     public T? DrawCombo<T>(string comboName, IEnumerable<T> comboItems, Func<T?, string> toName,

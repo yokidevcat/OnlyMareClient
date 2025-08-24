@@ -1,5 +1,5 @@
 ﻿using LightlessSync.FileCache;
-using LightlessSync.MareConfiguration;
+using LightlessSync.LightlessConfiguration;
 using LightlessSync.PlayerData.Pairs;
 using LightlessSync.PlayerData.Services;
 using LightlessSync.Services;
@@ -67,21 +67,21 @@ namespace LightlessSync;
 #pragma warning restore S125 // Sections of code should not be commented out
 // thank you dark 🙏
 
-public class MarePlugin : MediatorSubscriberBase, IHostedService
+public class LightlessPlugin : MediatorSubscriberBase, IHostedService
 {
     private readonly DalamudUtilService _dalamudUtil;
-    private readonly MareConfigService _mareConfigService;
+    private readonly LightlessConfigService _lightlessConfigService;
     private readonly ServerConfigurationManager _serverConfigurationManager;
     private readonly IServiceScopeFactory _serviceScopeFactory;
     private IServiceScope? _runtimeServiceScope;
     private Task? _launchTask = null;
 
-    public MarePlugin(ILogger<MarePlugin> logger, MareConfigService mareConfigService,
+    public LightlessPlugin(ILogger<LightlessPlugin> logger, LightlessConfigService lightlessConfigService,
         ServerConfigurationManager serverConfigurationManager,
         DalamudUtilService dalamudUtil,
-        IServiceScopeFactory serviceScopeFactory, MareMediator mediator) : base(logger, mediator)
+        IServiceScopeFactory serviceScopeFactory, LightlessMediator mediator) : base(logger, mediator)
     {
-        _mareConfigService = mareConfigService;
+        _lightlessConfigService = lightlessConfigService;
         _serverConfigurationManager = serverConfigurationManager;
         _dalamudUtil = dalamudUtil;
         _serviceScopeFactory = serviceScopeFactory;
@@ -91,7 +91,7 @@ public class MarePlugin : MediatorSubscriberBase, IHostedService
     {
         var version = Assembly.GetExecutingAssembly().GetName().Version!;
         Logger.LogInformation("Launching {name} {major}.{minor}.{build}", "Lightless Sync", version.Major, version.Minor, version.Build);
-        Mediator.Publish(new EventMessage(new Services.Events.Event(nameof(MarePlugin), Services.Events.EventSeverity.Informational,
+        Mediator.Publish(new EventMessage(new Services.Events.Event(nameof(LightlessPlugin), Services.Events.EventSeverity.Informational,
             $"Starting Lightless Sync {version.Major}.{version.Minor}.{version.Build}")));
 
         Mediator.Subscribe<SwitchToMainUiMessage>(this, (msg) => { if (_launchTask == null || _launchTask.IsCompleted) _launchTask = Task.Run(WaitForPlayerAndLaunchCharacterManager); });
@@ -109,7 +109,7 @@ public class MarePlugin : MediatorSubscriberBase, IHostedService
 
         DalamudUtilOnLogOut();
 
-        Logger.LogDebug("Halting MarePlugin");
+        Logger.LogDebug("Halting LightlessPlugin");
 
         return Task.CompletedTask;
     }
@@ -142,7 +142,7 @@ public class MarePlugin : MediatorSubscriberBase, IHostedService
             _runtimeServiceScope = _serviceScopeFactory.CreateScope();
             _runtimeServiceScope.ServiceProvider.GetRequiredService<UiService>();
             _runtimeServiceScope.ServiceProvider.GetRequiredService<CommandManagerService>();
-            if (!_mareConfigService.Current.HasValidSetup() || !_serverConfigurationManager.HasValidConfig())
+            if (!_lightlessConfigService.Current.HasValidSetup() || !_serverConfigurationManager.HasValidConfig())
             {
                 Mediator.Publish(new SwitchToIntroUiMessage());
                 return;
@@ -153,11 +153,11 @@ public class MarePlugin : MediatorSubscriberBase, IHostedService
             _runtimeServiceScope.ServiceProvider.GetRequiredService<NotificationService>();
 
 #if !DEBUG
-            if (_mareConfigService.Current.LogLevel != LogLevel.Information)
+            if (_lightlessConfigService.Current.LogLevel != LogLevel.Information)
             {
                 Mediator.Publish(new NotificationMessage("Abnormal Log Level",
-                    $"Your log level is set to '{_mareConfigService.Current.LogLevel}' which is not recommended for normal usage. Set it to '{LogLevel.Information}' in \"Mare Settings -> Debug\" unless instructed otherwise.",
-                    MareConfiguration.Models.NotificationType.Error, TimeSpan.FromSeconds(15000)));
+                    $"Your log level is set to '{_lightlessConfigService.Current.LogLevel}' which is not recommended for normal usage. Set it to '{LogLevel.Information}' in \"Lightless Settings -> Debug\" unless instructed otherwise.",
+                    LightlessConfiguration.Models.NotificationType.Error, TimeSpan.FromSeconds(15000)));
             }
 #endif
         }

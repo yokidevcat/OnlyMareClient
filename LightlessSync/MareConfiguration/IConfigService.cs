@@ -1,8 +1,8 @@
-﻿using LightlessSync.MareConfiguration.Configurations;
+﻿using LightlessSync.LightlessConfiguration.Configurations;
 
-namespace LightlessSync.MareConfiguration;
+namespace LightlessSync.LightlessConfiguration;
 
-public interface IConfigService<out T> : IDisposable where T : IMareConfiguration
+public interface IConfigService<out T> : IDisposable where T : ILightlessConfiguration
 {
     T Current { get; }
     string ConfigurationName { get; }

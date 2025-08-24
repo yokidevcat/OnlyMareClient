@@ -1,8 +1,8 @@
-﻿using LightlessSync.MareConfiguration.Models;
+﻿using LightlessSync.LightlessConfiguration.Models;
 
-namespace LightlessSync.MareConfiguration.Configurations;
+namespace LightlessSync.LightlessConfiguration.Configurations;
 
-public class ServerTagConfig : IMareConfiguration
+public class ServerTagConfig : ILightlessConfiguration
 {
     public Dictionary<string, ServerTagStorage> ServerTagStorage { get; set; } = new(StringComparer.OrdinalIgnoreCase);
     public int Version { get; set; } = 0;

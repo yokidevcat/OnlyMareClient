@@ -19,15 +19,15 @@ public class IpcProvider : IHostedService, IMediatorSubscriber
     private ICallGateProvider<List<nint>>? _handledGameAddresses;
     private readonly List<GameObjectHandler> _activeGameObjectHandlers = [];
 
-    public MareMediator Mediator { get; init; }
+    public LightlessMediator Mediator { get; init; }
 
     public IpcProvider(ILogger<IpcProvider> logger, IDalamudPluginInterface pi,
-        CharaDataManager charaDataManager, MareMediator mareMediator)
+        CharaDataManager charaDataManager, LightlessMediator lightlessMediator)
     {
         _logger = logger;
         _pi = pi;
         _charaDataManager = charaDataManager;
-        Mediator = mareMediator;
+        Mediator = lightlessMediator;
 
         Mediator.Subscribe<GameObjectHandlerCreatedMessage>(this, (msg) =>
         {

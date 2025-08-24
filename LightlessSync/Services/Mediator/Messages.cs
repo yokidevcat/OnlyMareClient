@@ -3,7 +3,7 @@ using LightlessSync.API.Data;
 using LightlessSync.API.Dto;
 using LightlessSync.API.Dto.CharaData;
 using LightlessSync.API.Dto.Group;
-using LightlessSync.MareConfiguration.Models;
+using LightlessSync.LightlessConfiguration.Models;
 using LightlessSync.PlayerData.Handlers;
 using LightlessSync.PlayerData.Pairs;
 using LightlessSync.Services.Events;

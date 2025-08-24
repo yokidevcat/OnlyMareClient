@@ -14,7 +14,7 @@ namespace LightlessSync.UI;
 
 public class StandaloneProfileUi : WindowMediatorSubscriberBase
 {
-    private readonly MareProfileManager _mareProfileManager;
+    private readonly LightlessProfileManager _lightlessProfileManager;
     private readonly PairManager _pairManager;
     private readonly ServerConfigurationManager _serverManager;
     private readonly UiSharedService _uiSharedService;
@@ -24,14 +24,14 @@ public class StandaloneProfileUi : WindowMediatorSubscriberBase
     private IDalamudTextureWrap? _supporterTextureWrap;
     private IDalamudTextureWrap? _textureWrap;
 
-    public StandaloneProfileUi(ILogger<StandaloneProfileUi> logger, MareMediator mediator, UiSharedService uiBuilder,
-        ServerConfigurationManager serverManager, MareProfileManager mareProfileManager, PairManager pairManager, Pair pair,
+    public StandaloneProfileUi(ILogger<StandaloneProfileUi> logger, LightlessMediator mediator, UiSharedService uiBuilder,
+        ServerConfigurationManager serverManager, LightlessProfileManager lightlessProfileManager, PairManager pairManager, Pair pair,
         PerformanceCollectorService performanceCollector)
-        : base(logger, mediator, "Mare Profile of " + pair.UserData.AliasOrUID + "##LightlessSyncStandaloneProfileUI" + pair.UserData.AliasOrUID, performanceCollector)
+        : base(logger, mediator, "Lightless Profile of " + pair.UserData.AliasOrUID + "##LightlessSyncStandaloneProfileUI" + pair.UserData.AliasOrUID, performanceCollector)
     {
         _uiSharedService = uiBuilder;
         _serverManager = serverManager;
-        _mareProfileManager = mareProfileManager;
+        _lightlessProfileManager = lightlessProfileManager;
         Pair = pair;
         _pairManager = pairManager;
         Flags = ImGuiWindowFlags.NoResize | ImGuiWindowFlags.AlwaysAutoResize;
@@ -51,22 +51,22 @@ public class StandaloneProfileUi : WindowMediatorSubscriberBase
         {
             var spacing = ImGui.GetStyle().ItemSpacing;
 
-            var mareProfile = _mareProfileManager.GetMareProfile(Pair.UserData);
+            var lightlessProfile = _lightlessProfileManager.GetLightlessProfile(Pair.UserData);
 
-            if (_textureWrap == null || !mareProfile.ImageData.Value.SequenceEqual(_lastProfilePicture))
+            if (_textureWrap == null || !lightlessProfile.ImageData.Value.SequenceEqual(_lastProfilePicture))
             {
                 _textureWrap?.Dispose();
-                _lastProfilePicture = mareProfile.ImageData.Value;
+                _lastProfilePicture = lightlessProfile.ImageData.Value;
                 _textureWrap = _uiSharedService.LoadImage(_lastProfilePicture);
             }
 
-            if (_supporterTextureWrap == null || !mareProfile.SupporterImageData.Value.SequenceEqual(_lastSupporterPicture))
+            if (_supporterTextureWrap == null || !lightlessProfile.SupporterImageData.Value.SequenceEqual(_lastSupporterPicture))
             {
                 _supporterTextureWrap?.Dispose();
                 _supporterTextureWrap = null;
-                if (!string.IsNullOrEmpty(mareProfile.Base64SupporterPicture))
+                if (!string.IsNullOrEmpty(lightlessProfile.Base64SupporterPicture))
                 {
-                    _lastSupporterPicture = mareProfile.SupporterImageData.Value;
+                    _lastSupporterPicture = lightlessProfile.SupporterImageData.Value;
                     _supporterTextureWrap = _uiSharedService.LoadImage(_lastSupporterPicture);
                 }
             }
@@ -86,7 +86,7 @@ public class StandaloneProfileUi : WindowMediatorSubscriberBase
             ImGuiHelpers.ScaledDummy(new Vector2(256, 256 + spacing.Y));
             var postDummy = ImGui.GetCursorPosY();
             ImGui.SameLine();
-            var descriptionTextSize = ImGui.CalcTextSize(mareProfile.Description, wrapWidth: 256f);
+            var descriptionTextSize = ImGui.CalcTextSize(lightlessProfile.Description, wrapWidth: 256f);
             var descriptionChildHeight = rectMax.Y - pos.Y - rectMin.Y - spacing.Y * 2;
             if (descriptionTextSize.Y > descriptionChildHeight && !_adjustedForScrollBars)
             {
@@ -107,7 +107,7 @@ public class StandaloneProfileUi : WindowMediatorSubscriberBase
             if (ImGui.BeginChildFrame(1000, childFrame))
             {
                 using var _ = _uiSharedService.GameFont.Push();
-                ImGui.TextWrapped(mareProfile.Description);
+                ImGui.TextWrapped(lightlessProfile.Description);
             }
             ImGui.EndChildFrame();
 

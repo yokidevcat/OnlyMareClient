@@ -4,17 +4,17 @@ using LightlessSync.Services.CharaData.Models;
 
 namespace LightlessSync.Services.CharaData;
 
-public sealed class MareCharaFileDataFactory
+public sealed class LightlessCharaFileDataFactory
 {
     private readonly FileCacheManager _fileCacheManager;
 
-    public MareCharaFileDataFactory(FileCacheManager fileCacheManager)
+    public LightlessCharaFileDataFactory(FileCacheManager fileCacheManager)
     {
         _fileCacheManager = fileCacheManager;
     }
 
-    public MareCharaFileData Create(string description, CharacterData characterCacheDto)
+    public LightlessCharaFileData Create(string description, CharacterData characterCacheDto)
     {
-        return new MareCharaFileData(_fileCacheManager, description, characterCacheDto);
+        return new LightlessCharaFileData(_fileCacheManager, description, characterCacheDto);
     }
 }

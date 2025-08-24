@@ -5,8 +5,8 @@ using Dalamud.Interface.Utility.Raii;
 using Dalamud.Utility;
 using LightlessSync.FileCache;
 using LightlessSync.Localization;
-using LightlessSync.MareConfiguration;
-using LightlessSync.MareConfiguration.Models;
+using LightlessSync.LightlessConfiguration;
+using LightlessSync.LightlessConfiguration.Models;
 using LightlessSync.Services;
 using LightlessSync.Services.Mediator;
 using LightlessSync.Services.ServerConfiguration;
@@ -18,7 +18,7 @@ namespace LightlessSync.UI;
 
 public partial class IntroUi : WindowMediatorSubscriberBase
 {
-    private readonly MareConfigService _configService;
+    private readonly LightlessConfigService _configService;
     private readonly CacheMonitor _cacheMonitor;
     private readonly Dictionary<string, string> _languages = new(StringComparer.Ordinal) { { "English", "en" }, { "Deutsch", "de" }, { "Français", "fr" } };
     private readonly ServerConfigurationManager _serverConfigurationManager;
@@ -33,9 +33,9 @@ public partial class IntroUi : WindowMediatorSubscriberBase
     private string[]? _tosParagraphs;
     private bool _useLegacyLogin = false;
 
-    public IntroUi(ILogger<IntroUi> logger, UiSharedService uiShared, MareConfigService configService,
-        CacheMonitor fileCacheManager, ServerConfigurationManager serverConfigurationManager, MareMediator mareMediator,
-        PerformanceCollectorService performanceCollectorService, DalamudUtilService dalamudUtilService) : base(logger, mareMediator, "Lightless Sync Setup", performanceCollectorService)
+    public IntroUi(ILogger<IntroUi> logger, UiSharedService uiShared, LightlessConfigService configService,
+        CacheMonitor fileCacheManager, ServerConfigurationManager serverConfigurationManager, LightlessMediator lightlessMediator,
+        PerformanceCollectorService performanceCollectorService, DalamudUtilService dalamudUtilService) : base(logger, lightlessMediator, "Lightless Sync Setup", performanceCollectorService)
     {
         _uiShared = uiShared;
         _configService = configService;
@@ -196,8 +196,8 @@ public partial class IntroUi : WindowMediatorSubscriberBase
                     _configService.Current.UseCompactor = useFileCompactor;
                     _configService.Save();
                 }
-                UiSharedService.ColorTextWrapped("The File Compactor can save a tremendeous amount of space on the hard disk for downloads through Mare. It will incur a minor CPU penalty on download but can speed up " +
-                    "loading of other characters. It is recommended to keep it enabled. You can change this setting later anytime in the Mare settings.", ImGuiColors.DalamudYellow);
+                UiSharedService.ColorTextWrapped("The File Compactor can save a tremendeous amount of space on the hard disk for downloads through Lightless. It will incur a minor CPU penalty on download but can speed up " +
+                    "loading of other characters. It is recommended to keep it enabled. You can change this setting later anytime in the Lightless settings.", ImGuiColors.DalamudYellow);
             }
         }
         else if (!_uiShared.ApiController.ServerAlive)
@@ -207,7 +207,7 @@ public partial class IntroUi : WindowMediatorSubscriberBase
             ImGui.Separator();
             UiSharedService.TextWrapped("To be able to use Lightless Sync you will have to register an account.");
             UiSharedService.TextWrapped("For the official Lightless Sync Servers the account creation will be handled on the official Lightless Sync Discord. Due to security risks for the server, there is no way to handle this sensibly otherwise.");
-            UiSharedService.TextWrapped("If you want to register at the main server \"" + WebAPI.ApiController.MainServer + "\" join the Discord and follow the instructions as described in #mare-service.");
+            UiSharedService.TextWrapped("If you want to register at the main server \"" + WebAPI.ApiController.MainServer + "\" join the Discord and follow the instructions as described in #lightless-service.");
 
             if (ImGui.Button("Join the Light Public Syncshells Discord"))
             {

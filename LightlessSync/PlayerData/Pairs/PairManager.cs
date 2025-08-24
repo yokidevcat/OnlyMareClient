@@ -4,8 +4,8 @@ using LightlessSync.API.Data.Comparer;
 using LightlessSync.API.Data.Extensions;
 using LightlessSync.API.Dto.Group;
 using LightlessSync.API.Dto.User;
-using LightlessSync.MareConfiguration;
-using LightlessSync.MareConfiguration.Models;
+using LightlessSync.LightlessConfiguration;
+using LightlessSync.LightlessConfiguration.Models;
 using LightlessSync.PlayerData.Factories;
 using LightlessSync.Services.Events;
 using LightlessSync.Services.Mediator;
@@ -18,7 +18,7 @@ public sealed class PairManager : DisposableMediatorSubscriberBase
 {
     private readonly ConcurrentDictionary<UserData, Pair> _allClientPairs = new(UserDataComparer.Instance);
     private readonly ConcurrentDictionary<GroupData, GroupFullInfoDto> _allGroups = new(GroupDataComparer.Instance);
-    private readonly MareConfigService _configurationService;
+    private readonly LightlessConfigService _configurationService;
     private readonly IContextMenu _dalamudContextMenu;
     private readonly PairFactory _pairFactory;
     private Lazy<List<Pair>> _directPairsInternal;
@@ -26,7 +26,7 @@ public sealed class PairManager : DisposableMediatorSubscriberBase
     private Lazy<Dictionary<Pair, List<GroupFullInfoDto>>> _pairsWithGroupsInternal;
 
     public PairManager(ILogger<PairManager> logger, PairFactory pairFactory,
-                MareConfigService configurationService, MareMediator mediator,
+                LightlessConfigService configurationService, LightlessMediator mediator,
                 IContextMenu dalamudContextMenu) : base(logger, mediator)
     {
         _pairFactory = pairFactory;

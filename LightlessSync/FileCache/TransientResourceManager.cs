@@ -1,6 +1,6 @@
 ﻿using LightlessSync.API.Data.Enum;
-using LightlessSync.MareConfiguration;
-using LightlessSync.MareConfiguration.Configurations;
+using LightlessSync.LightlessConfiguration;
+using LightlessSync.LightlessConfiguration.Configurations;
 using LightlessSync.PlayerData.Data;
 using LightlessSync.PlayerData.Handlers;
 using LightlessSync.Services;
@@ -26,7 +26,7 @@ public sealed class TransientResourceManager : DisposableMediatorSubscriberBase
     public bool IsTransientRecording { get; private set; } = false;
 
     public TransientResourceManager(ILogger<TransientResourceManager> logger, TransientConfigService configurationService,
-            DalamudUtilService dalamudUtil, MareMediator mediator) : base(logger, mediator)
+            DalamudUtilService dalamudUtil, LightlessMediator mediator) : base(logger, mediator)
     {
         _configurationService = configurationService;
         _dalamudUtil = dalamudUtil;

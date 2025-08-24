@@ -1,6 +1,6 @@
 ﻿using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Colors;
-using LightlessSync.MareConfiguration;
+using LightlessSync.LightlessConfiguration;
 using LightlessSync.PlayerData.Handlers;
 using LightlessSync.Services;
 using LightlessSync.Services.Mediator;
@@ -14,15 +14,15 @@ namespace LightlessSync.UI;
 
 public class DownloadUi : WindowMediatorSubscriberBase
 {
-    private readonly MareConfigService _configService;
+    private readonly LightlessConfigService _configService;
     private readonly ConcurrentDictionary<GameObjectHandler, Dictionary<string, FileDownloadStatus>> _currentDownloads = new();
     private readonly DalamudUtilService _dalamudUtilService;
     private readonly FileUploadManager _fileTransferManager;
     private readonly UiSharedService _uiShared;
     private readonly ConcurrentDictionary<GameObjectHandler, bool> _uploadingPlayers = new();
 
-    public DownloadUi(ILogger<DownloadUi> logger, DalamudUtilService dalamudUtilService, MareConfigService configService,
-        FileUploadManager fileTransferManager, MareMediator mediator, UiSharedService uiShared, PerformanceCollectorService performanceCollectorService)
+    public DownloadUi(ILogger<DownloadUi> logger, DalamudUtilService dalamudUtilService, LightlessConfigService configService,
+        FileUploadManager fileTransferManager, LightlessMediator mediator, UiSharedService uiShared, PerformanceCollectorService performanceCollectorService)
         : base(logger, mediator, "Lightless Sync Downloads", performanceCollectorService)
     {
         _dalamudUtilService = dalamudUtilService;

@@ -2,7 +2,7 @@
 using Dalamud.Interface;
 using Dalamud.Interface.Utility.Raii;
 using LightlessSync.API.Dto.Group;
-using LightlessSync.MareConfiguration;
+using LightlessSync.LightlessConfiguration;
 using LightlessSync.PlayerData.Pairs;
 using LightlessSync.Services.Mediator;
 using LightlessSync.Services.ServerConfiguration;
@@ -11,8 +11,8 @@ namespace LightlessSync.UI.Handlers;
 
 public class IdDisplayHandler
 {
-    private readonly MareConfigService _mareConfigService;
-    private readonly MareMediator _mediator;
+    private readonly LightlessConfigService _lightlessConfigService;
+    private readonly LightlessMediator _mediator;
     private readonly ServerConfigurationManager _serverManager;
     private readonly Dictionary<string, bool> _showIdForEntry = new(StringComparer.Ordinal);
     private string _editComment = string.Empty;
@@ -22,11 +22,11 @@ public class IdDisplayHandler
     private bool _popupShown = false;
     private DateTime? _popupTime;
 
-    public IdDisplayHandler(MareMediator mediator, ServerConfigurationManager serverManager, MareConfigService mareConfigService)
+    public IdDisplayHandler(LightlessMediator mediator, ServerConfigurationManager serverManager, LightlessConfigService lightlessConfigService)
     {
         _mediator = mediator;
         _serverManager = serverManager;
-        _mareConfigService = mareConfigService;
+        _lightlessConfigService = lightlessConfigService;
     }
 
     public void DrawGroupText(string id, GroupFullInfoDto group, float textPosX, Func<float> editBoxWidth)
@@ -99,12 +99,12 @@ public class IdDisplayHandler
             {
                 if (!string.Equals(_lastMouseOverUid, id))
                 {
-                    _popupTime = DateTime.UtcNow.AddSeconds(_mareConfigService.Current.ProfileDelay);
+                    _popupTime = DateTime.UtcNow.AddSeconds(_lightlessConfigService.Current.ProfileDelay);
                 }
 
                 _lastMouseOverUid = id;
 
-                if (_popupTime > DateTime.UtcNow || !_mareConfigService.Current.ProfilesShow)
+                if (_popupTime > DateTime.UtcNow || !_lightlessConfigService.Current.ProfilesShow)
                 {
                     ImGui.SetTooltip("Left click to switch between UID display and nick" + Environment.NewLine
                         + "Right click to change nick for " + pair.UserData.AliasOrUID + Environment.NewLine
@@ -222,11 +222,11 @@ public class IdDisplayHandler
             playerText = pair.UserData.AliasOrUID;
         }
 
-        if (_mareConfigService.Current.ShowCharacterNameInsteadOfNotesForVisible && pair.IsVisible && !showUidInsteadOfName)
+        if (_lightlessConfigService.Current.ShowCharacterNameInsteadOfNotesForVisible && pair.IsVisible && !showUidInsteadOfName)
         {
             playerText = pair.PlayerName;
             textIsUid = false;
-            if (_mareConfigService.Current.PreferNotesOverNamesForVisible)
+            if (_lightlessConfigService.Current.PreferNotesOverNamesForVisible)
             {
                 var note = pair.GetNote();
                 if (note != null)

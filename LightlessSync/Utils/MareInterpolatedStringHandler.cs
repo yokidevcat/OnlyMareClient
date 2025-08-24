@@ -4,11 +4,11 @@ using System.Text;
 namespace LightlessSync.Utils;
 
 [InterpolatedStringHandler]
-public readonly ref struct MareInterpolatedStringHandler
+public readonly ref struct LightlessInterpolatedStringHandler
 {
     readonly StringBuilder _logMessageStringbuilder;
 
-    public MareInterpolatedStringHandler(int literalLength, int formattedCount)
+    public LightlessInterpolatedStringHandler(int literalLength, int formattedCount)
     {
         _logMessageStringbuilder = new StringBuilder(literalLength);
     }

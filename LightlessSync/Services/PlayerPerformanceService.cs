@@ -1,6 +1,6 @@
 using LightlessSync.API.Data;
 using LightlessSync.FileCache;
-using LightlessSync.MareConfiguration;
+using LightlessSync.LightlessConfiguration;
 using LightlessSync.PlayerData.Handlers;
 using LightlessSync.Services.Events;
 using LightlessSync.Services.Mediator;
@@ -15,11 +15,11 @@ public class PlayerPerformanceService
     private readonly FileCacheManager _fileCacheManager;
     private readonly XivDataAnalyzer _xivDataAnalyzer;
     private readonly ILogger<PlayerPerformanceService> _logger;
-    private readonly MareMediator _mediator;
+    private readonly LightlessMediator _mediator;
     private readonly PlayerPerformanceConfigService _playerPerformanceConfigService;
     private readonly Dictionary<string, bool> _warnedForPlayers = new(StringComparer.Ordinal);
 
-    public PlayerPerformanceService(ILogger<PlayerPerformanceService> logger, MareMediator mediator,
+    public PlayerPerformanceService(ILogger<PlayerPerformanceService> logger, LightlessMediator mediator,
         PlayerPerformanceConfigService playerPerformanceConfigService, FileCacheManager fileCacheManager,
         XivDataAnalyzer xivDataAnalyzer)
     {
@@ -94,7 +94,7 @@ public class PlayerPerformanceService
             }
 
             _mediator.Publish(new NotificationMessage($"{pairHandler.Pair.PlayerName} ({pairHandler.Pair.UserData.AliasOrUID}) exceeds performance threshold(s)",
-                warningText, MareConfiguration.Models.NotificationType.Warning));
+                warningText, LightlessConfiguration.Models.NotificationType.Warning));
         }
 
         return true;
@@ -142,7 +142,7 @@ public class PlayerPerformanceService
                 $"Player {pair.PlayerName} ({pair.UserData.AliasOrUID}) exceeded your configured triangle auto pause threshold (" +
                 $"{triUsage}/{config.TrisAutoPauseThresholdThousands * 1000} triangles)" +
                 $" and has been automatically paused.",
-                MareConfiguration.Models.NotificationType.Warning));
+                LightlessConfiguration.Models.NotificationType.Warning));
 
             _mediator.Publish(new EventMessage(new Event(pair.PlayerName, pair.UserData, nameof(PlayerPerformanceService), EventSeverity.Warning,
                 $"Exceeds triangle threshold: automatically paused ({triUsage}/{config.TrisAutoPauseThresholdThousands * 1000} triangles)")));
@@ -218,7 +218,7 @@ public class PlayerPerformanceService
                 $"Player {pair.PlayerName} ({pair.UserData.AliasOrUID}) exceeded your configured VRAM auto pause threshold (" +
                 $"{UiSharedService.ByteToString(vramUsage, addSuffix: true)}/{config.VRAMSizeAutoPauseThresholdMiB}MiB)" +
                 $" and has been automatically paused.",
-                MareConfiguration.Models.NotificationType.Warning));
+                LightlessConfiguration.Models.NotificationType.Warning));
 
             _mediator.Publish(new PauseMessage(pair.UserData));
 

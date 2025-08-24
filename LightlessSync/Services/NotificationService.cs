@@ -1,12 +1,12 @@
 ﻿using Dalamud.Game.Text.SeStringHandling;
 using Dalamud.Interface.ImGuiNotification;
 using Dalamud.Plugin.Services;
-using LightlessSync.MareConfiguration;
-using LightlessSync.MareConfiguration.Models;
+using LightlessSync.LightlessConfiguration;
+using LightlessSync.LightlessConfiguration.Models;
 using LightlessSync.Services.Mediator;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using NotificationType = LightlessSync.MareConfiguration.Models.NotificationType;
+using NotificationType = LightlessSync.LightlessConfiguration.Models.NotificationType;
 
 namespace LightlessSync.Services;
 
@@ -15,12 +15,12 @@ public class NotificationService : DisposableMediatorSubscriberBase, IHostedServ
     private readonly DalamudUtilService _dalamudUtilService;
     private readonly INotificationManager _notificationManager;
     private readonly IChatGui _chatGui;
-    private readonly MareConfigService _configurationService;
+    private readonly LightlessConfigService _configurationService;
 
-    public NotificationService(ILogger<NotificationService> logger, MareMediator mediator,
+    public NotificationService(ILogger<NotificationService> logger, LightlessMediator mediator,
         DalamudUtilService dalamudUtilService,
         INotificationManager notificationManager,
-        IChatGui chatGui, MareConfigService configurationService) : base(logger, mediator)
+        IChatGui chatGui, LightlessConfigService configurationService) : base(logger, mediator)
     {
         _dalamudUtilService = dalamudUtilService;
         _notificationManager = notificationManager;

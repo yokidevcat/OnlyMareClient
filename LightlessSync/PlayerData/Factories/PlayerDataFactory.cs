@@ -2,7 +2,7 @@
 using LightlessSync.API.Data.Enum;
 using LightlessSync.FileCache;
 using LightlessSync.Interop.Ipc;
-using LightlessSync.MareConfiguration.Models;
+using LightlessSync.LightlessConfiguration.Models;
 using LightlessSync.PlayerData.Data;
 using LightlessSync.PlayerData.Handlers;
 using LightlessSync.Services;
@@ -20,12 +20,12 @@ public class PlayerDataFactory
     private readonly ILogger<PlayerDataFactory> _logger;
     private readonly PerformanceCollectorService _performanceCollector;
     private readonly XivDataAnalyzer _modelAnalyzer;
-    private readonly MareMediator _mareMediator;
+    private readonly LightlessMediator _lightlessMediator;
     private readonly TransientResourceManager _transientResourceManager;
 
     public PlayerDataFactory(ILogger<PlayerDataFactory> logger, DalamudUtilService dalamudUtil, IpcManager ipcManager,
         TransientResourceManager transientResourceManager, FileCacheManager fileReplacementFactory,
-        PerformanceCollectorService performanceCollector, XivDataAnalyzer modelAnalyzer, MareMediator mareMediator)
+        PerformanceCollectorService performanceCollector, XivDataAnalyzer modelAnalyzer, LightlessMediator lightlessMediator)
     {
         _logger = logger;
         _dalamudUtil = dalamudUtil;
@@ -34,7 +34,7 @@ public class PlayerDataFactory
         _fileCacheManager = fileReplacementFactory;
         _performanceCollector = performanceCollector;
         _modelAnalyzer = modelAnalyzer;
-        _mareMediator = mareMediator;
+        _lightlessMediator = lightlessMediator;
         _logger.LogTrace("Creating {this}", nameof(PlayerDataFactory));
     }
 
@@ -319,7 +319,7 @@ public class PlayerDataFactory
 
         if (noValidationFailed > 0)
         {
-            _mareMediator.Publish(new NotificationMessage("Invalid Skeleton Setup",
+            _lightlessMediator.Publish(new NotificationMessage("Invalid Skeleton Setup",
                 $"Your client is attempting to send {noValidationFailed} animation files with invalid bone data. Those animation files have been removed from your sent data. " +
                 $"Verify that you are using the correct skeleton for those animation files (Check /xllog for more information).",
                 NotificationType.Warning, TimeSpan.FromSeconds(10)));

@@ -1,6 +1,6 @@
-﻿namespace LightlessSync.MareConfiguration.Configurations;
+﻿namespace LightlessSync.LightlessConfiguration.Configurations;
 
-public interface IMareConfiguration
+public interface ILightlessConfiguration
 {
     int Version { get; set; }
 }

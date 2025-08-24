@@ -19,7 +19,7 @@ public class EditProfileUi : WindowMediatorSubscriberBase
 {
     private readonly ApiController _apiController;
     private readonly FileDialogManager _fileDialogManager;
-    private readonly MareProfileManager _mareProfileManager;
+    private readonly LightlessProfileManager _lightlessProfileManager;
     private readonly UiSharedService _uiSharedService;
     private bool _adjustedForScollBarsLocalProfile = false;
     private bool _adjustedForScollBarsOnlineProfile = false;
@@ -30,9 +30,9 @@ public class EditProfileUi : WindowMediatorSubscriberBase
     private bool _showFileDialogError = false;
     private bool _wasOpen;
 
-    public EditProfileUi(ILogger<EditProfileUi> logger, MareMediator mediator,
+    public EditProfileUi(ILogger<EditProfileUi> logger, LightlessMediator mediator,
         ApiController apiController, UiSharedService uiSharedService, FileDialogManager fileDialogManager,
-        MareProfileManager mareProfileManager, PerformanceCollectorService performanceCollectorService)
+        LightlessProfileManager lightlessProfileManager, PerformanceCollectorService performanceCollectorService)
         : base(logger, mediator, "Lightless Sync Edit Profile###LightlessSyncEditProfileUI", performanceCollectorService)
     {
         IsOpen = false;
@@ -44,7 +44,7 @@ public class EditProfileUi : WindowMediatorSubscriberBase
         _apiController = apiController;
         _uiSharedService = uiSharedService;
         _fileDialogManager = fileDialogManager;
-        _mareProfileManager = mareProfileManager;
+        _lightlessProfileManager = lightlessProfileManager;
 
         Mediator.Subscribe<GposeStartMessage>(this, (_) => { _wasOpen = IsOpen; IsOpen = false; });
         Mediator.Subscribe<GposeEndMessage>(this, (_) => IsOpen = _wasOpen);
@@ -63,7 +63,7 @@ public class EditProfileUi : WindowMediatorSubscriberBase
     {
         _uiSharedService.BigText("Current Profile (as saved on server)");
 
-        var profile = _mareProfileManager.GetMareProfile(new UserData(_apiController.UID));
+        var profile = _lightlessProfileManager.GetLightlessProfile(new UserData(_apiController.UID));
 
         if (profile.IsFlagged)
         {
@@ -126,7 +126,7 @@ public class EditProfileUi : WindowMediatorSubscriberBase
             $"- Other users have the possibility to report your profile for breaking the rules.{Environment.NewLine}" +
             $"- !!! AVOID: anything as profile image that can be considered highly illegal or obscene (bestiality, anything that could be considered a sexual act with a minor (that includes Lalafells), etc.){Environment.NewLine}" +
             $"- !!! AVOID: slurs of any kind in the description that can be considered highly offensive{Environment.NewLine}" +
-            $"- In case of valid reports from other users this can lead to disabling your profile forever or terminating your Mare account indefinitely.{Environment.NewLine}" +
+            $"- In case of valid reports from other users this can lead to disabling your profile forever or terminating your Lightless account indefinitely.{Environment.NewLine}" +
             $"- Judgement of your profile validity from reports through staff is not up to debate and the decisions to disable your profile/account permanent.{Environment.NewLine}" +
             $"- If your profile picture or profile description could be considered NSFW, enable the toggle below.");
         ImGui.Separator();

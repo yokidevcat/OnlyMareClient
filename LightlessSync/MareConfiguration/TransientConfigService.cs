@@ -1,6 +1,6 @@
-﻿using LightlessSync.MareConfiguration.Configurations;
+﻿using LightlessSync.LightlessConfiguration.Configurations;
 
-namespace LightlessSync.MareConfiguration;
+namespace LightlessSync.LightlessConfiguration;
 
 public class TransientConfigService : ConfigurationServiceBase<TransientConfig>
 {

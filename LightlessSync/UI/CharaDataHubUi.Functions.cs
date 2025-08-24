@@ -1,6 +1,6 @@
 ﻿using Dalamud.Interface.Utility.Raii;
 using LightlessSync.API.Dto.CharaData;
-using LightlessSync.MareConfiguration.Models;
+using LightlessSync.LightlessConfiguration.Models;
 using LightlessSync.Services.CharaData.Models;
 using System.Text;
 

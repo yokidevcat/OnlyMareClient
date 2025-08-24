@@ -18,14 +18,14 @@ public sealed class IpcCallerHonorific : IIpcCaller
     private readonly ICallGateSubscriber<object> _honorificReady;
     private readonly ICallGateSubscriber<int, string, object> _honorificSetCharacterTitle;
     private readonly ILogger<IpcCallerHonorific> _logger;
-    private readonly MareMediator _mareMediator;
+    private readonly LightlessMediator _lightlessMediator;
     private readonly DalamudUtilService _dalamudUtil;
 
     public IpcCallerHonorific(ILogger<IpcCallerHonorific> logger, IDalamudPluginInterface pi, DalamudUtilService dalamudUtil,
-        MareMediator mareMediator)
+        LightlessMediator lightlessMediator)
     {
         _logger = logger;
-        _mareMediator = mareMediator;
+        _lightlessMediator = lightlessMediator;
         _dalamudUtil = dalamudUtil;
         _honorificApiVersion = pi.GetIpcSubscriber<(uint, uint)>("Honorific.ApiVersion");
         _honorificGetLocalCharacterTitle = pi.GetIpcSubscriber<string>("Honorific.GetLocalCharacterTitle");
@@ -115,18 +115,18 @@ public sealed class IpcCallerHonorific : IIpcCaller
 
     private void OnHonorificDisposing()
     {
-        _mareMediator.Publish(new HonorificMessage(string.Empty));
+        _lightlessMediator.Publish(new HonorificMessage(string.Empty));
     }
 
     private void OnHonorificLocalCharacterTitleChanged(string titleJson)
     {
         string titleData = string.IsNullOrEmpty(titleJson) ? string.Empty : Convert.ToBase64String(Encoding.UTF8.GetBytes(titleJson));
-        _mareMediator.Publish(new HonorificMessage(titleData));
+        _lightlessMediator.Publish(new HonorificMessage(titleData));
     }
 
     private void OnHonorificReady()
     {
         CheckAPI();
-        _mareMediator.Publish(new HonorificReadyMessage());
+        _lightlessMediator.Publish(new HonorificReadyMessage());
     }
 }

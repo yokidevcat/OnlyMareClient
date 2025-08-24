@@ -6,7 +6,7 @@ using Dalamud.Interface.Utility.Raii;
 using LightlessSync.API.Data.Extensions;
 using LightlessSync.API.Dto.Group;
 using LightlessSync.API.Dto.User;
-using LightlessSync.MareConfiguration;
+using LightlessSync.LightlessConfiguration;
 using LightlessSync.PlayerData.Pairs;
 using LightlessSync.Services;
 using LightlessSync.Services.Mediator;
@@ -20,7 +20,7 @@ public class DrawUserPair
 {
     protected readonly ApiController _apiController;
     protected readonly IdDisplayHandler _displayHandler;
-    protected readonly MareMediator _mediator;
+    protected readonly LightlessMediator _mediator;
     protected readonly List<GroupFullInfoDto> _syncedGroups;
     private readonly GroupFullInfoDto? _currentGroup;
     protected Pair _pair;
@@ -36,7 +36,7 @@ public class DrawUserPair
     public DrawUserPair(string id, Pair entry, List<GroupFullInfoDto> syncedGroups,
         GroupFullInfoDto? currentGroup,
         ApiController apiController, IdDisplayHandler uIDDisplayHandler,
-        MareMediator mareMediator, SelectTagForPairUi selectTagForPairUi,
+        LightlessMediator lightlessMediator, SelectTagForPairUi selectTagForPairUi,
         ServerConfigurationManager serverConfigurationManager,
         UiSharedService uiSharedService, PlayerPerformanceConfigService performanceConfigService,
         CharaDataManager charaDataManager)
@@ -47,7 +47,7 @@ public class DrawUserPair
         _currentGroup = currentGroup;
         _apiController = apiController;
         _displayHandler = uIDDisplayHandler;
-        _mediator = mareMediator;
+        _mediator = lightlessMediator;
         _selectTagForPairUi = selectTagForPairUi;
         _serverConfigurationManager = serverConfigurationManager;
         _uiSharedService = uiSharedService;

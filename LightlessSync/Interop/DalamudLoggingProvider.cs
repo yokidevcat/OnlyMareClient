@@ -1,5 +1,5 @@
 ﻿using Dalamud.Plugin.Services;
-using LightlessSync.MareConfiguration;
+using LightlessSync.LightlessConfiguration;
 using Microsoft.Extensions.Logging;
 
 using System.Collections.Concurrent;
@@ -12,13 +12,13 @@ public sealed class DalamudLoggingProvider : ILoggerProvider
     private readonly ConcurrentDictionary<string, DalamudLogger> _loggers =
         new(StringComparer.OrdinalIgnoreCase);
 
-    private readonly MareConfigService _mareConfigService;
+    private readonly LightlessConfigService _lightlessConfigService;
     private readonly IPluginLog _pluginLog;
     private readonly bool _hasModifiedGameFiles;
 
-    public DalamudLoggingProvider(MareConfigService mareConfigService, IPluginLog pluginLog, bool hasModifiedGameFiles)
+    public DalamudLoggingProvider(LightlessConfigService lightlessConfigService, IPluginLog pluginLog, bool hasModifiedGameFiles)
     {
-        _mareConfigService = mareConfigService;
+        _lightlessConfigService = lightlessConfigService;
         _pluginLog = pluginLog;
         _hasModifiedGameFiles = hasModifiedGameFiles;
     }
@@ -35,7 +35,7 @@ public sealed class DalamudLoggingProvider : ILoggerProvider
             catName = string.Join("", Enumerable.Range(0, 15 - catName.Length).Select(_ => " ")) + catName;
         }
 
-        return _loggers.GetOrAdd(catName, name => new DalamudLogger(name, _mareConfigService, _pluginLog, _hasModifiedGameFiles));
+        return _loggers.GetOrAdd(catName, name => new DalamudLogger(name, _lightlessConfigService, _pluginLog, _hasModifiedGameFiles));
     }
 
     public void Dispose()

@@ -1,8 +1,8 @@
 ﻿using LightlessSync.API.Data;
 using LightlessSync.API.Data.Comparer;
 using LightlessSync.Interop.Ipc;
-using LightlessSync.MareConfiguration;
-using LightlessSync.MareConfiguration.Models;
+using LightlessSync.LightlessConfiguration;
+using LightlessSync.LightlessConfiguration.Models;
 using LightlessSync.Services.Mediator;
 using System.Collections.Concurrent;
 
@@ -12,12 +12,12 @@ public class PluginWarningNotificationService
 {
     private readonly ConcurrentDictionary<UserData, OptionalPluginWarning> _cachedOptionalPluginWarnings = new(UserDataComparer.Instance);
     private readonly IpcManager _ipcManager;
-    private readonly MareConfigService _mareConfigService;
-    private readonly MareMediator _mediator;
+    private readonly LightlessConfigService _lightlessConfigService;
+    private readonly LightlessMediator _mediator;
 
-    public PluginWarningNotificationService(MareConfigService mareConfigService, IpcManager ipcManager, MareMediator mediator)
+    public PluginWarningNotificationService(LightlessConfigService lightlessConfigService, IpcManager ipcManager, LightlessMediator mediator)
     {
-        _mareConfigService = mareConfigService;
+        _lightlessConfigService = lightlessConfigService;
         _ipcManager = ipcManager;
         _mediator = mediator;
     }
@@ -28,11 +28,11 @@ public class PluginWarningNotificationService
         {
             _cachedOptionalPluginWarnings[user] = warning = new()
             {
-                ShownCustomizePlusWarning = _mareConfigService.Current.DisableOptionalPluginWarnings,
-                ShownHeelsWarning = _mareConfigService.Current.DisableOptionalPluginWarnings,
-                ShownHonorificWarning = _mareConfigService.Current.DisableOptionalPluginWarnings,
-                ShownMoodlesWarning = _mareConfigService.Current.DisableOptionalPluginWarnings,
-                ShowPetNicknamesWarning = _mareConfigService.Current.DisableOptionalPluginWarnings
+                ShownCustomizePlusWarning = _lightlessConfigService.Current.DisableOptionalPluginWarnings,
+                ShownHeelsWarning = _lightlessConfigService.Current.DisableOptionalPluginWarnings,
+                ShownHonorificWarning = _lightlessConfigService.Current.DisableOptionalPluginWarnings,
+                ShownMoodlesWarning = _lightlessConfigService.Current.DisableOptionalPluginWarnings,
+                ShowPetNicknamesWarning = _lightlessConfigService.Current.DisableOptionalPluginWarnings
             };
         }
 

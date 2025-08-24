@@ -1,9 +1,9 @@
-﻿using LightlessSync.MareConfiguration.Configurations;
+﻿using LightlessSync.LightlessConfiguration.Configurations;
 using System.Text.Json;
 
-namespace LightlessSync.MareConfiguration;
+namespace LightlessSync.LightlessConfiguration;
 
-public abstract class ConfigurationServiceBase<T> : IConfigService<T> where T : IMareConfiguration
+public abstract class ConfigurationServiceBase<T> : IConfigService<T> where T : ILightlessConfiguration
 {
     private readonly CancellationTokenSource _periodicCheckCts = new();
     private DateTime _configLastWriteTime;

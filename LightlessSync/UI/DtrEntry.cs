@@ -2,8 +2,8 @@
 using Dalamud.Game.Text.SeStringHandling;
 using Dalamud.Game.Text.SeStringHandling.Payloads;
 using Dalamud.Plugin.Services;
-using LightlessSync.MareConfiguration;
-using LightlessSync.MareConfiguration.Configurations;
+using LightlessSync.LightlessConfiguration;
+using LightlessSync.LightlessConfiguration.Configurations;
 using LightlessSync.PlayerData.Pairs;
 using LightlessSync.Services.Mediator;
 using LightlessSync.WebAPI;
@@ -17,24 +17,24 @@ public sealed class DtrEntry : IDisposable, IHostedService
 {
     private readonly ApiController _apiController;
     private readonly CancellationTokenSource _cancellationTokenSource = new();
-    private readonly ConfigurationServiceBase<MareConfig> _configService;
+    private readonly ConfigurationServiceBase<LightlessConfig> _configService;
     private readonly IDtrBar _dtrBar;
     private readonly Lazy<IDtrBarEntry> _entry;
     private readonly ILogger<DtrEntry> _logger;
-    private readonly MareMediator _mareMediator;
+    private readonly LightlessMediator _lightlessMediator;
     private readonly PairManager _pairManager;
     private Task? _runTask;
     private string? _text;
     private string? _tooltip;
     private Colors _colors;
 
-    public DtrEntry(ILogger<DtrEntry> logger, IDtrBar dtrBar, ConfigurationServiceBase<MareConfig> configService, MareMediator mareMediator, PairManager pairManager, ApiController apiController)
+    public DtrEntry(ILogger<DtrEntry> logger, IDtrBar dtrBar, ConfigurationServiceBase<LightlessConfig> configService, LightlessMediator lightlessMediator, PairManager pairManager, ApiController apiController)
     {
         _logger = logger;
         _dtrBar = dtrBar;
         _entry = new(CreateEntry);
         _configService = configService;
-        _mareMediator = mareMediator;
+        _lightlessMediator = lightlessMediator;
         _pairManager = pairManager;
         _apiController = apiController;
     }
@@ -89,7 +89,7 @@ public sealed class DtrEntry : IDisposable, IHostedService
     {
         _logger.LogTrace("Creating new DtrBar entry");
         var entry = _dtrBar.Get("Lightless Sync");
-        entry.OnClick = _ => _mareMediator.Publish(new UiToggleMessage(typeof(CompactUi)));
+        entry.OnClick = _ => _lightlessMediator.Publish(new UiToggleMessage(typeof(CompactUi)));
 
         return entry;
     }

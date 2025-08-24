@@ -7,7 +7,7 @@ using Dalamud.Utility;
 using LightlessSync.API.Data.Extensions;
 using LightlessSync.API.Dto.Group;
 using LightlessSync.Interop.Ipc;
-using LightlessSync.MareConfiguration;
+using LightlessSync.LightlessConfiguration;
 using LightlessSync.PlayerData.Handlers;
 using LightlessSync.PlayerData.Pairs;
 using LightlessSync.Services;
@@ -31,7 +31,7 @@ namespace LightlessSync.UI;
 public class CompactUi : WindowMediatorSubscriberBase
 {
     private readonly ApiController _apiController;
-    private readonly MareConfigService _configService;
+    private readonly LightlessConfigService _configService;
     private readonly ConcurrentDictionary<GameObjectHandler, Dictionary<string, FileDownloadStatus>> _currentDownloads = new();
     private readonly DrawEntityFactory _drawEntityFactory;
     private readonly FileUploadManager _fileTransferManager;
@@ -54,8 +54,8 @@ public class CompactUi : WindowMediatorSubscriberBase
     private bool _wasOpen;
     private float _windowContentWidth;
 
-    public CompactUi(ILogger<CompactUi> logger, UiSharedService uiShared, MareConfigService configService, ApiController apiController, PairManager pairManager,
-        ServerConfigurationManager serverManager, MareMediator mediator, FileUploadManager fileTransferManager,
+    public CompactUi(ILogger<CompactUi> logger, UiSharedService uiShared, LightlessConfigService configService, ApiController apiController, PairManager pairManager,
+        ServerConfigurationManager serverManager, LightlessMediator mediator, FileUploadManager fileTransferManager,
         TagHandler tagHandler, DrawEntityFactory drawEntityFactory, SelectTagForPairUi selectTagForPairUi, SelectPairForTagUi selectPairForTagUi,
         PerformanceCollectorService performanceCollectorService, IpcManager ipcManager)
         : base(logger, mediator, "###LightlessSyncMainUI", performanceCollectorService)
@@ -88,7 +88,7 @@ public class CompactUi : WindowMediatorSubscriberBase
                 ShowTooltip = () =>
                 {
                     ImGui.BeginTooltip();
-                    ImGui.Text("Open Mare Settings");
+                    ImGui.Text("Open Lightless Settings");
                     ImGui.EndTooltip();
                 }
             },
@@ -103,7 +103,7 @@ public class CompactUi : WindowMediatorSubscriberBase
                 ShowTooltip = () =>
                 {
                     ImGui.BeginTooltip();
-                    ImGui.Text("Open Mare Event Viewer");
+                    ImGui.Text("Open Lightless Event Viewer");
                     ImGui.EndTooltip();
                 }
             }
@@ -169,7 +169,7 @@ public class CompactUi : WindowMediatorSubscriberBase
             var penumAvailable = _ipcManager.Penumbra.APIAvailable;
             var glamAvailable = _ipcManager.Glamourer.APIAvailable;
 
-            UiSharedService.ColorTextWrapped($"One or more Plugins essential for Mare operation are unavailable. Enable or update following plugins:", ImGuiColors.DalamudRed);
+            UiSharedService.ColorTextWrapped($"One or more Plugins essential for Lightless operation are unavailable. Enable or update following plugins:", ImGuiColors.DalamudRed);
             using var indent = ImRaii.PushIndent(10f);
             if (!penumAvailable)
             {
@@ -578,7 +578,7 @@ public class CompactUi : WindowMediatorSubscriberBase
             ServerState.MultiChara => "Your Character Configuration has multiple characters configured with same name and world. You will not be able to connect until you fix this issue. Remove the duplicates from the configuration in Settings -> Service Settings -> Character Management and reconnect manually after.",
             ServerState.OAuthMisconfigured => "OAuth2 is enabled but not fully configured, verify in the Settings -> Service Settings that you have OAuth2 connected and, importantly, a UID assigned to your current character.",
             ServerState.OAuthLoginTokenStale => "Your OAuth2 login token is stale and cannot be used to renew. Go to the Settings -> Service Settings and unlink then relink your OAuth2 configuration.",
-            ServerState.NoAutoLogon => "This character has automatic login into Mare disabled. Press the connect button to connect to Mare.",
+            ServerState.NoAutoLogon => "This character has automatic login into Lightless disabled. Press the connect button to connect to Lightless.",
             _ => string.Empty
         };
     }

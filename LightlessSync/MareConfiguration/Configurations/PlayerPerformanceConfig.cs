@@ -1,6 +1,6 @@
-﻿namespace LightlessSync.MareConfiguration.Configurations;
+﻿namespace LightlessSync.LightlessConfiguration.Configurations;
 
-public class PlayerPerformanceConfig : IMareConfiguration
+public class PlayerPerformanceConfig : ILightlessConfiguration
 {
     public int Version { get; set; } = 1;
     public bool ShowPerformanceIndicator { get; set; } = true;

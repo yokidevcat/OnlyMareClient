@@ -1,10 +1,10 @@
-﻿using LightlessSync.MareConfiguration.Configurations;
+﻿using LightlessSync.LightlessConfiguration.Configurations;
 
-namespace LightlessSync.MareConfiguration;
+namespace LightlessSync.LightlessConfiguration;
 
 public static class ConfigurationExtensions
 {
-    public static bool HasValidSetup(this MareConfig configuration)
+    public static bool HasValidSetup(this LightlessConfig configuration)
     {
         return configuration.AcceptedAgreement && configuration.InitialScanComplete
                     && !string.IsNullOrEmpty(configuration.CacheFolder)

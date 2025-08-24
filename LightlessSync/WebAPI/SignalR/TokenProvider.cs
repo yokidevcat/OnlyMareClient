@@ -1,5 +1,5 @@
 ﻿using LightlessSync.API.Routes;
-using LightlessSync.MareConfiguration.Models;
+using LightlessSync.LightlessConfiguration.Models;
 using LightlessSync.Services;
 using LightlessSync.Services.Mediator;
 using LightlessSync.Services.ServerConfiguration;
@@ -20,13 +20,13 @@ public sealed class TokenProvider : IDisposable, IMediatorSubscriber
     private readonly ServerConfigurationManager _serverManager;
     private readonly ConcurrentDictionary<JwtIdentifier, string> _tokenCache = new();
 
-    public TokenProvider(ILogger<TokenProvider> logger, ServerConfigurationManager serverManager, DalamudUtilService dalamudUtil, MareMediator mareMediator, HttpClient httpClient)
+    public TokenProvider(ILogger<TokenProvider> logger, ServerConfigurationManager serverManager, DalamudUtilService dalamudUtil, LightlessMediator lightlessMediator, HttpClient httpClient)
     {
         _logger = logger;
         _serverManager = serverManager;
         _dalamudUtil = dalamudUtil;
         var ver = Assembly.GetExecutingAssembly().GetName().Version;
-        Mediator = mareMediator;
+        Mediator = lightlessMediator;
         _httpClient = httpClient;
         Mediator.Subscribe<DalamudLogoutMessage>(this, (_) =>
         {
@@ -40,7 +40,7 @@ public sealed class TokenProvider : IDisposable, IMediatorSubscriber
         });
     }
 
-    public MareMediator Mediator { get; }
+    public LightlessMediator Mediator { get; }
 
     private JwtIdentifier? _lastJwtIdentifier;
 
@@ -115,10 +115,10 @@ public sealed class TokenProvider : IDisposable, IMediatorSubscriber
             if (ex.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
                 if (isRenewal)
-                    Mediator.Publish(new NotificationMessage("Error refreshing token", "Your authentication token could not be renewed. Try reconnecting to Mare manually.",
+                    Mediator.Publish(new NotificationMessage("Error refreshing token", "Your authentication token could not be renewed. Try reconnecting to Lightless manually.",
                     NotificationType.Error));
                 else
-                    Mediator.Publish(new NotificationMessage("Error generating token", "Your authentication token could not be generated. Check Mares Main UI (/light in chat) to see the error message.",
+                    Mediator.Publish(new NotificationMessage("Error generating token", "Your authentication token could not be generated. Check Lightless Main UI (/light in chat) to see the error message.",
                     NotificationType.Error));
                 Mediator.Publish(new DisconnectedMessage());
                 throw new LightlessAuthFailureException(response);
@@ -139,7 +139,7 @@ public sealed class TokenProvider : IDisposable, IMediatorSubscriber
         {
             _tokenCache.TryRemove(identifier, out _);
             Mediator.Publish(new NotificationMessage("Invalid system clock", "The clock of your computer is invalid. " +
-                "Mare will not function properly if the time zone is not set correctly. " +
+                "Lightless will not function properly if the time zone is not set correctly. " +
                 "Please set your computers time zone correctly and keep your clock synchronized with the internet.",
                 NotificationType.Error));
             throw new InvalidOperationException($"JwtToken is behind DateTime.UtcNow, DateTime.UtcNow is possibly wrong. DateTime.UtcNow is {DateTime.UtcNow}, JwtToken.ValidTo is {jwtToken.ValidTo}");

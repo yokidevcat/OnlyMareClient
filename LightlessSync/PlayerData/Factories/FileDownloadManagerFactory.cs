@@ -11,13 +11,13 @@ public class FileDownloadManagerFactory
     private readonly FileCompactor _fileCompactor;
     private readonly FileTransferOrchestrator _fileTransferOrchestrator;
     private readonly ILoggerFactory _loggerFactory;
-    private readonly MareMediator _mareMediator;
+    private readonly LightlessMediator _lightlessMediator;
 
-    public FileDownloadManagerFactory(ILoggerFactory loggerFactory, MareMediator mareMediator, FileTransferOrchestrator fileTransferOrchestrator,
+    public FileDownloadManagerFactory(ILoggerFactory loggerFactory, LightlessMediator lightlessMediator, FileTransferOrchestrator fileTransferOrchestrator,
         FileCacheManager fileCacheManager, FileCompactor fileCompactor)
     {
         _loggerFactory = loggerFactory;
-        _mareMediator = mareMediator;
+        _lightlessMediator = lightlessMediator;
         _fileTransferOrchestrator = fileTransferOrchestrator;
         _fileCacheManager = fileCacheManager;
         _fileCompactor = fileCompactor;
@@ -25,6 +25,6 @@ public class FileDownloadManagerFactory
 
     public FileDownloadManager Create()
     {
-        return new FileDownloadManager(_loggerFactory.CreateLogger<FileDownloadManager>(), _mareMediator, _fileTransferOrchestrator, _fileCacheManager, _fileCompactor);
+        return new FileDownloadManager(_loggerFactory.CreateLogger<FileDownloadManager>(), _lightlessMediator, _fileTransferOrchestrator, _fileCacheManager, _fileCompactor);
     }
 }

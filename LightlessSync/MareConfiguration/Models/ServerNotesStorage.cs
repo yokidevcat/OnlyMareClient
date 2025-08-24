@@ -1,4 +1,4 @@
-﻿namespace LightlessSync.MareConfiguration.Models;
+﻿namespace LightlessSync.LightlessConfiguration.Models;
 
 public class ServerNotesStorage
 {

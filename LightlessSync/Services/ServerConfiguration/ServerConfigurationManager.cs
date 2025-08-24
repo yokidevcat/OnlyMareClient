@@ -1,7 +1,7 @@
 ﻿using Dalamud.Utility;
 using LightlessSync.API.Routes;
-using LightlessSync.MareConfiguration;
-using LightlessSync.MareConfiguration.Models;
+using LightlessSync.LightlessConfiguration;
+using LightlessSync.LightlessConfiguration.Models;
 using LightlessSync.Services.Mediator;
 using LightlessSync.WebAPI;
 using Microsoft.AspNetCore.Http.Connections;
@@ -18,25 +18,25 @@ public class ServerConfigurationManager
 {
     private readonly ServerConfigService _configService;
     private readonly DalamudUtilService _dalamudUtil;
-    private readonly MareConfigService _mareConfigService;
+    private readonly LightlessConfigService _lightlessConfigService;
     private readonly HttpClient _httpClient;
     private readonly ILogger<ServerConfigurationManager> _logger;
-    private readonly MareMediator _mareMediator;
+    private readonly LightlessMediator _lightlessMediator;
     private readonly NotesConfigService _notesConfig;
     private readonly ServerTagConfigService _serverTagConfig;
 
     public ServerConfigurationManager(ILogger<ServerConfigurationManager> logger, ServerConfigService configService,
         ServerTagConfigService serverTagConfig, NotesConfigService notesConfig, DalamudUtilService dalamudUtil,
-        MareConfigService mareConfigService, HttpClient httpClient, MareMediator mareMediator)
+        LightlessConfigService lightlessConfigService, HttpClient httpClient, LightlessMediator lightlessMediator)
     {
         _logger = logger;
         _configService = configService;
         _serverTagConfig = serverTagConfig;
         _notesConfig = notesConfig;
         _dalamudUtil = dalamudUtil;
-        _mareConfigService = mareConfigService;
+        _lightlessConfigService = lightlessConfigService;
         _httpClient = httpClient;
-        _mareMediator = mareMediator;
+        _lightlessMediator = lightlessMediator;
         EnsureMainExists();
     }
 
@@ -298,7 +298,7 @@ public class ServerConfigurationManager
     {
         CurrentServerTagStorage().ServerAvailablePairTags.Add(tag);
         _serverTagConfig.Save();
-        _mareMediator.Publish(new RefreshUiMessage());
+        _lightlessMediator.Publish(new RefreshUiMessage());
     }
 
     internal void AddTagForUid(string uid, string tagName)
@@ -306,7 +306,7 @@ public class ServerConfigurationManager
         if (CurrentServerTagStorage().UidServerPairedUserTags.TryGetValue(uid, out var tags))
         {
             tags.Add(tagName);
-            _mareMediator.Publish(new RefreshUiMessage());
+            _lightlessMediator.Publish(new RefreshUiMessage());
         }
         else
         {
@@ -410,7 +410,7 @@ public class ServerConfigurationManager
             RemoveTagForUid(uid, tag, save: false);
         }
         _serverTagConfig.Save();
-        _mareMediator.Publish(new RefreshUiMessage());
+        _lightlessMediator.Publish(new RefreshUiMessage());
     }
 
     internal void RemoveTagForUid(string uid, string tagName, bool save = true)
@@ -422,7 +422,7 @@ public class ServerConfigurationManager
             if (save)
             {
                 _serverTagConfig.Save();
-                _mareMediator.Publish(new RefreshUiMessage());
+                _lightlessMediator.Publish(new RefreshUiMessage());
             }
         }
     }
@@ -463,7 +463,7 @@ public class ServerConfigurationManager
 
     internal void AutoPopulateNoteForUid(string uid, string note)
     {
-        if (!_mareConfigService.Current.AutoPopulateEmptyNotesFromCharaName
+        if (!_lightlessConfigService.Current.AutoPopulateEmptyNotesFromCharaName
             || GetNoteForUid(uid) != null)
             return;
 

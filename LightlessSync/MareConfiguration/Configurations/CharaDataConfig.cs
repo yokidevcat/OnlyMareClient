@@ -1,10 +1,10 @@
-﻿using LightlessSync.MareConfiguration.Models;
+﻿using LightlessSync.LightlessConfiguration.Models;
 
-namespace LightlessSync.MareConfiguration.Configurations;
+namespace LightlessSync.LightlessConfiguration.Configurations;
 
-public class CharaDataConfig : IMareConfiguration
+public class CharaDataConfig : ILightlessConfiguration
 {
-    public bool OpenMareHubOnGposeStart { get; set; } = false;
+    public bool OpenLightlessHubOnGposeStart { get; set; } = false;
     public string LastSavedCharaDataLocation { get; set; } = string.Empty;
     public Dictionary<string, CharaDataFavorite> FavoriteCodes { get; set; } = [];
     public bool DownloadMcdDataOnConnection { get; set; } = true;

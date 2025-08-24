@@ -1,4 +1,4 @@
-﻿using LightlessSync.MareConfiguration.Models;
+﻿using LightlessSync.LightlessConfiguration.Models;
 using LightlessSync.Services.Mediator;
 using Microsoft.AspNetCore.SignalR.Client;
 
@@ -6,10 +6,10 @@ namespace LightlessSync.WebAPI.SignalR.Utils;
 
 public class ForeverRetryPolicy : IRetryPolicy
 {
-    private readonly MareMediator _mediator;
+    private readonly LightlessMediator _mediator;
     private bool _sentDisconnected = false;
 
-    public ForeverRetryPolicy(MareMediator mediator)
+    public ForeverRetryPolicy(LightlessMediator mediator)
     {
         _mediator = mediator;
     }

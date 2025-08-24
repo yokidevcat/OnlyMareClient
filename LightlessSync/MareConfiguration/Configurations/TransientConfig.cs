@@ -1,8 +1,9 @@
 ﻿using LightlessSync.API.Data.Enum;
+using LightlessSync.LightlessConfiguration.Configurations;
 
-namespace LightlessSync.MareConfiguration.Configurations;
+namespace LightlessSync.LightlessConfiguration.Configurations;
 
-public class TransientConfig : IMareConfiguration
+public class TransientConfig : ILightlessConfiguration
 {
     public Dictionary<string, TransientPlayerConfig> TransientConfigs { get; set; } = [];
     public int Version { get; set; } = 1;

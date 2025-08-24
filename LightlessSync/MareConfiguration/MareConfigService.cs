@@ -1,12 +1,12 @@
-﻿using LightlessSync.MareConfiguration.Configurations;
+﻿using LightlessSync.LightlessConfiguration.Configurations;
 
-namespace LightlessSync.MareConfiguration;
+namespace LightlessSync.LightlessConfiguration;
 
-public class MareConfigService : ConfigurationServiceBase<MareConfig>
+public class LightlessConfigService : ConfigurationServiceBase<LightlessConfig>
 {
     public const string ConfigName = "config.json";
 
-    public MareConfigService(string configDir) : base(configDir)
+    public LightlessConfigService(string configDir) : base(configDir)
     {
     }
 

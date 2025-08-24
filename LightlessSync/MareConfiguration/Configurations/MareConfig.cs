@@ -1,11 +1,11 @@
-﻿using LightlessSync.MareConfiguration.Models;
+﻿using LightlessSync.LightlessConfiguration.Models;
 using LightlessSync.UI;
 using Microsoft.Extensions.Logging;
 
-namespace LightlessSync.MareConfiguration.Configurations;
+namespace LightlessSync.LightlessConfiguration.Configurations;
 
 [Serializable]
-public class MareConfig : IMareConfiguration
+public class LightlessConfig : ILightlessConfiguration
 {
     public bool AcceptedAgreement { get; set; } = false;
     public string CacheFolder { get; set; } = string.Empty;

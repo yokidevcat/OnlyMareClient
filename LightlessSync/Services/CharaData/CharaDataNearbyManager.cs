@@ -1,7 +1,7 @@
 ﻿using FFXIVClientStructs.FFXIV.Client.Graphics.Scene;
 using LightlessSync.API.Data;
 using LightlessSync.Interop;
-using LightlessSync.MareConfiguration;
+using LightlessSync.LightlessConfiguration;
 using LightlessSync.Services.CharaData.Models;
 using LightlessSync.Services.Mediator;
 using LightlessSync.Services.ServerConfiguration;
@@ -29,7 +29,7 @@ public sealed class CharaDataNearbyManager : DisposableMediatorSubscriberBase
     private (Guid VfxId, PoseEntryExtended Pose)? _hoveredVfx = null;
     private DateTime _lastExecutionTime = DateTime.UtcNow;
     private SemaphoreSlim _sharedDataUpdateSemaphore = new(1, 1);
-    public CharaDataNearbyManager(ILogger<CharaDataNearbyManager> logger, MareMediator mediator,
+    public CharaDataNearbyManager(ILogger<CharaDataNearbyManager> logger, LightlessMediator mediator,
         DalamudUtilService dalamudUtilService, VfxSpawnManager vfxSpawnManager,
         ServerConfigurationManager serverConfigurationManager,
         CharaDataConfigService charaDataConfigService) : base(logger, mediator)

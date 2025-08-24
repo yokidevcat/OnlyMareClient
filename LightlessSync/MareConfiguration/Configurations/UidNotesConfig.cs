@@ -1,8 +1,8 @@
-﻿using LightlessSync.MareConfiguration.Models;
+﻿using LightlessSync.LightlessConfiguration.Models;
 
-namespace LightlessSync.MareConfiguration.Configurations;
+namespace LightlessSync.LightlessConfiguration.Configurations;
 
-public class UidNotesConfig : IMareConfiguration
+public class UidNotesConfig : ILightlessConfiguration
 {
     public Dictionary<string, ServerNotesStorage> ServerNotes { get; set; } = new(StringComparer.Ordinal);
     public int Version { get; set; } = 0;

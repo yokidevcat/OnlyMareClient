@@ -13,7 +13,7 @@ using FFXIVClientStructs.FFXIV.Client.UI.Agent;
 using Lumina.Excel.Sheets;
 using LightlessSync.API.Dto.CharaData;
 using LightlessSync.Interop;
-using LightlessSync.MareConfiguration;
+using LightlessSync.LightlessConfiguration;
 using LightlessSync.PlayerData.Handlers;
 using LightlessSync.Services.Mediator;
 using LightlessSync.Utils;
@@ -39,7 +39,7 @@ public class DalamudUtilService : IHostedService, IMediatorSubscriber
     private readonly ILogger<DalamudUtilService> _logger;
     private readonly IObjectTable _objectTable;
     private readonly PerformanceCollectorService _performanceCollector;
-    private readonly MareConfigService _configService;
+    private readonly LightlessConfigService _configService;
     private uint? _classJobId = 0;
     private DateTime _delayedFrameworkUpdateCheck = DateTime.UtcNow;
     private string _lastGlobalBlockPlayer = string.Empty;
@@ -52,8 +52,8 @@ public class DalamudUtilService : IHostedService, IMediatorSubscriber
 
     public DalamudUtilService(ILogger<DalamudUtilService> logger, IClientState clientState, IObjectTable objectTable, IFramework framework,
         IGameGui gameGui, ICondition condition, IDataManager gameData, ITargetManager targetManager, IGameConfig gameConfig,
-        BlockedCharacterHandler blockedCharacterHandler, MareMediator mediator, PerformanceCollectorService performanceCollector,
-        MareConfigService configService)
+        BlockedCharacterHandler blockedCharacterHandler, LightlessMediator mediator, PerformanceCollectorService performanceCollector,
+        LightlessConfigService configService)
     {
         _logger = logger;
         _clientState = clientState;
@@ -169,7 +169,7 @@ public class DalamudUtilService : IHostedService, IMediatorSubscriber
     public Lazy<Dictionary<uint, string>> TerritoryData { get; private set; }
     public Lazy<Dictionary<uint, (Map Map, string MapName)>> MapData { get; private set; }
     public bool IsLodEnabled { get; private set; }
-    public MareMediator Mediator { get; }
+    public LightlessMediator Mediator { get; }
 
     public IGameObject? CreateGameObject(IntPtr reference)
     {

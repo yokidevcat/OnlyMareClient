@@ -4,7 +4,7 @@ using LightlessSync.API.Dto;
 using LightlessSync.API.Dto.CharaData;
 using LightlessSync.API.Dto.Group;
 using LightlessSync.API.Dto.User;
-using LightlessSync.MareConfiguration.Models;
+using LightlessSync.LightlessConfiguration.Models;
 using LightlessSync.Services.Mediator;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
@@ -227,163 +227,163 @@ public partial class ApiController
     public void OnDownloadReady(Action<Guid> act)
     {
         if (_initialized) return;
-        _mareHub!.On(nameof(Client_DownloadReady), act);
+        _lightlessHub!.On(nameof(Client_DownloadReady), act);
     }
 
     public void OnGroupChangePermissions(Action<GroupPermissionDto> act)
     {
         if (_initialized) return;
-        _mareHub!.On(nameof(Client_GroupChangePermissions), act);
+        _lightlessHub!.On(nameof(Client_GroupChangePermissions), act);
     }
 
     public void OnGroupChangeUserPairPermissions(Action<GroupPairUserPermissionDto> act)
     {
         if (_initialized) return;
-        _mareHub!.On(nameof(Client_GroupChangeUserPairPermissions), act);
+        _lightlessHub!.On(nameof(Client_GroupChangeUserPairPermissions), act);
     }
 
     public void OnGroupDelete(Action<GroupDto> act)
     {
         if (_initialized) return;
-        _mareHub!.On(nameof(Client_GroupDelete), act);
+        _lightlessHub!.On(nameof(Client_GroupDelete), act);
     }
 
     public void OnGroupPairChangeUserInfo(Action<GroupPairUserInfoDto> act)
     {
         if (_initialized) return;
-        _mareHub!.On(nameof(Client_GroupPairChangeUserInfo), act);
+        _lightlessHub!.On(nameof(Client_GroupPairChangeUserInfo), act);
     }
 
     public void OnGroupPairJoined(Action<GroupPairFullInfoDto> act)
     {
         if (_initialized) return;
-        _mareHub!.On(nameof(Client_GroupPairJoined), act);
+        _lightlessHub!.On(nameof(Client_GroupPairJoined), act);
     }
 
     public void OnGroupPairLeft(Action<GroupPairDto> act)
     {
         if (_initialized) return;
-        _mareHub!.On(nameof(Client_GroupPairLeft), act);
+        _lightlessHub!.On(nameof(Client_GroupPairLeft), act);
     }
 
     public void OnGroupSendFullInfo(Action<GroupFullInfoDto> act)
     {
         if (_initialized) return;
-        _mareHub!.On(nameof(Client_GroupSendFullInfo), act);
+        _lightlessHub!.On(nameof(Client_GroupSendFullInfo), act);
     }
 
     public void OnGroupSendInfo(Action<GroupInfoDto> act)
     {
         if (_initialized) return;
-        _mareHub!.On(nameof(Client_GroupSendInfo), act);
+        _lightlessHub!.On(nameof(Client_GroupSendInfo), act);
     }
 
     public void OnReceiveServerMessage(Action<MessageSeverity, string> act)
     {
         if (_initialized) return;
-        _mareHub!.On(nameof(Client_ReceiveServerMessage), act);
+        _lightlessHub!.On(nameof(Client_ReceiveServerMessage), act);
     }
 
     public void OnUpdateSystemInfo(Action<SystemInfoDto> act)
     {
         if (_initialized) return;
-        _mareHub!.On(nameof(Client_UpdateSystemInfo), act);
+        _lightlessHub!.On(nameof(Client_UpdateSystemInfo), act);
     }
 
     public void OnUpdateUserIndividualPairStatusDto(Action<UserIndividualPairStatusDto> action)
     {
         if (_initialized) return;
-        _mareHub!.On(nameof(Client_UpdateUserIndividualPairStatusDto), action);
+        _lightlessHub!.On(nameof(Client_UpdateUserIndividualPairStatusDto), action);
     }
 
     public void OnUserAddClientPair(Action<UserPairDto> act)
     {
         if (_initialized) return;
-        _mareHub!.On(nameof(Client_UserAddClientPair), act);
+        _lightlessHub!.On(nameof(Client_UserAddClientPair), act);
     }
 
     public void OnUserDefaultPermissionUpdate(Action<DefaultPermissionsDto> act)
     {
         if (_initialized) return;
-        _mareHub!.On(nameof(Client_UserUpdateDefaultPermissions), act);
+        _lightlessHub!.On(nameof(Client_UserUpdateDefaultPermissions), act);
     }
 
     public void OnUserReceiveCharacterData(Action<OnlineUserCharaDataDto> act)
     {
         if (_initialized) return;
-        _mareHub!.On(nameof(Client_UserReceiveCharacterData), act);
+        _lightlessHub!.On(nameof(Client_UserReceiveCharacterData), act);
     }
 
     public void OnUserReceiveUploadStatus(Action<UserDto> act)
     {
         if (_initialized) return;
-        _mareHub!.On(nameof(Client_UserReceiveUploadStatus), act);
+        _lightlessHub!.On(nameof(Client_UserReceiveUploadStatus), act);
     }
 
     public void OnUserRemoveClientPair(Action<UserDto> act)
     {
         if (_initialized) return;
-        _mareHub!.On(nameof(Client_UserRemoveClientPair), act);
+        _lightlessHub!.On(nameof(Client_UserRemoveClientPair), act);
     }
 
     public void OnUserSendOffline(Action<UserDto> act)
     {
         if (_initialized) return;
-        _mareHub!.On(nameof(Client_UserSendOffline), act);
+        _lightlessHub!.On(nameof(Client_UserSendOffline), act);
     }
 
     public void OnUserSendOnline(Action<OnlineUserIdentDto> act)
     {
         if (_initialized) return;
-        _mareHub!.On(nameof(Client_UserSendOnline), act);
+        _lightlessHub!.On(nameof(Client_UserSendOnline), act);
     }
 
     public void OnUserUpdateOtherPairPermissions(Action<UserPermissionsDto> act)
     {
         if (_initialized) return;
-        _mareHub!.On(nameof(Client_UserUpdateOtherPairPermissions), act);
+        _lightlessHub!.On(nameof(Client_UserUpdateOtherPairPermissions), act);
     }
 
     public void OnUserUpdateProfile(Action<UserDto> act)
     {
         if (_initialized) return;
-        _mareHub!.On(nameof(Client_UserUpdateProfile), act);
+        _lightlessHub!.On(nameof(Client_UserUpdateProfile), act);
     }
 
     public void OnUserUpdateSelfPairPermissions(Action<UserPermissionsDto> act)
     {
         if (_initialized) return;
-        _mareHub!.On(nameof(Client_UserUpdateSelfPairPermissions), act);
+        _lightlessHub!.On(nameof(Client_UserUpdateSelfPairPermissions), act);
     }
 
     public void OnGposeLobbyJoin(Action<UserData> act)
     {
         if (_initialized) return;
-        _mareHub!.On(nameof(Client_GposeLobbyJoin), act);
+        _lightlessHub!.On(nameof(Client_GposeLobbyJoin), act);
     }
 
     public void OnGposeLobbyLeave(Action<UserData> act)
     {
         if (_initialized) return;
-        _mareHub!.On(nameof(Client_GposeLobbyLeave), act);
+        _lightlessHub!.On(nameof(Client_GposeLobbyLeave), act);
     }
 
     public void OnGposeLobbyPushCharacterData(Action<CharaDataDownloadDto> act)
     {
         if (_initialized) return;
-        _mareHub!.On(nameof(Client_GposeLobbyPushCharacterData), act);
+        _lightlessHub!.On(nameof(Client_GposeLobbyPushCharacterData), act);
     }
 
     public void OnGposeLobbyPushPoseData(Action<UserData, PoseData> act)
     {
         if (_initialized) return;
-        _mareHub!.On(nameof(Client_GposeLobbyPushPoseData), act);
+        _lightlessHub!.On(nameof(Client_GposeLobbyPushPoseData), act);
     }
 
     public void OnGposeLobbyPushWorldData(Action<UserData, WorldData> act)
     {
         if (_initialized) return;
-        _mareHub!.On(nameof(Client_GposeLobbyPushWorldData), act);
+        _lightlessHub!.On(nameof(Client_GposeLobbyPushWorldData), act);
     }
 
     private void ExecuteSafely(Action act)
