@@ -1,6 +1,6 @@
-﻿using LightlessSync.API.Data;
+﻿using OnlyMare.API.Data;
 
-namespace LightlessSync.PlayerData.Data;
+namespace OnlyMare.PlayerData.Data;
 
 public class FileReplacementDataComparer : IEqualityComparer<FileReplacementData>
 {

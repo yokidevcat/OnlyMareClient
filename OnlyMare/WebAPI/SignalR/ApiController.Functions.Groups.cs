@@ -1,8 +1,8 @@
-﻿using LightlessSync.API.Dto.Group;
-using LightlessSync.WebAPI.SignalR.Utils;
+﻿using OnlyMare.API.Dto.Group;
+using OnlyMare.WebAPI.SignalR.Utils;
 using Microsoft.AspNetCore.SignalR.Client;
 
-namespace LightlessSync.WebAPI;
+namespace OnlyMare.WebAPI;
 
 public partial class ApiController
 {

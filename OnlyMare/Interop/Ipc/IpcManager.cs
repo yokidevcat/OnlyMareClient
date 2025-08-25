@@ -1,7 +1,7 @@
-﻿using LightlessSync.Services.Mediator;
+﻿using OnlyMare.Services.Mediator;
 using Microsoft.Extensions.Logging;
 
-namespace LightlessSync.Interop.Ipc;
+namespace OnlyMare.Interop.Ipc;
 
 public sealed partial class IpcManager : DisposableMediatorSubscriberBase
 {

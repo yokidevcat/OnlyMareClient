@@ -10,18 +10,18 @@ using Dalamud.Interface.Utility.Raii;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using Dalamud.Utility;
-using LightlessSync.FileCache;
-using LightlessSync.Interop.Ipc;
-using LightlessSync.Localization;
-using LightlessSync.LightlessConfiguration;
-using LightlessSync.LightlessConfiguration.Models;
-using LightlessSync.PlayerData.Pairs;
-using LightlessSync.Services;
-using LightlessSync.Services.Mediator;
-using LightlessSync.Services.ServerConfiguration;
-using LightlessSync.Utils;
-using LightlessSync.WebAPI;
-using LightlessSync.WebAPI.SignalR;
+using OnlyMare.FileCache;
+using OnlyMare.Interop.Ipc;
+using OnlyMare.Localization;
+using OnlyMare.LightlessConfiguration;
+using OnlyMare.LightlessConfiguration.Models;
+using OnlyMare.PlayerData.Pairs;
+using OnlyMare.Services;
+using OnlyMare.Services.Mediator;
+using OnlyMare.Services.ServerConfiguration;
+using OnlyMare.Utils;
+using OnlyMare.WebAPI;
+using OnlyMare.WebAPI.SignalR;
 using Microsoft.Extensions.Logging;
 using System.IdentityModel.Tokens.Jwt;
 using System.Numerics;
@@ -29,7 +29,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace LightlessSync.UI;
+namespace OnlyMare.UI;
 
 public partial class UiSharedService : DisposableMediatorSubscriberBase
 {

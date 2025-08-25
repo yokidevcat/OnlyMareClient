@@ -1,13 +1,13 @@
 ﻿using Dalamud.Bindings.ImGui;
 using Dalamud.Interface;
 using Dalamud.Interface.Utility.Raii;
-using LightlessSync.API.Data.Extensions;
-using LightlessSync.PlayerData.Pairs;
-using LightlessSync.UI.Handlers;
-using LightlessSync.WebAPI;
+using OnlyMare.API.Data.Extensions;
+using OnlyMare.PlayerData.Pairs;
+using OnlyMare.UI.Handlers;
+using OnlyMare.WebAPI;
 using System.Collections.Immutable;
 
-namespace LightlessSync.UI.Components;
+namespace OnlyMare.UI.Components;
 
 public class DrawFolderTag : DrawFolderBase
 {

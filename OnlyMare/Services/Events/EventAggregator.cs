@@ -1,9 +1,9 @@
-﻿using LightlessSync.Services.Mediator;
-using LightlessSync.Utils;
+﻿using OnlyMare.Services.Mediator;
+using OnlyMare.Utils;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace LightlessSync.Services.Events;
+namespace OnlyMare.Services.Events;
 
 public class EventAggregator : MediatorSubscriberBase, IHostedService
 {

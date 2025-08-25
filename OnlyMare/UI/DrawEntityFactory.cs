@@ -1,16 +1,16 @@
-﻿using LightlessSync.API.Dto.Group;
-using LightlessSync.LightlessConfiguration;
-using LightlessSync.PlayerData.Pairs;
-using LightlessSync.Services;
-using LightlessSync.Services.Mediator;
-using LightlessSync.Services.ServerConfiguration;
-using LightlessSync.UI.Components;
-using LightlessSync.UI.Handlers;
-using LightlessSync.WebAPI;
+﻿using OnlyMare.API.Dto.Group;
+using OnlyMare.LightlessConfiguration;
+using OnlyMare.PlayerData.Pairs;
+using OnlyMare.Services;
+using OnlyMare.Services.Mediator;
+using OnlyMare.Services.ServerConfiguration;
+using OnlyMare.UI.Components;
+using OnlyMare.UI.Handlers;
+using OnlyMare.WebAPI;
 using Microsoft.Extensions.Logging;
 using System.Collections.Immutable;
 
-namespace LightlessSync.UI;
+namespace OnlyMare.UI;
 
 public class DrawEntityFactory
 {

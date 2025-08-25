@@ -1,4 +1,4 @@
-﻿namespace LightlessSync.Services;
+﻿namespace OnlyMare.Services;
 
 public record LightlessProfileData(bool IsFlagged, bool IsNSFW, string Base64ProfilePicture, string Base64SupporterPicture, string Description)
 {

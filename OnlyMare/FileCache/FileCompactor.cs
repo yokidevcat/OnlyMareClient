@@ -1,9 +1,9 @@
-﻿using LightlessSync.LightlessConfiguration;
-using LightlessSync.Services;
+﻿using OnlyMare.LightlessConfiguration;
+using OnlyMare.Services;
 using Microsoft.Extensions.Logging;
 using System.Runtime.InteropServices;
 
-namespace LightlessSync.FileCache;
+namespace OnlyMare.FileCache;
 
 public sealed class FileCompactor
 {

@@ -1,8 +1,8 @@
-﻿using LightlessSync.API.SignalR;
-using LightlessSync.Services;
-using LightlessSync.Services.Mediator;
-using LightlessSync.Services.ServerConfiguration;
-using LightlessSync.WebAPI.SignalR.Utils;
+﻿using OnlyMare.API.SignalR;
+using OnlyMare.Services;
+using OnlyMare.Services.Mediator;
+using OnlyMare.Services.ServerConfiguration;
+using OnlyMare.WebAPI.SignalR.Utils;
 using MessagePack;
 using MessagePack.Resolvers;
 using Microsoft.AspNetCore.Http.Connections;
@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace LightlessSync.WebAPI.SignalR;
+namespace OnlyMare.WebAPI.SignalR;
 
 public class HubFactory : MediatorSubscriberBase
 {

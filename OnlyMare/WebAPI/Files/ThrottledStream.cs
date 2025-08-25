@@ -1,4 +1,4 @@
-﻿namespace LightlessSync.WebAPI.Files
+﻿namespace OnlyMare.WebAPI.Files
 {
     /// <summary>
     ///     Class for streaming data with throttling support.

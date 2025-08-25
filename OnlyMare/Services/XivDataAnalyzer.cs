@@ -3,14 +3,14 @@ using FFXIVClientStructs.FFXIV.Client.Graphics.Scene;
 using FFXIVClientStructs.Havok.Animation;
 using FFXIVClientStructs.Havok.Common.Base.Types;
 using FFXIVClientStructs.Havok.Common.Serialize.Util;
-using LightlessSync.FileCache;
-using LightlessSync.Interop.GameModel;
-using LightlessSync.LightlessConfiguration;
-using LightlessSync.PlayerData.Handlers;
+using OnlyMare.FileCache;
+using OnlyMare.Interop.GameModel;
+using OnlyMare.LightlessConfiguration;
+using OnlyMare.PlayerData.Handlers;
 using Microsoft.Extensions.Logging;
 using System.Runtime.InteropServices;
 
-namespace LightlessSync.Services;
+namespace OnlyMare.Services;
 
 public sealed class XivDataAnalyzer
 {

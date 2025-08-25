@@ -1,11 +1,11 @@
 ﻿using Dalamud.Utility;
 using Lumina.Excel.Sheets;
-using LightlessSync.API.Dto.CharaData;
+using OnlyMare.API.Dto.CharaData;
 using System.Globalization;
 using System.Numerics;
 using System.Text;
 
-namespace LightlessSync.Services.CharaData.Models;
+namespace OnlyMare.Services.CharaData.Models;
 
 public sealed record PoseEntryExtended : PoseEntry
 {

@@ -1,7 +1,7 @@
 ﻿using Dalamud.Interface.Windowing;
 using Microsoft.Extensions.Logging;
 
-namespace LightlessSync.Services.Mediator;
+namespace OnlyMare.Services.Mediator;
 
 public abstract class WindowMediatorSubscriberBase : Window, IMediatorSubscriber, IDisposable
 {

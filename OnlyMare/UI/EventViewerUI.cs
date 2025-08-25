@@ -2,15 +2,15 @@
 using Dalamud.Interface;
 using Dalamud.Interface.Colors;
 using Dalamud.Interface.Utility.Raii;
-using LightlessSync.Services;
-using LightlessSync.Services.Events;
-using LightlessSync.Services.Mediator;
+using OnlyMare.Services;
+using OnlyMare.Services.Events;
+using OnlyMare.Services.Mediator;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Globalization;
 using System.Numerics;
 
-namespace LightlessSync.UI;
+namespace OnlyMare.UI;
 
 internal class EventViewerUI : WindowMediatorSubscriberBase
 {

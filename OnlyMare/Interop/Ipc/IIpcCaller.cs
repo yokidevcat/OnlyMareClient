@@ -1,4 +1,4 @@
-﻿namespace LightlessSync.Interop.Ipc;
+﻿namespace OnlyMare.Interop.Ipc;
 
 public interface IIpcCaller : IDisposable
 {

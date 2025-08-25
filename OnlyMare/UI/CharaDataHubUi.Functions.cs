@@ -1,10 +1,10 @@
 ﻿using Dalamud.Interface.Utility.Raii;
-using LightlessSync.API.Dto.CharaData;
-using LightlessSync.LightlessConfiguration.Models;
-using LightlessSync.Services.CharaData.Models;
+using OnlyMare.API.Dto.CharaData;
+using OnlyMare.LightlessConfiguration.Models;
+using OnlyMare.Services.CharaData.Models;
 using System.Text;
 
-namespace LightlessSync.UI;
+namespace OnlyMare.UI;
 
 internal sealed partial class CharaDataHubUi
 {

@@ -1,7 +1,7 @@
-﻿using LightlessSync.LightlessConfiguration.Models;
-using LightlessSync.WebAPI;
+﻿using OnlyMare.LightlessConfiguration.Models;
+using OnlyMare.WebAPI;
 
-namespace LightlessSync.LightlessConfiguration.Configurations;
+namespace OnlyMare.LightlessConfiguration.Configurations;
 
 [Serializable]
 public class ServerConfig : ILightlessConfiguration

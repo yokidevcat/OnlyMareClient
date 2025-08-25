@@ -11,12 +11,12 @@ using FFXIVClientStructs.FFXIV.Client.Game.Control;
 using FFXIVClientStructs.FFXIV.Client.Graphics.Scene;
 using FFXIVClientStructs.FFXIV.Client.UI.Agent;
 using Lumina.Excel.Sheets;
-using LightlessSync.API.Dto.CharaData;
-using LightlessSync.Interop;
-using LightlessSync.LightlessConfiguration;
-using LightlessSync.PlayerData.Handlers;
-using LightlessSync.Services.Mediator;
-using LightlessSync.Utils;
+using OnlyMare.API.Dto.CharaData;
+using OnlyMare.Interop;
+using OnlyMare.LightlessConfiguration;
+using OnlyMare.PlayerData.Handlers;
+using OnlyMare.Services.Mediator;
+using OnlyMare.Utils;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Numerics;
@@ -24,7 +24,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using GameObject = FFXIVClientStructs.FFXIV.Client.Game.Object.GameObject;
 
-namespace LightlessSync.Services;
+namespace OnlyMare.Services;
 
 public class DalamudUtilService : IHostedService, IMediatorSubscriber
 {

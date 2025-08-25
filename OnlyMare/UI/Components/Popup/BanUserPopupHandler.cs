@@ -1,12 +1,12 @@
 ﻿using Dalamud.Bindings.ImGui;
 using Dalamud.Interface;
-using LightlessSync.API.Dto.Group;
-using LightlessSync.PlayerData.Pairs;
-using LightlessSync.Services.Mediator;
-using LightlessSync.WebAPI;
+using OnlyMare.API.Dto.Group;
+using OnlyMare.PlayerData.Pairs;
+using OnlyMare.Services.Mediator;
+using OnlyMare.WebAPI;
 using System.Numerics;
 
-namespace LightlessSync.UI.Components.Popup;
+namespace OnlyMare.UI.Components.Popup;
 
 public class BanUserPopupHandler : IPopupHandler
 {

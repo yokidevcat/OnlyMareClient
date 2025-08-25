@@ -1,14 +1,14 @@
 ﻿using Dalamud.Game.Text.SeStringHandling;
 using Dalamud.Interface.ImGuiNotification;
 using Dalamud.Plugin.Services;
-using LightlessSync.LightlessConfiguration;
-using LightlessSync.LightlessConfiguration.Models;
-using LightlessSync.Services.Mediator;
+using OnlyMare.LightlessConfiguration;
+using OnlyMare.LightlessConfiguration.Models;
+using OnlyMare.Services.Mediator;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using NotificationType = LightlessSync.LightlessConfiguration.Models.NotificationType;
+using NotificationType = OnlyMare.LightlessConfiguration.Models.NotificationType;
 
-namespace LightlessSync.Services;
+namespace OnlyMare.Services;
 
 public class NotificationService : DisposableMediatorSubscriberBase, IHostedService
 {

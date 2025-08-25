@@ -3,7 +3,7 @@ using FFXIVClientStructs.FFXIV.Client.Game.Character;
 using FFXIVClientStructs.FFXIV.Client.UI.Info;
 using Microsoft.Extensions.Logging;
 
-namespace LightlessSync.Interop;
+namespace OnlyMare.Interop;
 
 public unsafe class BlockedCharacterHandler
 {

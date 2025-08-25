@@ -1,11 +1,11 @@
-﻿using LightlessSync.LightlessConfiguration;
+﻿using OnlyMare.LightlessConfiguration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 using System.Reflection;
 using System.Text;
 
-namespace LightlessSync.Services.Mediator;
+namespace OnlyMare.Services.Mediator;
 
 public sealed class LightlessMediator : IHostedService
 {

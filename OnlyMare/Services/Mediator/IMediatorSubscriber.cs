@@ -1,4 +1,4 @@
-﻿namespace LightlessSync.Services.Mediator;
+﻿namespace OnlyMare.Services.Mediator;
 
 public interface IMediatorSubscriber
 {

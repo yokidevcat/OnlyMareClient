@@ -1,15 +1,15 @@
 ﻿using K4os.Compression.LZ4.Legacy;
-using LightlessSync.Interop.Ipc;
-using LightlessSync.LightlessConfiguration;
-using LightlessSync.Services.Mediator;
-using LightlessSync.Utils;
+using OnlyMare.Interop.Ipc;
+using OnlyMare.LightlessConfiguration;
+using OnlyMare.Services.Mediator;
+using OnlyMare.Utils;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 using System.Globalization;
 using System.Text;
 
-namespace LightlessSync.FileCache;
+namespace OnlyMare.FileCache;
 
 public sealed class FileCacheManager : IHostedService
 {

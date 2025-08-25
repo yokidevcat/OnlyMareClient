@@ -1,12 +1,12 @@
-﻿using LightlessSync.API.Data.Enum;
-using LightlessSync.Interop.Ipc;
-using LightlessSync.PlayerData.Factories;
-using LightlessSync.PlayerData.Handlers;
-using LightlessSync.Services.CharaData.Models;
-using LightlessSync.Services.Mediator;
+﻿using OnlyMare.API.Data.Enum;
+using OnlyMare.Interop.Ipc;
+using OnlyMare.PlayerData.Factories;
+using OnlyMare.PlayerData.Handlers;
+using OnlyMare.Services.CharaData.Models;
+using OnlyMare.Services.Mediator;
 using Microsoft.Extensions.Logging;
 
-namespace LightlessSync.Services;
+namespace OnlyMare.Services;
 
 public sealed class CharaDataCharacterHandler : DisposableMediatorSubscriberBase
 {

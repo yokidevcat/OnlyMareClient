@@ -1,7 +1,7 @@
 ﻿
 using System.Collections.Immutable;
 
-namespace LightlessSync.UI.Components;
+namespace OnlyMare.UI.Components;
 
 public interface IDrawFolder
 {

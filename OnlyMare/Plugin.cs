@@ -3,35 +3,35 @@ using Dalamud.Interface.ImGuiFileDialog;
 using Dalamud.Interface.Windowing;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
-using LightlessSync.FileCache;
-using LightlessSync.Interop;
-using LightlessSync.Interop.Ipc;
-using LightlessSync.LightlessConfiguration;
-using LightlessSync.LightlessConfiguration.Configurations;
-using LightlessSync.PlayerData.Factories;
-using LightlessSync.PlayerData.Pairs;
-using LightlessSync.PlayerData.Services;
-using LightlessSync.Services;
-using LightlessSync.Services.Events;
-using LightlessSync.Services.Mediator;
-using LightlessSync.Services.ServerConfiguration;
-using LightlessSync.UI;
-using LightlessSync.UI.Components;
-using LightlessSync.UI.Components.Popup;
-using LightlessSync.UI.Handlers;
-using LightlessSync.WebAPI;
-using LightlessSync.WebAPI.Files;
-using LightlessSync.WebAPI.SignalR;
+using OnlyMare.FileCache;
+using OnlyMare.Interop;
+using OnlyMare.Interop.Ipc;
+using OnlyMare.LightlessConfiguration;
+using OnlyMare.LightlessConfiguration.Configurations;
+using OnlyMare.PlayerData.Factories;
+using OnlyMare.PlayerData.Pairs;
+using OnlyMare.PlayerData.Services;
+using OnlyMare.Services;
+using OnlyMare.Services.Events;
+using OnlyMare.Services.Mediator;
+using OnlyMare.Services.ServerConfiguration;
+using OnlyMare.UI;
+using OnlyMare.UI.Components;
+using OnlyMare.UI.Components.Popup;
+using OnlyMare.UI.Handlers;
+using OnlyMare.WebAPI;
+using OnlyMare.WebAPI.Files;
+using OnlyMare.WebAPI.SignalR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NReco.Logging.File;
 using System.Net.Http.Headers;
 using System.Reflection;
-using LightlessSync.Services.CharaData;
+using OnlyMare.Services.CharaData;
 using Dalamud.Game;
 
-namespace LightlessSync;
+namespace OnlyMare;
 
 public sealed class Plugin : IDalamudPlugin
 {
@@ -87,9 +87,9 @@ public sealed class Plugin : IDalamudPlugin
         })
         .ConfigureServices(collection =>
         {
-            collection.AddSingleton(new WindowSystem("LightlessSync"));
+            collection.AddSingleton(new WindowSystem("OnlyMare"));
             collection.AddSingleton<FileDialogManager>();
-            collection.AddSingleton(new Dalamud.Localization("LightlessSync.Localization.", "", useEmbedded: true));
+            collection.AddSingleton(new Dalamud.Localization("OnlyMare.Localization.", "", useEmbedded: true));
 
             // add lightless related singletons
             collection.AddSingleton<LightlessMediator>();
@@ -168,7 +168,7 @@ public sealed class Plugin : IDalamudPlugin
             {
                 var httpClient = new HttpClient();
                 var ver = Assembly.GetExecutingAssembly().GetName().Version;
-                httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("LightlessSync", ver!.Major + "." + ver!.Minor + "." + ver!.Build));
+                httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("OnlyMare", ver!.Major + "." + ver!.Minor + "." + ver!.Build));
                 return httpClient;
             });
             collection.AddSingleton((s) => new LightlessConfigService(pluginInterface.ConfigDirectory.FullName));

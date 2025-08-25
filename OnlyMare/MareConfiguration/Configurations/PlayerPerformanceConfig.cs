@@ -1,4 +1,4 @@
-﻿namespace LightlessSync.LightlessConfiguration.Configurations;
+﻿namespace OnlyMare.LightlessConfiguration.Configurations;
 
 public class PlayerPerformanceConfig : ILightlessConfiguration
 {

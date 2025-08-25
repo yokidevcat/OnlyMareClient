@@ -1,11 +1,11 @@
 ﻿using Dalamud.Bindings.ImGui;
 using Dalamud.Interface;
 using Dalamud.Interface.Utility.Raii;
-using LightlessSync.PlayerData.Pairs;
-using LightlessSync.UI.Handlers;
+using OnlyMare.PlayerData.Pairs;
+using OnlyMare.UI.Handlers;
 using System.Collections.Immutable;
 
-namespace LightlessSync.UI.Components;
+namespace OnlyMare.UI.Components;
 
 public abstract class DrawFolderBase : IDrawFolder
 {

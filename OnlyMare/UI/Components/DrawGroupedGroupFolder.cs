@@ -1,11 +1,11 @@
 ﻿using Dalamud.Bindings.ImGui;
 using Dalamud.Interface;
 using Dalamud.Interface.Utility.Raii;
-using LightlessSync.UI.Handlers;
+using OnlyMare.UI.Handlers;
 using System.Collections.Immutable;
 using System.Numerics;
 
-namespace LightlessSync.UI.Components;
+namespace OnlyMare.UI.Components;
 
 public class DrawGroupedGroupFolder : IDrawFolder
 {

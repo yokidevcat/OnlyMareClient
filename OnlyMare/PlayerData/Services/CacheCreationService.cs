@@ -1,12 +1,12 @@
-﻿using LightlessSync.API.Data.Enum;
-using LightlessSync.PlayerData.Data;
-using LightlessSync.PlayerData.Factories;
-using LightlessSync.PlayerData.Handlers;
-using LightlessSync.Services;
-using LightlessSync.Services.Mediator;
+﻿using OnlyMare.API.Data.Enum;
+using OnlyMare.PlayerData.Data;
+using OnlyMare.PlayerData.Factories;
+using OnlyMare.PlayerData.Handlers;
+using OnlyMare.Services;
+using OnlyMare.Services.Mediator;
 using Microsoft.Extensions.Logging;
 
-namespace LightlessSync.PlayerData.Services;
+namespace OnlyMare.PlayerData.Services;
 
 public sealed class CacheCreationService : DisposableMediatorSubscriberBase
 {

@@ -1,10 +1,10 @@
-﻿using LightlessSync.API.Data.Enum;
-using LightlessSync.PlayerData.Handlers;
-using LightlessSync.Services;
-using LightlessSync.Services.Mediator;
+﻿using OnlyMare.API.Data.Enum;
+using OnlyMare.PlayerData.Handlers;
+using OnlyMare.Services;
+using OnlyMare.Services.Mediator;
 using Microsoft.Extensions.Logging;
 
-namespace LightlessSync.PlayerData.Factories;
+namespace OnlyMare.PlayerData.Factories;
 
 public class GameObjectHandlerFactory
 {

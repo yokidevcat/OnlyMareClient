@@ -1,4 +1,4 @@
-﻿namespace LightlessSync.WebAPI.Files.Models;
+﻿namespace OnlyMare.WebAPI.Files.Models;
 
 public enum DownloadStatus
 {

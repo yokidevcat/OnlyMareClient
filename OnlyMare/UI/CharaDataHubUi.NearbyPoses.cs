@@ -5,7 +5,7 @@ using Dalamud.Interface.Utility;
 using Dalamud.Interface;
 using System.Numerics;
 
-namespace LightlessSync.UI;
+namespace OnlyMare.UI;
 
 internal partial class CharaDataHubUi
 {

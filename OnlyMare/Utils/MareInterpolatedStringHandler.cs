@@ -1,7 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace LightlessSync.Utils;
+namespace OnlyMare.Utils;
 
 [InterpolatedStringHandler]
 public readonly ref struct LightlessInterpolatedStringHandler

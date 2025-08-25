@@ -1,22 +1,22 @@
 ﻿using Dalamud.Utility;
-using LightlessSync.API.Data;
-using LightlessSync.API.Data.Extensions;
-using LightlessSync.API.Dto;
-using LightlessSync.API.Dto.User;
-using LightlessSync.API.SignalR;
-using LightlessSync.LightlessConfiguration;
-using LightlessSync.LightlessConfiguration.Models;
-using LightlessSync.PlayerData.Pairs;
-using LightlessSync.Services;
-using LightlessSync.Services.Mediator;
-using LightlessSync.Services.ServerConfiguration;
-using LightlessSync.WebAPI.SignalR;
-using LightlessSync.WebAPI.SignalR.Utils;
+using OnlyMare.API.Data;
+using OnlyMare.API.Data.Extensions;
+using OnlyMare.API.Dto;
+using OnlyMare.API.Dto.User;
+using OnlyMare.API.SignalR;
+using OnlyMare.LightlessConfiguration;
+using OnlyMare.LightlessConfiguration.Models;
+using OnlyMare.PlayerData.Pairs;
+using OnlyMare.Services;
+using OnlyMare.Services.Mediator;
+using OnlyMare.Services.ServerConfiguration;
+using OnlyMare.WebAPI.SignalR;
+using OnlyMare.WebAPI.SignalR.Utils;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
 
-namespace LightlessSync.WebAPI;
+namespace OnlyMare.WebAPI;
 
 #pragma warning disable MA0040
 public sealed partial class ApiController : DisposableMediatorSubscriberBase, ILightlessHubClient

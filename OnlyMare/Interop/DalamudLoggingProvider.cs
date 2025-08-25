@@ -1,10 +1,10 @@
 ﻿using Dalamud.Plugin.Services;
-using LightlessSync.LightlessConfiguration;
+using OnlyMare.LightlessConfiguration;
 using Microsoft.Extensions.Logging;
 
 using System.Collections.Concurrent;
 
-namespace LightlessSync.Interop;
+namespace OnlyMare.Interop;
 
 [ProviderAlias("Dalamud")]
 public sealed class DalamudLoggingProvider : ILoggerProvider

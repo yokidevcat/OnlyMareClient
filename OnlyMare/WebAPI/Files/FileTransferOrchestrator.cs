@@ -1,14 +1,14 @@
-﻿using LightlessSync.LightlessConfiguration;
-using LightlessSync.Services.Mediator;
-using LightlessSync.WebAPI.Files.Models;
-using LightlessSync.WebAPI.SignalR;
+﻿using OnlyMare.LightlessConfiguration;
+using OnlyMare.Services.Mediator;
+using OnlyMare.WebAPI.Files.Models;
+using OnlyMare.WebAPI.SignalR;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Reflection;
 
-namespace LightlessSync.WebAPI.Files;
+namespace OnlyMare.WebAPI.Files;
 
 public class FileTransferOrchestrator : DisposableMediatorSubscriberBase
 {
@@ -28,7 +28,7 @@ public class FileTransferOrchestrator : DisposableMediatorSubscriberBase
         _tokenProvider = tokenProvider;
         _httpClient = httpClient;
         var ver = Assembly.GetExecutingAssembly().GetName().Version;
-        _httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("LightlessSync", ver!.Major + "." + ver!.Minor + "." + ver!.Build));
+        _httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("OnlyMare", ver!.Major + "." + ver!.Minor + "." + ver!.Build));
 
         _availableDownloadSlots = lightlessConfig.Current.ParallelDownloads;
         _downloadSemaphore = new(_availableDownloadSlots, _availableDownloadSlots);

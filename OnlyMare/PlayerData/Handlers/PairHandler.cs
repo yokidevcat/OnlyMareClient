@@ -1,21 +1,21 @@
-﻿using LightlessSync.API.Data;
-using LightlessSync.FileCache;
-using LightlessSync.Interop.Ipc;
-using LightlessSync.PlayerData.Factories;
-using LightlessSync.PlayerData.Pairs;
-using LightlessSync.Services;
-using LightlessSync.Services.Events;
-using LightlessSync.Services.Mediator;
-using LightlessSync.Services.ServerConfiguration;
-using LightlessSync.Utils;
-using LightlessSync.WebAPI.Files;
+﻿using OnlyMare.API.Data;
+using OnlyMare.FileCache;
+using OnlyMare.Interop.Ipc;
+using OnlyMare.PlayerData.Factories;
+using OnlyMare.PlayerData.Pairs;
+using OnlyMare.Services;
+using OnlyMare.Services.Events;
+using OnlyMare.Services.Mediator;
+using OnlyMare.Services.ServerConfiguration;
+using OnlyMare.Utils;
+using OnlyMare.WebAPI.Files;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 using System.Diagnostics;
-using ObjectKind = LightlessSync.API.Data.Enum.ObjectKind;
+using ObjectKind = OnlyMare.API.Data.Enum.ObjectKind;
 
-namespace LightlessSync.PlayerData.Handlers;
+namespace OnlyMare.PlayerData.Handlers;
 
 public sealed class PairHandler : DisposableMediatorSubscriberBase
 {

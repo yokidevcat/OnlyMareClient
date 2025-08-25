@@ -1,7 +1,7 @@
-﻿using LightlessSync.LightlessConfiguration.Configurations;
+﻿using OnlyMare.LightlessConfiguration.Configurations;
 using System.Text.Json;
 
-namespace LightlessSync.LightlessConfiguration;
+namespace OnlyMare.LightlessConfiguration;
 
 public abstract class ConfigurationServiceBase<T> : IConfigService<T> where T : ILightlessConfiguration
 {

@@ -1,4 +1,4 @@
-﻿namespace LightlessSync.Utils;
+﻿namespace OnlyMare.Utils;
 
 public class ValueProgress<T> : Progress<T>
 {

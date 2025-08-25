@@ -1,17 +1,17 @@
 ﻿using Dalamud.Game.ClientState.Objects.SubKinds;
-using LightlessSync.API.Data;
-using LightlessSync.API.Dto.CharaData;
-using LightlessSync.Interop;
-using LightlessSync.Interop.Ipc;
-using LightlessSync.Services.CharaData.Models;
-using LightlessSync.Services.Mediator;
-using LightlessSync.WebAPI;
+using OnlyMare.API.Data;
+using OnlyMare.API.Dto.CharaData;
+using OnlyMare.Interop;
+using OnlyMare.Interop.Ipc;
+using OnlyMare.Services.CharaData.Models;
+using OnlyMare.Services.Mediator;
+using OnlyMare.WebAPI;
 using Microsoft.Extensions.Logging;
 using System.Globalization;
 using System.Numerics;
 using System.Text.Json.Nodes;
 
-namespace LightlessSync.Services.CharaData;
+namespace OnlyMare.Services.CharaData;
 
 public class CharaDataGposeTogetherManager : DisposableMediatorSubscriberBase
 {

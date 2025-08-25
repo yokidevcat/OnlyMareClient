@@ -1,10 +1,10 @@
-﻿using LightlessSync.API.Dto.User;
-using LightlessSync.PlayerData.Pairs;
-using LightlessSync.Services.Mediator;
-using LightlessSync.Services.ServerConfiguration;
+﻿using OnlyMare.API.Dto.User;
+using OnlyMare.PlayerData.Pairs;
+using OnlyMare.Services.Mediator;
+using OnlyMare.Services.ServerConfiguration;
 using Microsoft.Extensions.Logging;
 
-namespace LightlessSync.PlayerData.Factories;
+namespace OnlyMare.PlayerData.Factories;
 
 public class PairFactory
 {

@@ -1,13 +1,13 @@
 ﻿using Dalamud.Bindings.ImGui;
 using Dalamud.Interface;
 using Dalamud.Interface.Utility.Raii;
-using LightlessSync.API.Dto.Group;
-using LightlessSync.LightlessConfiguration;
-using LightlessSync.PlayerData.Pairs;
-using LightlessSync.Services.Mediator;
-using LightlessSync.Services.ServerConfiguration;
+using OnlyMare.API.Dto.Group;
+using OnlyMare.LightlessConfiguration;
+using OnlyMare.PlayerData.Pairs;
+using OnlyMare.Services.Mediator;
+using OnlyMare.Services.ServerConfiguration;
 
-namespace LightlessSync.UI.Handlers;
+namespace OnlyMare.UI.Handlers;
 
 public class IdDisplayHandler
 {

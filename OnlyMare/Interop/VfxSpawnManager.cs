@@ -1,13 +1,13 @@
 ﻿using Dalamud.Memory;
 using Dalamud.Plugin.Services;
 using Dalamud.Utility.Signatures;
-using LightlessSync.Services.Mediator;
+using OnlyMare.Services.Mediator;
 using Microsoft.Extensions.Logging;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace LightlessSync.Interop;
+namespace OnlyMare.Interop;
 
 /// <summary>
 /// Code for spawning mostly taken from https://git.anna.lgbt/anna/OrangeGuidanceTomestone/src/branch/main/client/Vfx.cs

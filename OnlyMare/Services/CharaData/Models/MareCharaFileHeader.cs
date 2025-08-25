@@ -1,4 +1,4 @@
-﻿namespace LightlessSync.Services.CharaData.Models;
+﻿namespace OnlyMare.Services.CharaData.Models;
 
 public record LightlessCharaFileHeader(byte Version, LightlessCharaFileData CharaFileData)
 {

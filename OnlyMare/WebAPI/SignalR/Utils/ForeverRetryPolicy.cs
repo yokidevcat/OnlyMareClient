@@ -1,8 +1,8 @@
-﻿using LightlessSync.LightlessConfiguration.Models;
-using LightlessSync.Services.Mediator;
+﻿using OnlyMare.LightlessConfiguration.Models;
+using OnlyMare.Services.Mediator;
 using Microsoft.AspNetCore.SignalR.Client;
 
-namespace LightlessSync.WebAPI.SignalR.Utils;
+namespace OnlyMare.WebAPI.SignalR.Utils;
 
 public class ForeverRetryPolicy : IRetryPolicy
 {

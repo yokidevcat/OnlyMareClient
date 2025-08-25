@@ -1,14 +1,14 @@
-using LightlessSync.API.Data;
-using LightlessSync.FileCache;
-using LightlessSync.LightlessConfiguration;
-using LightlessSync.PlayerData.Handlers;
-using LightlessSync.Services.Events;
-using LightlessSync.Services.Mediator;
-using LightlessSync.UI;
-using LightlessSync.WebAPI.Files.Models;
+using OnlyMare.API.Data;
+using OnlyMare.FileCache;
+using OnlyMare.LightlessConfiguration;
+using OnlyMare.PlayerData.Handlers;
+using OnlyMare.Services.Events;
+using OnlyMare.Services.Mediator;
+using OnlyMare.UI;
+using OnlyMare.WebAPI.Files.Models;
 using Microsoft.Extensions.Logging;
 
-namespace LightlessSync.Services;
+namespace OnlyMare.Services;
 
 public class PlayerPerformanceService
 {

@@ -1,9 +1,9 @@
-﻿using LightlessSync.FileCache;
-using LightlessSync.Services.Mediator;
-using LightlessSync.WebAPI.Files;
+﻿using OnlyMare.FileCache;
+using OnlyMare.Services.Mediator;
+using OnlyMare.WebAPI.Files;
 using Microsoft.Extensions.Logging;
 
-namespace LightlessSync.PlayerData.Factories;
+namespace OnlyMare.PlayerData.Factories;
 
 public class FileDownloadManagerFactory
 {

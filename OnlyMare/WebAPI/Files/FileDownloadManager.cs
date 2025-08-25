@@ -1,17 +1,17 @@
 ﻿using Dalamud.Utility;
 using K4os.Compression.LZ4.Legacy;
-using LightlessSync.API.Data;
-using LightlessSync.API.Dto.Files;
-using LightlessSync.API.Routes;
-using LightlessSync.FileCache;
-using LightlessSync.PlayerData.Handlers;
-using LightlessSync.Services.Mediator;
-using LightlessSync.WebAPI.Files.Models;
+using OnlyMare.API.Data;
+using OnlyMare.API.Dto.Files;
+using OnlyMare.API.Routes;
+using OnlyMare.FileCache;
+using OnlyMare.PlayerData.Handlers;
+using OnlyMare.Services.Mediator;
+using OnlyMare.WebAPI.Files.Models;
 using Microsoft.Extensions.Logging;
 using System.Net;
 using System.Net.Http.Json;
 
-namespace LightlessSync.WebAPI.Files;
+namespace OnlyMare.WebAPI.Files;
 
 public partial class FileDownloadManager : DisposableMediatorSubscriberBase
 {

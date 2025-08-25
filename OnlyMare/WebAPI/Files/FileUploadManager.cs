@@ -1,17 +1,17 @@
-﻿using LightlessSync.API.Data;
-using LightlessSync.API.Dto.Files;
-using LightlessSync.API.Routes;
-using LightlessSync.FileCache;
-using LightlessSync.LightlessConfiguration;
-using LightlessSync.Services.Mediator;
-using LightlessSync.Services.ServerConfiguration;
-using LightlessSync.UI;
-using LightlessSync.WebAPI.Files.Models;
+﻿using OnlyMare.API.Data;
+using OnlyMare.API.Dto.Files;
+using OnlyMare.API.Routes;
+using OnlyMare.FileCache;
+using OnlyMare.LightlessConfiguration;
+using OnlyMare.Services.Mediator;
+using OnlyMare.Services.ServerConfiguration;
+using OnlyMare.UI;
+using OnlyMare.WebAPI.Files.Models;
 using Microsoft.Extensions.Logging;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 
-namespace LightlessSync.WebAPI.Files;
+namespace OnlyMare.WebAPI.Files;
 
 public sealed class FileUploadManager : DisposableMediatorSubscriberBase
 {

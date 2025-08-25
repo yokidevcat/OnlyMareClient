@@ -1,4 +1,4 @@
-﻿namespace LightlessSync.Services.CharaData.Models;
+﻿namespace OnlyMare.Services.CharaData.Models;
 
 public sealed record HandledCharaDataEntry(string Name, bool IsSelf, Guid? CustomizePlus, CharaDataMetaInfoExtendedDto MetaInfo)
 {

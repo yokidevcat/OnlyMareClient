@@ -1,8 +1,8 @@
-﻿using LightlessSync.API.Data;
+﻿using OnlyMare.API.Data;
 
-using LightlessSync.API.Data.Enum;
+using OnlyMare.API.Data.Enum;
 
-namespace LightlessSync.PlayerData.Data;
+namespace OnlyMare.PlayerData.Data;
 
 public class CharacterData
 {

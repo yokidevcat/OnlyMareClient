@@ -4,19 +4,19 @@ using Dalamud.Interface.Colors;
 using Dalamud.Interface.ImGuiFileDialog;
 using Dalamud.Interface.Utility;
 using Dalamud.Interface.Utility.Raii;
-using LightlessSync.API.Dto.CharaData;
-using LightlessSync.LightlessConfiguration;
-using LightlessSync.LightlessConfiguration.Models;
-using LightlessSync.PlayerData.Pairs;
-using LightlessSync.Services;
-using LightlessSync.Services.CharaData;
-using LightlessSync.Services.CharaData.Models;
-using LightlessSync.Services.Mediator;
-using LightlessSync.Services.ServerConfiguration;
-using LightlessSync.Utils;
+using OnlyMare.API.Dto.CharaData;
+using OnlyMare.LightlessConfiguration;
+using OnlyMare.LightlessConfiguration.Models;
+using OnlyMare.PlayerData.Pairs;
+using OnlyMare.Services;
+using OnlyMare.Services.CharaData;
+using OnlyMare.Services.CharaData.Models;
+using OnlyMare.Services.Mediator;
+using OnlyMare.Services.ServerConfiguration;
+using OnlyMare.Utils;
 using Microsoft.Extensions.Logging;
 
-namespace LightlessSync.UI;
+namespace OnlyMare.UI;
 
 internal sealed partial class CharaDataHubUi : WindowMediatorSubscriberBase
 {

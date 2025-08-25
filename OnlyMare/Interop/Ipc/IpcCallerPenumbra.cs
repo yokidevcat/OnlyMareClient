@@ -1,15 +1,15 @@
 ﻿using Dalamud.Plugin;
-using LightlessSync.LightlessConfiguration.Models;
-using LightlessSync.PlayerData.Handlers;
-using LightlessSync.Services;
-using LightlessSync.Services.Mediator;
+using OnlyMare.LightlessConfiguration.Models;
+using OnlyMare.PlayerData.Handlers;
+using OnlyMare.Services;
+using OnlyMare.Services.Mediator;
 using Microsoft.Extensions.Logging;
 using Penumbra.Api.Enums;
 using Penumbra.Api.Helpers;
 using Penumbra.Api.IpcSubscribers;
 using System.Collections.Concurrent;
 
-namespace LightlessSync.Interop.Ipc;
+namespace OnlyMare.Interop.Ipc;
 
 public sealed class IpcCallerPenumbra : DisposableMediatorSubscriberBase, IIpcCaller
 {

@@ -1,10 +1,10 @@
 ﻿using Dalamud.Plugin;
 using Dalamud.Plugin.Ipc;
-using LightlessSync.Services;
-using LightlessSync.Services.Mediator;
+using OnlyMare.Services;
+using OnlyMare.Services.Mediator;
 using Microsoft.Extensions.Logging;
 
-namespace LightlessSync.Interop.Ipc;
+namespace OnlyMare.Interop.Ipc;
 
 public sealed class IpcCallerHeels : IIpcCaller
 {

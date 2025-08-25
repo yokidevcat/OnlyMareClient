@@ -3,18 +3,18 @@ using Dalamud.Interface;
 using Dalamud.Interface.Colors;
 using Dalamud.Interface.Utility;
 using Dalamud.Interface.Utility.Raii;
-using LightlessSync.API.Data.Extensions;
-using LightlessSync.API.Dto.Group;
-using LightlessSync.API.Dto.User;
-using LightlessSync.LightlessConfiguration;
-using LightlessSync.PlayerData.Pairs;
-using LightlessSync.Services;
-using LightlessSync.Services.Mediator;
-using LightlessSync.Services.ServerConfiguration;
-using LightlessSync.UI.Handlers;
-using LightlessSync.WebAPI;
+using OnlyMare.API.Data.Extensions;
+using OnlyMare.API.Dto.Group;
+using OnlyMare.API.Dto.User;
+using OnlyMare.LightlessConfiguration;
+using OnlyMare.PlayerData.Pairs;
+using OnlyMare.Services;
+using OnlyMare.Services.Mediator;
+using OnlyMare.Services.ServerConfiguration;
+using OnlyMare.UI.Handlers;
+using OnlyMare.WebAPI;
 
-namespace LightlessSync.UI.Components;
+namespace OnlyMare.UI.Components;
 
 public class DrawUserPair
 {

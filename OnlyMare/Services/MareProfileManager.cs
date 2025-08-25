@@ -1,12 +1,12 @@
-﻿using LightlessSync.API.Data;
-using LightlessSync.API.Data.Comparer;
-using LightlessSync.LightlessConfiguration;
-using LightlessSync.Services.Mediator;
-using LightlessSync.WebAPI;
+﻿using OnlyMare.API.Data;
+using OnlyMare.API.Data.Comparer;
+using OnlyMare.LightlessConfiguration;
+using OnlyMare.Services.Mediator;
+using OnlyMare.WebAPI;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 
-namespace LightlessSync.Services;
+namespace OnlyMare.Services;
 
 public class LightlessProfileManager : MediatorSubscriberBase
 {

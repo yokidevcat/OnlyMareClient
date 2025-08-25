@@ -1,13 +1,13 @@
-﻿using LightlessSync.Interop.Ipc;
-using LightlessSync.LightlessConfiguration;
-using LightlessSync.Services;
-using LightlessSync.Services.Mediator;
-using LightlessSync.Utils;
+﻿using OnlyMare.Interop.Ipc;
+using OnlyMare.LightlessConfiguration;
+using OnlyMare.Services;
+using OnlyMare.Services.Mediator;
+using OnlyMare.Utils;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 using System.Collections.Immutable;
 
-namespace LightlessSync.FileCache;
+namespace OnlyMare.FileCache;
 
 public sealed class CacheMonitor : DisposableMediatorSubscriberBase
 {

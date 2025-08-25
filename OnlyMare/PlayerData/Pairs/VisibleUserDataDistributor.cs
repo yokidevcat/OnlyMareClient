@@ -1,12 +1,12 @@
-﻿using LightlessSync.API.Data;
-using LightlessSync.Services;
-using LightlessSync.Services.Mediator;
-using LightlessSync.Utils;
-using LightlessSync.WebAPI;
-using LightlessSync.WebAPI.Files;
+﻿using OnlyMare.API.Data;
+using OnlyMare.Services;
+using OnlyMare.Services.Mediator;
+using OnlyMare.Utils;
+using OnlyMare.WebAPI;
+using OnlyMare.WebAPI.Files;
 using Microsoft.Extensions.Logging;
 
-namespace LightlessSync.PlayerData.Pairs;
+namespace OnlyMare.PlayerData.Pairs;
 
 public class VisibleUserDataDistributor : DisposableMediatorSubscriberBase
 {

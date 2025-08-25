@@ -1,12 +1,12 @@
-﻿using LightlessSync.API.Data;
-using LightlessSync.API.Data.Comparer;
-using LightlessSync.Interop.Ipc;
-using LightlessSync.LightlessConfiguration;
-using LightlessSync.LightlessConfiguration.Models;
-using LightlessSync.Services.Mediator;
+﻿using OnlyMare.API.Data;
+using OnlyMare.API.Data.Comparer;
+using OnlyMare.Interop.Ipc;
+using OnlyMare.LightlessConfiguration;
+using OnlyMare.LightlessConfiguration.Models;
+using OnlyMare.Services.Mediator;
 using System.Collections.Concurrent;
 
-namespace LightlessSync.PlayerData.Pairs;
+namespace OnlyMare.PlayerData.Pairs;
 
 public class PluginWarningNotificationService
 {

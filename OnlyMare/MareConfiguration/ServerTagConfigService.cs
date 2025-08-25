@@ -1,6 +1,6 @@
-﻿using LightlessSync.LightlessConfiguration.Configurations;
+﻿using OnlyMare.LightlessConfiguration.Configurations;
 
-namespace LightlessSync.LightlessConfiguration;
+namespace OnlyMare.LightlessConfiguration;
 
 public class ServerTagConfigService : ConfigurationServiceBase<ServerTagConfig>
 {

@@ -1,12 +1,12 @@
-﻿using LightlessSync.LightlessConfiguration;
-using LightlessSync.Utils;
+﻿using OnlyMare.LightlessConfiguration;
+using OnlyMare.Utils;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 using System.Globalization;
 using System.Text;
 
-namespace LightlessSync.Services;
+namespace OnlyMare.Services;
 
 public sealed class PerformanceCollectorService : IHostedService
 {

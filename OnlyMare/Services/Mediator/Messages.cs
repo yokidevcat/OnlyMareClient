@@ -1,16 +1,16 @@
 ﻿using Dalamud.Game.ClientState.Objects.Types;
-using LightlessSync.API.Data;
-using LightlessSync.API.Dto;
-using LightlessSync.API.Dto.CharaData;
-using LightlessSync.API.Dto.Group;
-using LightlessSync.LightlessConfiguration.Models;
-using LightlessSync.PlayerData.Handlers;
-using LightlessSync.PlayerData.Pairs;
-using LightlessSync.Services.Events;
-using LightlessSync.WebAPI.Files.Models;
+using OnlyMare.API.Data;
+using OnlyMare.API.Dto;
+using OnlyMare.API.Dto.CharaData;
+using OnlyMare.API.Dto.Group;
+using OnlyMare.LightlessConfiguration.Models;
+using OnlyMare.PlayerData.Handlers;
+using OnlyMare.PlayerData.Pairs;
+using OnlyMare.Services.Events;
+using OnlyMare.WebAPI.Files.Models;
 using System.Numerics;
 
-namespace LightlessSync.Services.Mediator;
+namespace OnlyMare.Services.Mediator;
 
 #pragma warning disable MA0048 // File name must match type name
 #pragma warning disable S2094

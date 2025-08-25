@@ -1,8 +1,8 @@
-﻿using LightlessSync.API.Data;
+﻿using OnlyMare.API.Data;
 
 using System.Text.RegularExpressions;
 
-namespace LightlessSync.PlayerData.Data;
+namespace OnlyMare.PlayerData.Data;
 
 public partial class FileReplacement
 {

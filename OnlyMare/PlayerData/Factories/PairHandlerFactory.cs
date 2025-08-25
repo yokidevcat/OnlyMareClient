@@ -1,14 +1,14 @@
-﻿using LightlessSync.FileCache;
-using LightlessSync.Interop.Ipc;
-using LightlessSync.PlayerData.Handlers;
-using LightlessSync.PlayerData.Pairs;
-using LightlessSync.Services;
-using LightlessSync.Services.Mediator;
-using LightlessSync.Services.ServerConfiguration;
+﻿using OnlyMare.FileCache;
+using OnlyMare.Interop.Ipc;
+using OnlyMare.PlayerData.Handlers;
+using OnlyMare.PlayerData.Pairs;
+using OnlyMare.Services;
+using OnlyMare.Services.Mediator;
+using OnlyMare.Services.ServerConfiguration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace LightlessSync.PlayerData.Factories;
+namespace OnlyMare.PlayerData.Factories;
 
 public class PairHandlerFactory
 {

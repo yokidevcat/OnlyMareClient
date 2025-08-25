@@ -1,4 +1,4 @@
-﻿namespace LightlessSync.PlayerData.Data;
+﻿namespace OnlyMare.PlayerData.Data;
 
 public class CharacterDataFragmentPlayer : CharacterDataFragment
 {

@@ -2,16 +2,16 @@
 using Dalamud.Interface.Colors;
 using Dalamud.Interface.Textures.TextureWraps;
 using Dalamud.Interface.Utility;
-using LightlessSync.API.Data.Extensions;
-using LightlessSync.LightlessConfiguration;
-using LightlessSync.PlayerData.Pairs;
-using LightlessSync.Services;
-using LightlessSync.Services.Mediator;
-using LightlessSync.Services.ServerConfiguration;
+using OnlyMare.API.Data.Extensions;
+using OnlyMare.LightlessConfiguration;
+using OnlyMare.PlayerData.Pairs;
+using OnlyMare.Services;
+using OnlyMare.Services.Mediator;
+using OnlyMare.Services.ServerConfiguration;
 using Microsoft.Extensions.Logging;
 using System.Numerics;
 
-namespace LightlessSync.UI;
+namespace OnlyMare.UI;
 
 public class PopoutProfileUi : WindowMediatorSubscriberBase
 {

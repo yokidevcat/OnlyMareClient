@@ -1,8 +1,8 @@
-﻿using LightlessSync.API.Data;
-using LightlessSync.FileCache;
-using LightlessSync.Services.CharaData.Models;
+﻿using OnlyMare.API.Data;
+using OnlyMare.FileCache;
+using OnlyMare.Services.CharaData.Models;
 
-namespace LightlessSync.Services.CharaData;
+namespace OnlyMare.Services.CharaData;
 
 public sealed class LightlessCharaFileDataFactory
 {

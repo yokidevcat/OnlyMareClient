@@ -1,10 +1,10 @@
 ﻿using Dalamud.Plugin.Services;
-using LightlessSync.LightlessConfiguration;
+using OnlyMare.LightlessConfiguration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 
-namespace LightlessSync.Interop;
+namespace OnlyMare.Interop;
 
 public static class DalamudLoggingProviderExtensions
 {

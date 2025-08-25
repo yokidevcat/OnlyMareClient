@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace LightlessSync.Utils;
+namespace OnlyMare.Utils;
 
 public class RollingList<T> : IEnumerable<T>
 {

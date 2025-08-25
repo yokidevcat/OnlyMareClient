@@ -1,16 +1,16 @@
 ﻿using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Utility;
 using Dalamud.Interface.Utility.Raii;
-using LightlessSync.API.Data.Enum;
-using LightlessSync.API.Data.Extensions;
-using LightlessSync.PlayerData.Pairs;
-using LightlessSync.Services;
-using LightlessSync.Services.Mediator;
-using LightlessSync.Utils;
-using LightlessSync.WebAPI;
+using OnlyMare.API.Data.Enum;
+using OnlyMare.API.Data.Extensions;
+using OnlyMare.PlayerData.Pairs;
+using OnlyMare.Services;
+using OnlyMare.Services.Mediator;
+using OnlyMare.Utils;
+using OnlyMare.WebAPI;
 using Microsoft.Extensions.Logging;
 
-namespace LightlessSync.UI;
+namespace OnlyMare.UI;
 
 public class PermissionWindowUI : WindowMediatorSubscriberBase
 {

@@ -4,16 +4,16 @@ using Dalamud.Interface.Colors;
 using Dalamud.Interface.ImGuiFileDialog;
 using Dalamud.Interface.Textures.TextureWraps;
 using Dalamud.Interface.Utility;
-using LightlessSync.API.Data;
-using LightlessSync.API.Dto.User;
-using LightlessSync.Services;
-using LightlessSync.Services.Mediator;
-using LightlessSync.WebAPI;
+using OnlyMare.API.Data;
+using OnlyMare.API.Dto.User;
+using OnlyMare.Services;
+using OnlyMare.Services.Mediator;
+using OnlyMare.WebAPI;
 using Microsoft.Extensions.Logging;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
-namespace LightlessSync.UI;
+namespace OnlyMare.UI;
 
 public class EditProfileUi : WindowMediatorSubscriberBase
 {

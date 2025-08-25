@@ -1,21 +1,21 @@
 ﻿using Dalamud.Game.ClientState.Objects.Types;
 using K4os.Compression.LZ4.Legacy;
-using LightlessSync.API.Data;
-using LightlessSync.API.Dto.CharaData;
-using LightlessSync.Interop.Ipc;
-using LightlessSync.LightlessConfiguration;
-using LightlessSync.PlayerData.Factories;
-using LightlessSync.PlayerData.Handlers;
-using LightlessSync.PlayerData.Pairs;
-using LightlessSync.Services.CharaData.Models;
-using LightlessSync.Services.Mediator;
-using LightlessSync.Utils;
-using LightlessSync.WebAPI;
+using OnlyMare.API.Data;
+using OnlyMare.API.Dto.CharaData;
+using OnlyMare.Interop.Ipc;
+using OnlyMare.LightlessConfiguration;
+using OnlyMare.PlayerData.Factories;
+using OnlyMare.PlayerData.Handlers;
+using OnlyMare.PlayerData.Pairs;
+using OnlyMare.Services.CharaData.Models;
+using OnlyMare.Services.Mediator;
+using OnlyMare.Utils;
+using OnlyMare.WebAPI;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 using System.Text;
 
-namespace LightlessSync.Services;
+namespace OnlyMare.Services;
 
 public sealed partial class CharaDataManager : DisposableMediatorSubscriberBase
 {

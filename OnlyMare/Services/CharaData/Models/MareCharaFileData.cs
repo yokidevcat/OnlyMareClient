@@ -1,10 +1,10 @@
-﻿using LightlessSync.API.Data;
-using LightlessSync.API.Data.Enum;
-using LightlessSync.FileCache;
+﻿using OnlyMare.API.Data;
+using OnlyMare.API.Data.Enum;
+using OnlyMare.FileCache;
 using System.Text;
 using System.Text.Json;
 
-namespace LightlessSync.Services.CharaData.Models;
+namespace OnlyMare.Services.CharaData.Models;
 
 public record LightlessCharaFileData
 {

@@ -1,12 +1,12 @@
 ﻿using Dalamud.Game.ClientState.Objects.Types;
-using LightlessSync.API.Data;
-using LightlessSync.API.Data.Enum;
-using LightlessSync.PlayerData.Handlers;
-using LightlessSync.PlayerData.Pairs;
+using OnlyMare.API.Data;
+using OnlyMare.API.Data.Enum;
+using OnlyMare.PlayerData.Handlers;
+using OnlyMare.PlayerData.Pairs;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
-namespace LightlessSync.Utils;
+namespace OnlyMare.Utils;
 
 public static class VariousExtensions
 {

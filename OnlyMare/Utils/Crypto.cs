@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace LightlessSync.Utils;
+namespace OnlyMare.Utils;
 
 public static class Crypto
 {

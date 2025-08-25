@@ -1,16 +1,16 @@
 ﻿using FFXIVClientStructs.FFXIV.Client.Game.Character;
-using LightlessSync.API.Data.Enum;
-using LightlessSync.FileCache;
-using LightlessSync.Interop.Ipc;
-using LightlessSync.LightlessConfiguration.Models;
-using LightlessSync.PlayerData.Data;
-using LightlessSync.PlayerData.Handlers;
-using LightlessSync.Services;
-using LightlessSync.Services.Mediator;
+using OnlyMare.API.Data.Enum;
+using OnlyMare.FileCache;
+using OnlyMare.Interop.Ipc;
+using OnlyMare.LightlessConfiguration.Models;
+using OnlyMare.PlayerData.Data;
+using OnlyMare.PlayerData.Handlers;
+using OnlyMare.Services;
+using OnlyMare.Services.Mediator;
 using Microsoft.Extensions.Logging;
-using CharacterData = LightlessSync.PlayerData.Data.CharacterData;
+using CharacterData = OnlyMare.PlayerData.Data.CharacterData;
 
-namespace LightlessSync.PlayerData.Factories;
+namespace OnlyMare.PlayerData.Factories;
 
 public class PlayerDataFactory
 {

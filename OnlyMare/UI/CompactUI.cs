@@ -4,21 +4,21 @@ using Dalamud.Interface.Colors;
 using Dalamud.Interface.Utility;
 using Dalamud.Interface.Utility.Raii;
 using Dalamud.Utility;
-using LightlessSync.API.Data.Extensions;
-using LightlessSync.API.Dto.Group;
-using LightlessSync.Interop.Ipc;
-using LightlessSync.LightlessConfiguration;
-using LightlessSync.PlayerData.Handlers;
-using LightlessSync.PlayerData.Pairs;
-using LightlessSync.Services;
-using LightlessSync.Services.Mediator;
-using LightlessSync.Services.ServerConfiguration;
-using LightlessSync.UI.Components;
-using LightlessSync.UI.Handlers;
-using LightlessSync.WebAPI;
-using LightlessSync.WebAPI.Files;
-using LightlessSync.WebAPI.Files.Models;
-using LightlessSync.WebAPI.SignalR.Utils;
+using OnlyMare.API.Data.Extensions;
+using OnlyMare.API.Dto.Group;
+using OnlyMare.Interop.Ipc;
+using OnlyMare.LightlessConfiguration;
+using OnlyMare.PlayerData.Handlers;
+using OnlyMare.PlayerData.Pairs;
+using OnlyMare.Services;
+using OnlyMare.Services.Mediator;
+using OnlyMare.Services.ServerConfiguration;
+using OnlyMare.UI.Components;
+using OnlyMare.UI.Handlers;
+using OnlyMare.WebAPI;
+using OnlyMare.WebAPI.Files;
+using OnlyMare.WebAPI.Files.Models;
+using OnlyMare.WebAPI.SignalR.Utils;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 using System.Collections.Immutable;
@@ -26,7 +26,7 @@ using System.Globalization;
 using System.Numerics;
 using System.Reflection;
 
-namespace LightlessSync.UI;
+namespace OnlyMare.UI;
 
 public class CompactUi : WindowMediatorSubscriberBase
 {

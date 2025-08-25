@@ -1,12 +1,12 @@
 ﻿using Dalamud.Utility;
-using LightlessSync.API.Data;
-using LightlessSync.API.Dto.CharaData;
-using LightlessSync.Utils;
+using OnlyMare.API.Data;
+using OnlyMare.API.Dto.CharaData;
+using OnlyMare.Utils;
 using System.Globalization;
 using System.Numerics;
 using System.Text;
 
-namespace LightlessSync.Services.CharaData.Models;
+namespace OnlyMare.Services.CharaData.Models;
 
 public sealed record GposeLobbyUserData(UserData UserData)
 {

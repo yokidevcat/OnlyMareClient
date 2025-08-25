@@ -1,9 +1,9 @@
 ﻿using Dalamud.Plugin.Services;
-using LightlessSync.LightlessConfiguration;
+using OnlyMare.LightlessConfiguration;
 using Microsoft.Extensions.Logging;
 using System.Text;
 
-namespace LightlessSync.Interop;
+namespace OnlyMare.Interop;
 
 internal sealed class DalamudLogger : ILogger
 {

@@ -1,4 +1,4 @@
-﻿namespace LightlessSync.FileCache;
+﻿namespace OnlyMare.FileCache;
 
 public enum FileState
 {

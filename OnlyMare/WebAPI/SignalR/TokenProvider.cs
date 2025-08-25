@@ -1,16 +1,16 @@
-﻿using LightlessSync.API.Routes;
-using LightlessSync.LightlessConfiguration.Models;
-using LightlessSync.Services;
-using LightlessSync.Services.Mediator;
-using LightlessSync.Services.ServerConfiguration;
-using LightlessSync.Utils;
+﻿using OnlyMare.API.Routes;
+using OnlyMare.LightlessConfiguration.Models;
+using OnlyMare.Services;
+using OnlyMare.Services.Mediator;
+using OnlyMare.Services.ServerConfiguration;
+using OnlyMare.Utils;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Headers;
 using System.Reflection;
 
-namespace LightlessSync.WebAPI.SignalR;
+namespace OnlyMare.WebAPI.SignalR;
 
 public sealed class TokenProvider : IDisposable, IMediatorSubscriber
 {

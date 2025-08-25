@@ -1,16 +1,16 @@
-﻿using LightlessSync.API.Data;
-using LightlessSync.API.Data.Enum;
-using LightlessSync.API.Dto;
-using LightlessSync.API.Dto.CharaData;
-using LightlessSync.API.Dto.Group;
-using LightlessSync.API.Dto.User;
-using LightlessSync.LightlessConfiguration.Models;
-using LightlessSync.Services.Mediator;
+﻿using OnlyMare.API.Data;
+using OnlyMare.API.Data.Enum;
+using OnlyMare.API.Dto;
+using OnlyMare.API.Dto.CharaData;
+using OnlyMare.API.Dto.Group;
+using OnlyMare.API.Dto.User;
+using OnlyMare.LightlessConfiguration.Models;
+using OnlyMare.Services.Mediator;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
 using static FFXIVClientStructs.FFXIV.Client.Game.UI.MapMarkerData.Delegates;
 
-namespace LightlessSync.WebAPI;
+namespace OnlyMare.WebAPI;
 
 public partial class ApiController
 {

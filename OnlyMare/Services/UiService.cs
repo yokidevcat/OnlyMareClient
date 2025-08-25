@@ -1,13 +1,13 @@
 ﻿using Dalamud.Interface;
 using Dalamud.Interface.ImGuiFileDialog;
 using Dalamud.Interface.Windowing;
-using LightlessSync.LightlessConfiguration;
-using LightlessSync.Services.Mediator;
-using LightlessSync.UI;
-using LightlessSync.UI.Components.Popup;
+using OnlyMare.LightlessConfiguration;
+using OnlyMare.Services.Mediator;
+using OnlyMare.UI;
+using OnlyMare.UI.Components.Popup;
 using Microsoft.Extensions.Logging;
 
-namespace LightlessSync.Services;
+namespace OnlyMare.Services;
 
 public sealed class UiService : DisposableMediatorSubscriberBase
 {

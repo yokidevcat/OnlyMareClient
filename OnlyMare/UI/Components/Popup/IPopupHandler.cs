@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace LightlessSync.UI.Components.Popup;
+namespace OnlyMare.UI.Components.Popup;
 
 public interface IPopupHandler
 {

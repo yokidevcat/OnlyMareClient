@@ -1,7 +1,7 @@
-﻿using LightlessSync.API.Data.Enum;
-using LightlessSync.LightlessConfiguration.Configurations;
+﻿using OnlyMare.API.Data.Enum;
+using OnlyMare.LightlessConfiguration.Configurations;
 
-namespace LightlessSync.LightlessConfiguration.Configurations;
+namespace OnlyMare.LightlessConfiguration.Configurations;
 
 public class TransientConfig : ILightlessConfiguration
 {

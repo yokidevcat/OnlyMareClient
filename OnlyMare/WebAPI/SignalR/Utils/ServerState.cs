@@ -1,4 +1,4 @@
-﻿namespace LightlessSync.WebAPI.SignalR.Utils;
+﻿namespace OnlyMare.WebAPI.SignalR.Utils;
 
 public enum ServerState
 {

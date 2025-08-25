@@ -2,17 +2,17 @@
 using Dalamud.Interface.Colors;
 using Dalamud.Interface.Utility;
 using Dalamud.Interface.Utility.Raii;
-using LightlessSync.API.Data.Enum;
-using LightlessSync.API.Data.Extensions;
-using LightlessSync.API.Dto;
-using LightlessSync.API.Dto.Group;
-using LightlessSync.Services;
-using LightlessSync.Services.Mediator;
-using LightlessSync.Utils;
-using LightlessSync.WebAPI;
+using OnlyMare.API.Data.Enum;
+using OnlyMare.API.Data.Extensions;
+using OnlyMare.API.Dto;
+using OnlyMare.API.Dto.Group;
+using OnlyMare.Services;
+using OnlyMare.Services.Mediator;
+using OnlyMare.Utils;
+using OnlyMare.WebAPI;
 using Microsoft.Extensions.Logging;
 
-namespace LightlessSync.UI;
+namespace OnlyMare.UI;
 
 internal class JoinSyncshellUI : WindowMediatorSubscriberBase
 {

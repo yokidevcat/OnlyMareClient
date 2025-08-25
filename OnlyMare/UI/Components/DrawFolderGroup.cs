@@ -3,15 +3,15 @@ using Dalamud.Interface;
 using Dalamud.Interface.Colors;
 using Dalamud.Interface.Utility;
 using Dalamud.Interface.Utility.Raii;
-using LightlessSync.API.Data.Extensions;
-using LightlessSync.API.Dto.Group;
-using LightlessSync.PlayerData.Pairs;
-using LightlessSync.Services.Mediator;
-using LightlessSync.UI.Handlers;
-using LightlessSync.WebAPI;
+using OnlyMare.API.Data.Extensions;
+using OnlyMare.API.Dto.Group;
+using OnlyMare.PlayerData.Pairs;
+using OnlyMare.Services.Mediator;
+using OnlyMare.UI.Handlers;
+using OnlyMare.WebAPI;
 using System.Collections.Immutable;
 
-namespace LightlessSync.UI.Components;
+namespace OnlyMare.UI.Components;
 
 public class DrawFolderGroup : DrawFolderBase
 {

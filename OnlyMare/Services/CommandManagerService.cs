@@ -1,15 +1,15 @@
 ﻿using Dalamud.Game.Command;
 using Dalamud.Plugin.Services;
-using LightlessSync.FileCache;
-using LightlessSync.LightlessConfiguration;
-using LightlessSync.LightlessConfiguration.Models;
-using LightlessSync.Services.Mediator;
-using LightlessSync.Services.ServerConfiguration;
-using LightlessSync.UI;
-using LightlessSync.WebAPI;
+using OnlyMare.FileCache;
+using OnlyMare.LightlessConfiguration;
+using OnlyMare.LightlessConfiguration.Models;
+using OnlyMare.Services.Mediator;
+using OnlyMare.Services.ServerConfiguration;
+using OnlyMare.UI;
+using OnlyMare.WebAPI;
 using System.Globalization;
 
-namespace LightlessSync.Services;
+namespace OnlyMare.Services;
 
 public sealed class CommandManagerService : IDisposable
 {

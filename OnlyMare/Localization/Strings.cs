@@ -1,6 +1,6 @@
 ﻿using CheapLoc;
 
-namespace LightlessSync.Localization;
+namespace OnlyMare.Localization;
 
 public static class Strings
 {

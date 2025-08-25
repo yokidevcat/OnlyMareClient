@@ -1,4 +1,4 @@
-﻿namespace LightlessSync.Services.Events;
+﻿namespace OnlyMare.Services.Events;
 
 public enum EventSeverity
 {

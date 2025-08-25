@@ -1,15 +1,15 @@
 ﻿using Dalamud.Bindings.ImGui;
 using Dalamud.Interface;
 using Dalamud.Interface.Utility;
-using LightlessSync.API.Data.Extensions;
-using LightlessSync.API.Dto.Group;
-using LightlessSync.Services;
-using LightlessSync.Services.Mediator;
-using LightlessSync.WebAPI;
+using OnlyMare.API.Data.Extensions;
+using OnlyMare.API.Dto.Group;
+using OnlyMare.Services;
+using OnlyMare.Services.Mediator;
+using OnlyMare.WebAPI;
 using Microsoft.Extensions.Logging;
 using System.Numerics;
 
-namespace LightlessSync.UI;
+namespace OnlyMare.UI;
 
 public class CreateSyncshellUI : WindowMediatorSubscriberBase
 {

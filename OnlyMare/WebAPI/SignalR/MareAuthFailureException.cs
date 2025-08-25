@@ -1,4 +1,4 @@
-﻿namespace LightlessSync.WebAPI.SignalR;
+﻿namespace OnlyMare.WebAPI.SignalR;
 
 public class LightlessAuthFailureException : Exception
 {

@@ -1,4 +1,4 @@
-﻿namespace LightlessSync.PlayerData.Pairs;
+﻿namespace OnlyMare.PlayerData.Pairs;
 
 public record OptionalPluginWarning
 {

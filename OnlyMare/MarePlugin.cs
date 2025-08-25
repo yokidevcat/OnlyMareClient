@@ -1,16 +1,16 @@
-﻿using LightlessSync.FileCache;
-using LightlessSync.LightlessConfiguration;
-using LightlessSync.PlayerData.Pairs;
-using LightlessSync.PlayerData.Services;
-using LightlessSync.Services;
-using LightlessSync.Services.Mediator;
-using LightlessSync.Services.ServerConfiguration;
+﻿using OnlyMare.FileCache;
+using OnlyMare.LightlessConfiguration;
+using OnlyMare.PlayerData.Pairs;
+using OnlyMare.PlayerData.Services;
+using OnlyMare.Services;
+using OnlyMare.Services.Mediator;
+using OnlyMare.Services.ServerConfiguration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
 
-namespace LightlessSync;
+namespace OnlyMare;
 
 #pragma warning disable S125 // Sections of code should not be commented out
 /*

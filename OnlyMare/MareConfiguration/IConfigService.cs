@@ -1,6 +1,6 @@
-﻿using LightlessSync.LightlessConfiguration.Configurations;
+﻿using OnlyMare.LightlessConfiguration.Configurations;
 
-namespace LightlessSync.LightlessConfiguration;
+namespace OnlyMare.LightlessConfiguration;
 
 public interface IConfigService<out T> : IDisposable where T : ILightlessConfiguration
 {

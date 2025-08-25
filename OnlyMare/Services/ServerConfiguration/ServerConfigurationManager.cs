@@ -1,9 +1,9 @@
 ﻿using Dalamud.Utility;
-using LightlessSync.API.Routes;
-using LightlessSync.LightlessConfiguration;
-using LightlessSync.LightlessConfiguration.Models;
-using LightlessSync.Services.Mediator;
-using LightlessSync.WebAPI;
+using OnlyMare.API.Routes;
+using OnlyMare.LightlessConfiguration;
+using OnlyMare.LightlessConfiguration.Models;
+using OnlyMare.Services.Mediator;
+using OnlyMare.WebAPI;
 using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
@@ -12,7 +12,7 @@ using System.Net.Http.Json;
 using System.Security.Cryptography;
 using System.Text.Json;
 
-namespace LightlessSync.Services.ServerConfiguration;
+namespace OnlyMare.Services.ServerConfiguration;
 
 public class ServerConfigurationManager
 {

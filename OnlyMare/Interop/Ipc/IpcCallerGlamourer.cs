@@ -2,13 +2,13 @@
 using Dalamud.Plugin;
 using Glamourer.Api.Helpers;
 using Glamourer.Api.IpcSubscribers;
-using LightlessSync.LightlessConfiguration.Models;
-using LightlessSync.PlayerData.Handlers;
-using LightlessSync.Services;
-using LightlessSync.Services.Mediator;
+using OnlyMare.LightlessConfiguration.Models;
+using OnlyMare.PlayerData.Handlers;
+using OnlyMare.Services;
+using OnlyMare.Services.Mediator;
 using Microsoft.Extensions.Logging;
 
-namespace LightlessSync.Interop.Ipc;
+namespace OnlyMare.Interop.Ipc;
 
 public sealed class IpcCallerGlamourer : DisposableMediatorSubscriberBase, IIpcCaller
 {

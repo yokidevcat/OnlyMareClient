@@ -1,6 +1,6 @@
-﻿using LightlessSync.API.Data;
+﻿using OnlyMare.API.Data;
 
-namespace LightlessSync.Services.Events;
+namespace OnlyMare.Services.Events;
 
 public record Event
 {

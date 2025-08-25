@@ -3,17 +3,17 @@ using Dalamud.Interface;
 using Dalamud.Interface.Colors;
 using Dalamud.Interface.Utility;
 using Dalamud.Interface.Utility.Raii;
-using LightlessSync.API.Data.Enum;
-using LightlessSync.FileCache;
-using LightlessSync.Interop.Ipc;
-using LightlessSync.LightlessConfiguration;
-using LightlessSync.Services;
-using LightlessSync.Services.Mediator;
-using LightlessSync.Utils;
+using OnlyMare.API.Data.Enum;
+using OnlyMare.FileCache;
+using OnlyMare.Interop.Ipc;
+using OnlyMare.LightlessConfiguration;
+using OnlyMare.Services;
+using OnlyMare.Services.Mediator;
+using OnlyMare.Utils;
 using Microsoft.Extensions.Logging;
 using System.Numerics;
 
-namespace LightlessSync.UI;
+namespace OnlyMare.UI;
 
 public class DataAnalysisUi : WindowMediatorSubscriberBase
 {

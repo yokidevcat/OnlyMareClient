@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LightlessSync.Services.CharaData
+namespace OnlyMare.Services.CharaData
 {
     internal class CharaDataTogetherManager
     {

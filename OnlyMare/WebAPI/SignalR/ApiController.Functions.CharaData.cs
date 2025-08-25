@@ -1,10 +1,10 @@
-﻿using LightlessSync.API.Data;
-using LightlessSync.API.Dto.CharaData;
-using LightlessSync.Services.CharaData.Models;
+﻿using OnlyMare.API.Data;
+using OnlyMare.API.Dto.CharaData;
+using OnlyMare.Services.CharaData.Models;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
 
-namespace LightlessSync.WebAPI;
+namespace OnlyMare.WebAPI;
 public partial class ApiController
 {
     public async Task<CharaDataFullDto?> CharaDataCreate()

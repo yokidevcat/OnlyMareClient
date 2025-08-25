@@ -1,4 +1,4 @@
-﻿namespace LightlessSync.Services.Mediator;
+﻿namespace OnlyMare.Services.Mediator;
 
 #pragma warning disable MA0048
 public abstract record MessageBase

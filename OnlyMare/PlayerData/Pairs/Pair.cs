@@ -1,17 +1,17 @@
 ﻿using Dalamud.Game.Gui.ContextMenu;
 using Dalamud.Game.Text.SeStringHandling;
-using LightlessSync.API.Data;
-using LightlessSync.API.Data.Enum;
-using LightlessSync.API.Data.Extensions;
-using LightlessSync.API.Dto.User;
-using LightlessSync.PlayerData.Factories;
-using LightlessSync.PlayerData.Handlers;
-using LightlessSync.Services.Mediator;
-using LightlessSync.Services.ServerConfiguration;
-using LightlessSync.Utils;
+using OnlyMare.API.Data;
+using OnlyMare.API.Data.Enum;
+using OnlyMare.API.Data.Extensions;
+using OnlyMare.API.Dto.User;
+using OnlyMare.PlayerData.Factories;
+using OnlyMare.PlayerData.Handlers;
+using OnlyMare.Services.Mediator;
+using OnlyMare.Services.ServerConfiguration;
+using OnlyMare.Utils;
 using Microsoft.Extensions.Logging;
 
-namespace LightlessSync.PlayerData.Pairs;
+namespace OnlyMare.PlayerData.Pairs;
 
 public class Pair
 {

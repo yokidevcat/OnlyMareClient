@@ -1,13 +1,13 @@
 ﻿using FFXIVClientStructs.FFXIV.Client.Game.Character;
 using FFXIVClientStructs.FFXIV.Client.Graphics.Scene;
-using LightlessSync.Services;
-using LightlessSync.Services.Mediator;
+using OnlyMare.Services;
+using OnlyMare.Services.Mediator;
 using Microsoft.Extensions.Logging;
 using System.Runtime.CompilerServices;
 using static FFXIVClientStructs.FFXIV.Client.Game.Character.DrawDataContainer;
-using ObjectKind = LightlessSync.API.Data.Enum.ObjectKind;
+using ObjectKind = OnlyMare.API.Data.Enum.ObjectKind;
 
-namespace LightlessSync.PlayerData.Handlers;
+namespace OnlyMare.PlayerData.Handlers;
 
 public sealed class GameObjectHandler : DisposableMediatorSubscriberBase, IHighPriorityMediatorSubscriber
 {

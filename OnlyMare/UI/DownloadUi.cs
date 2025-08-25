@@ -1,16 +1,16 @@
 ﻿using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Colors;
-using LightlessSync.LightlessConfiguration;
-using LightlessSync.PlayerData.Handlers;
-using LightlessSync.Services;
-using LightlessSync.Services.Mediator;
-using LightlessSync.WebAPI.Files;
-using LightlessSync.WebAPI.Files.Models;
+using OnlyMare.LightlessConfiguration;
+using OnlyMare.PlayerData.Handlers;
+using OnlyMare.Services;
+using OnlyMare.Services.Mediator;
+using OnlyMare.WebAPI.Files;
+using OnlyMare.WebAPI.Files.Models;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 using System.Numerics;
 
-namespace LightlessSync.UI;
+namespace OnlyMare.UI;
 
 public class DownloadUi : WindowMediatorSubscriberBase
 {

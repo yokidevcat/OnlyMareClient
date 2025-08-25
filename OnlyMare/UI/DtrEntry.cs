@@ -2,16 +2,16 @@
 using Dalamud.Game.Text.SeStringHandling;
 using Dalamud.Game.Text.SeStringHandling.Payloads;
 using Dalamud.Plugin.Services;
-using LightlessSync.LightlessConfiguration;
-using LightlessSync.LightlessConfiguration.Configurations;
-using LightlessSync.PlayerData.Pairs;
-using LightlessSync.Services.Mediator;
-using LightlessSync.WebAPI;
+using OnlyMare.LightlessConfiguration;
+using OnlyMare.LightlessConfiguration.Configurations;
+using OnlyMare.PlayerData.Pairs;
+using OnlyMare.Services.Mediator;
+using OnlyMare.WebAPI;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Runtime.InteropServices;
 
-namespace LightlessSync.UI;
+namespace OnlyMare.UI;
 
 public sealed class DtrEntry : IDisposable, IHostedService
 {

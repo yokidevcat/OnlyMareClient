@@ -1,18 +1,18 @@
 ﻿using Dalamud.Plugin.Services;
-using LightlessSync.API.Data;
-using LightlessSync.API.Data.Comparer;
-using LightlessSync.API.Data.Extensions;
-using LightlessSync.API.Dto.Group;
-using LightlessSync.API.Dto.User;
-using LightlessSync.LightlessConfiguration;
-using LightlessSync.LightlessConfiguration.Models;
-using LightlessSync.PlayerData.Factories;
-using LightlessSync.Services.Events;
-using LightlessSync.Services.Mediator;
+using OnlyMare.API.Data;
+using OnlyMare.API.Data.Comparer;
+using OnlyMare.API.Data.Extensions;
+using OnlyMare.API.Dto.Group;
+using OnlyMare.API.Dto.User;
+using OnlyMare.LightlessConfiguration;
+using OnlyMare.LightlessConfiguration.Models;
+using OnlyMare.PlayerData.Factories;
+using OnlyMare.Services.Events;
+using OnlyMare.Services.Mediator;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 
-namespace LightlessSync.PlayerData.Pairs;
+namespace OnlyMare.PlayerData.Pairs;
 
 public sealed class PairManager : DisposableMediatorSubscriberBase
 {

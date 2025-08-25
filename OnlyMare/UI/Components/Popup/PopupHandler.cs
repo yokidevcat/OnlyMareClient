@@ -2,12 +2,12 @@
 using Dalamud.Interface;
 using Dalamud.Interface.Utility;
 using Dalamud.Interface.Utility.Raii;
-using LightlessSync.Services;
-using LightlessSync.Services.Mediator;
+using OnlyMare.Services;
+using OnlyMare.Services.Mediator;
 using Microsoft.Extensions.Logging;
 using System.Numerics;
 
-namespace LightlessSync.UI.Components.Popup;
+namespace OnlyMare.UI.Components.Popup;
 
 public class PopupHandler : WindowMediatorSubscriberBase
 {

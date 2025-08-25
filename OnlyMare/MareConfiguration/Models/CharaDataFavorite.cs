@@ -1,4 +1,4 @@
-﻿namespace LightlessSync.LightlessConfiguration.Models;
+﻿namespace OnlyMare.LightlessConfiguration.Models;
 
 [Serializable]
 public class CharaDataFavorite

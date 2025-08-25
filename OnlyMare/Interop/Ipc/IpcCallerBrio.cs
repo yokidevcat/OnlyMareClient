@@ -1,13 +1,13 @@
 ﻿using Dalamud.Game.ClientState.Objects.Types;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Ipc;
-using LightlessSync.API.Dto.CharaData;
-using LightlessSync.Services;
+using OnlyMare.API.Dto.CharaData;
+using OnlyMare.Services;
 using Microsoft.Extensions.Logging;
 using System.Numerics;
 using System.Text.Json.Nodes;
 
-namespace LightlessSync.Interop.Ipc;
+namespace OnlyMare.Interop.Ipc;
 
 public sealed class IpcCallerBrio : IIpcCaller
 {

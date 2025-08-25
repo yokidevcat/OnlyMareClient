@@ -1,9 +1,9 @@
 ﻿using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Utility;
-using LightlessSync.Services.ServerConfiguration;
+using OnlyMare.Services.ServerConfiguration;
 using System.Numerics;
 
-namespace LightlessSync.UI.Components.Popup;
+namespace OnlyMare.UI.Components.Popup;
 
 public class CensusPopupHandler : IPopupHandler
 {

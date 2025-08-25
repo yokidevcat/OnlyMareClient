@@ -3,12 +3,12 @@ using Dalamud.Interface;
 using Dalamud.Interface.Utility;
 using Dalamud.Interface.Utility.Raii;
 using Dalamud.Utility;
-using LightlessSync.PlayerData.Pairs;
-using LightlessSync.UI.Handlers;
+using OnlyMare.PlayerData.Pairs;
+using OnlyMare.UI.Handlers;
 
 using System.Numerics;
 
-namespace LightlessSync.UI.Components;
+namespace OnlyMare.UI.Components;
 
 public class SelectTagForPairUi
 {

@@ -1,13 +1,13 @@
-﻿using LightlessSync.API.Dto.Group;
-using LightlessSync.PlayerData.Pairs;
-using LightlessSync.Services.Mediator;
-using LightlessSync.Services.ServerConfiguration;
-using LightlessSync.UI;
-using LightlessSync.UI.Components.Popup;
-using LightlessSync.WebAPI;
+﻿using OnlyMare.API.Dto.Group;
+using OnlyMare.PlayerData.Pairs;
+using OnlyMare.Services.Mediator;
+using OnlyMare.Services.ServerConfiguration;
+using OnlyMare.UI;
+using OnlyMare.UI.Components.Popup;
+using OnlyMare.WebAPI;
 using Microsoft.Extensions.Logging;
 
-namespace LightlessSync.Services;
+namespace OnlyMare.Services;
 
 public class UiFactory
 {

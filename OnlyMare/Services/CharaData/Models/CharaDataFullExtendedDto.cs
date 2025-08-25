@@ -1,7 +1,7 @@
-﻿using LightlessSync.API.Dto.CharaData;
+﻿using OnlyMare.API.Dto.CharaData;
 using System.Collections.ObjectModel;
 
-namespace LightlessSync.Services.CharaData.Models;
+namespace OnlyMare.Services.CharaData.Models;
 
 public sealed record CharaDataFullExtendedDto : CharaDataFullDto
 {

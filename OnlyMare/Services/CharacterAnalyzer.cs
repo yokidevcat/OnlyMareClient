@@ -1,13 +1,13 @@
 ﻿using Lumina.Data.Files;
-using LightlessSync.API.Data;
-using LightlessSync.API.Data.Enum;
-using LightlessSync.FileCache;
-using LightlessSync.Services.Mediator;
-using LightlessSync.UI;
-using LightlessSync.Utils;
+using OnlyMare.API.Data;
+using OnlyMare.API.Data.Enum;
+using OnlyMare.FileCache;
+using OnlyMare.Services.Mediator;
+using OnlyMare.UI;
+using OnlyMare.Utils;
 using Microsoft.Extensions.Logging;
 
-namespace LightlessSync.Services;
+namespace OnlyMare.Services;
 
 public sealed class CharacterAnalyzer : MediatorSubscriberBase, IDisposable
 {

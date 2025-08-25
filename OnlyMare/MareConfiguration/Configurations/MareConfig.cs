@@ -1,8 +1,8 @@
-﻿using LightlessSync.LightlessConfiguration.Models;
-using LightlessSync.UI;
+﻿using OnlyMare.LightlessConfiguration.Models;
+using OnlyMare.UI;
 using Microsoft.Extensions.Logging;
 
-namespace LightlessSync.LightlessConfiguration.Configurations;
+namespace OnlyMare.LightlessConfiguration.Configurations;
 
 [Serializable]
 public class LightlessConfig : ILightlessConfiguration

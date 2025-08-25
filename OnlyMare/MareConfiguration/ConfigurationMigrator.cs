@@ -1,8 +1,8 @@
-﻿using LightlessSync.WebAPI;
+﻿using OnlyMare.WebAPI;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace LightlessSync.LightlessConfiguration;
+namespace OnlyMare.LightlessConfiguration;
 
 public class ConfigurationMigrator(ILogger<ConfigurationMigrator> logger, TransientConfigService transientConfigService,
     ServerConfigService serverConfigService) : IHostedService

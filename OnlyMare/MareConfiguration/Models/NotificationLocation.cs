@@ -1,4 +1,4 @@
-﻿namespace LightlessSync.LightlessConfiguration.Models;
+﻿namespace OnlyMare.LightlessConfiguration.Models;
 
 public enum NotificationLocation
 {

@@ -1,11 +1,11 @@
-﻿using LightlessSync.API.Data;
-using LightlessSync.API.Dto;
-using LightlessSync.API.Dto.User;
+﻿using OnlyMare.API.Data;
+using OnlyMare.API.Dto;
+using OnlyMare.API.Dto.User;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
 using System.Text;
 
-namespace LightlessSync.WebAPI;
+namespace OnlyMare.WebAPI;
 
 #pragma warning disable MA0040
 public partial class ApiController

@@ -3,9 +3,9 @@ using Dalamud.Interface;
 using Dalamud.Interface.Colors;
 using Dalamud.Interface.Utility;
 using Dalamud.Interface.Utility.Raii;
-using LightlessSync.Services.CharaData.Models;
+using OnlyMare.Services.CharaData.Models;
 
-namespace LightlessSync.UI;
+namespace OnlyMare.UI;
 
 internal sealed partial class CharaDataHubUi
 {

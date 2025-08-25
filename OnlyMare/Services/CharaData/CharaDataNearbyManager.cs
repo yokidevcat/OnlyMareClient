@@ -1,14 +1,14 @@
 ﻿using FFXIVClientStructs.FFXIV.Client.Graphics.Scene;
-using LightlessSync.API.Data;
-using LightlessSync.Interop;
-using LightlessSync.LightlessConfiguration;
-using LightlessSync.Services.CharaData.Models;
-using LightlessSync.Services.Mediator;
-using LightlessSync.Services.ServerConfiguration;
+using OnlyMare.API.Data;
+using OnlyMare.Interop;
+using OnlyMare.LightlessConfiguration;
+using OnlyMare.Services.CharaData.Models;
+using OnlyMare.Services.Mediator;
+using OnlyMare.Services.ServerConfiguration;
 using Microsoft.Extensions.Logging;
 using System.Numerics;
 
-namespace LightlessSync.Services;
+namespace OnlyMare.Services;
 
 public sealed class CharaDataNearbyManager : DisposableMediatorSubscriberBase
 {

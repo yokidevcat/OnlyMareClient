@@ -1,6 +1,6 @@
 ﻿#nullable disable
 
-namespace LightlessSync.FileCache;
+namespace OnlyMare.FileCache;
 
 public class FileCacheEntity
 {

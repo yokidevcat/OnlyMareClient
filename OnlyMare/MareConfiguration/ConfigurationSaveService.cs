@@ -1,11 +1,11 @@
-﻿using LightlessSync.LightlessConfiguration.Configurations;
-using LightlessSync.LightlessConfiguration;
+﻿using OnlyMare.LightlessConfiguration.Configurations;
+using OnlyMare.LightlessConfiguration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
 using System.Text.Json;
 
-namespace LightlessSync.LightlessConfiguration;
+namespace OnlyMare.LightlessConfiguration;
 
 public class ConfigurationSaveService : IHostedService
 {

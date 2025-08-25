@@ -1,6 +1,6 @@
-﻿using LightlessSync.API.Dto.Files;
+﻿using OnlyMare.API.Dto.Files;
 
-namespace LightlessSync.WebAPI.Files.Models;
+namespace OnlyMare.WebAPI.Files.Models;
 
 public class UploadFileTransfer : FileTransfer
 {

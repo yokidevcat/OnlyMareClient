@@ -1,18 +1,18 @@
 ﻿using Dalamud.Game.ClientState.Objects.SubKinds;
 using K4os.Compression.LZ4.Legacy;
-using LightlessSync.API.Data;
-using LightlessSync.API.Data.Enum;
-using LightlessSync.API.Dto.CharaData;
-using LightlessSync.FileCache;
-using LightlessSync.PlayerData.Factories;
-using LightlessSync.PlayerData.Handlers;
-using LightlessSync.Services.CharaData;
-using LightlessSync.Services.CharaData.Models;
-using LightlessSync.Utils;
-using LightlessSync.WebAPI.Files;
+using OnlyMare.API.Data;
+using OnlyMare.API.Data.Enum;
+using OnlyMare.API.Dto.CharaData;
+using OnlyMare.FileCache;
+using OnlyMare.PlayerData.Factories;
+using OnlyMare.PlayerData.Handlers;
+using OnlyMare.Services.CharaData;
+using OnlyMare.Services.CharaData.Models;
+using OnlyMare.Utils;
+using OnlyMare.WebAPI.Files;
 using Microsoft.Extensions.Logging;
 
-namespace LightlessSync.Services;
+namespace OnlyMare.Services;
 
 public sealed class CharaDataFileHandler : IDisposable
 {

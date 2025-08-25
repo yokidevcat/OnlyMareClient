@@ -1,4 +1,4 @@
-﻿namespace LightlessSync.LightlessConfiguration.Models.Obsolete;
+﻿namespace OnlyMare.LightlessConfiguration.Models.Obsolete;
 
 [Serializable]
 [Obsolete("Deprecated, use ServerStorage")]

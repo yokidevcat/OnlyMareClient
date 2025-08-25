@@ -1,6 +1,6 @@
-﻿using LightlessSync.Services.ServerConfiguration;
+﻿using OnlyMare.Services.ServerConfiguration;
 
-namespace LightlessSync.UI.Handlers;
+namespace OnlyMare.UI.Handlers;
 
 public class TagHandler
 {

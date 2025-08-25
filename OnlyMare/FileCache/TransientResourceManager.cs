@@ -1,15 +1,15 @@
-﻿using LightlessSync.API.Data.Enum;
-using LightlessSync.LightlessConfiguration;
-using LightlessSync.LightlessConfiguration.Configurations;
-using LightlessSync.PlayerData.Data;
-using LightlessSync.PlayerData.Handlers;
-using LightlessSync.Services;
-using LightlessSync.Services.Mediator;
-using LightlessSync.Utils;
+﻿using OnlyMare.API.Data.Enum;
+using OnlyMare.LightlessConfiguration;
+using OnlyMare.LightlessConfiguration.Configurations;
+using OnlyMare.PlayerData.Data;
+using OnlyMare.PlayerData.Handlers;
+using OnlyMare.Services;
+using OnlyMare.Services.Mediator;
+using OnlyMare.Utils;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 
-namespace LightlessSync.FileCache;
+namespace OnlyMare.FileCache;
 
 public sealed class TransientResourceManager : DisposableMediatorSubscriberBase
 {
