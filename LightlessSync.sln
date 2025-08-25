@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightlessSync", "LightlessS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightlessSync.API", "LightlessAPI\LightlessSyncAPI\LightlessSync.API.csproj", "{A4E42AFA-5045-7E81-937F-3A320AC52987}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Penumbra.Api", "PenumbraAPI\Penumbra.Api.csproj", "{C104F6BE-9CC4-9CF7-271C-5C3A1F646601}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,14 @@ Global
 		{A4E42AFA-5045-7E81-937F-3A320AC52987}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A4E42AFA-5045-7E81-937F-3A320AC52987}.Release|x64.ActiveCfg = Release|Any CPU
 		{A4E42AFA-5045-7E81-937F-3A320AC52987}.Release|x64.Build.0 = Release|Any CPU
+		{C104F6BE-9CC4-9CF7-271C-5C3A1F646601}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{C104F6BE-9CC4-9CF7-271C-5C3A1F646601}.Debug|Any CPU.Build.0 = Debug|x64
+		{C104F6BE-9CC4-9CF7-271C-5C3A1F646601}.Debug|x64.ActiveCfg = Debug|x64
+		{C104F6BE-9CC4-9CF7-271C-5C3A1F646601}.Debug|x64.Build.0 = Debug|x64
+		{C104F6BE-9CC4-9CF7-271C-5C3A1F646601}.Release|Any CPU.ActiveCfg = Release|x64
+		{C104F6BE-9CC4-9CF7-271C-5C3A1F646601}.Release|Any CPU.Build.0 = Release|x64
+		{C104F6BE-9CC4-9CF7-271C-5C3A1F646601}.Release|x64.ActiveCfg = Release|x64
+		{C104F6BE-9CC4-9CF7-271C-5C3A1F646601}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
