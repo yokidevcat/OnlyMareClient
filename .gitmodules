@@ -1,3 +1,6 @@
 [submodule "LightlessAPI"]
 	path = LightlessAPI
 	url = https://github.com/Light-Public-Syncshells/LightlessAPI
+[submodule "PenumbraAPI"]
+	path = PenumbraAPI
+	url = https://github.com/Ottermandias/Penumbra.Api.git
