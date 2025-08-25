@@ -1,0 +1,13 @@
+{
+  "Author": "YokiDevCat",
+  "Name": "OnlyMare",
+  "Punchline": "Let others see you as you see yourself.",
+  "Description": "This plugin will synchronize your Penumbra mods and current Glamourer state with other paired clients automatically.",
+  "InternalName": "OnlyMare",
+  "ApplicableVersion": "any",
+  "Tags": [
+    "customization"
+  ],
+  "IconUrl": "https://raw.githubusercontent.com/yokidevcat/OnlyMareClient/refs/heads/main/OnlyMare/icon.png",
+  "RepoUrl": "https://github.com/yokidevcat/OnlyMareClient"
+}
