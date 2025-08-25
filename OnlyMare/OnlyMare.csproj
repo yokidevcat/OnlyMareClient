@@ -73,7 +73,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LightlessAPI\OnlyMareAPI\OnlyMare.API.csproj" />
+    <ProjectReference Include="..\OnlyMareAPI\OnlyMareAPI\OnlyMare.API.csproj" />
     <ProjectReference Include="..\PenumbraAPI\Penumbra.Api.csproj" />
   </ItemGroup>
 	
