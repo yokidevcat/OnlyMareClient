@@ -26,7 +26,7 @@ internal class JoinSyncshellUI : WindowMediatorSubscriberBase
 
     public JoinSyncshellUI(ILogger<JoinSyncshellUI> logger, LightlessMediator mediator,
         UiSharedService uiSharedService, ApiController apiController, PerformanceCollectorService performanceCollectorService) 
-        : base(logger, mediator, "Join existing Syncshell###LightlessSyncJoinSyncshell", performanceCollectorService)
+        : base(logger, mediator, "Join existing Syncshell###OnlyMareJoinSyncshell", performanceCollectorService)
     {
         _uiSharedService = uiSharedService;
         _apiController = apiController;

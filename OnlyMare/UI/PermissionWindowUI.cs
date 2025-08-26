@@ -22,7 +22,7 @@ public class PermissionWindowUI : WindowMediatorSubscriberBase
 
     public PermissionWindowUI(ILogger<PermissionWindowUI> logger, Pair pair, LightlessMediator mediator, UiSharedService uiSharedService,
         ApiController apiController, PerformanceCollectorService performanceCollectorService)
-        : base(logger, mediator, "Permissions for " + pair.UserData.AliasOrUID + "###LightlessSyncPermissions" + pair.UserData.UID, performanceCollectorService)
+        : base(logger, mediator, "Permissions for " + pair.UserData.AliasOrUID + "###OnlyMarePermissions" + pair.UserData.UID, performanceCollectorService)
     {
         Pair = pair;
         _uiSharedService = uiSharedService;

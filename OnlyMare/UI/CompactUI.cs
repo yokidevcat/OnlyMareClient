@@ -58,7 +58,7 @@ public class CompactUi : WindowMediatorSubscriberBase
         ServerConfigurationManager serverManager, LightlessMediator mediator, FileUploadManager fileTransferManager,
         TagHandler tagHandler, DrawEntityFactory drawEntityFactory, SelectTagForPairUi selectTagForPairUi, SelectPairForTagUi selectPairForTagUi,
         PerformanceCollectorService performanceCollectorService, IpcManager ipcManager)
-        : base(logger, mediator, "###LightlessSyncMainUI", performanceCollectorService)
+        : base(logger, mediator, "###OnlyMareMainUI", performanceCollectorService)
     {
         _uiSharedService = uiShared;
         _configService = configService;
@@ -114,11 +114,11 @@ public class CompactUi : WindowMediatorSubscriberBase
 #if DEBUG
         string dev = "Dev Build";
         var ver = Assembly.GetExecutingAssembly().GetName().Version!;
-        WindowName = $"Lightless Sync {dev} ({ver.Major}.{ver.Minor}.{ver.Build})###LightlessSyncMainUI";
+        WindowName = $"OnlyMare {dev} ({ver.Major}.{ver.Minor}.{ver.Build})###OnlyMareMainUI";
         Toggle();
 #else
         var ver = Assembly.GetExecutingAssembly().GetName().Version;
-        WindowName = "Lightless Sync " + ver.Major + "." + ver.Minor + "." + ver.Build + "###LightlessSyncMainUI";
+        WindowName = "OnlyMare " + ver.Major + "." + ver.Minor + "." + ver.Build + "###OnlyMareMainUI";
 #endif
         Mediator.Subscribe<SwitchToMainUiMessage>(this, (_) => IsOpen = true);
         Mediator.Subscribe<SwitchToIntroUiMessage>(this, (_) => IsOpen = false);

@@ -33,7 +33,7 @@ public class EditProfileUi : WindowMediatorSubscriberBase
     public EditProfileUi(ILogger<EditProfileUi> logger, LightlessMediator mediator,
         ApiController apiController, UiSharedService uiSharedService, FileDialogManager fileDialogManager,
         LightlessProfileManager lightlessProfileManager, PerformanceCollectorService performanceCollectorService)
-        : base(logger, mediator, "Lightless Sync Edit Profile###LightlessSyncEditProfileUI", performanceCollectorService)
+        : base(logger, mediator, "OnlyMare Edit Profile###OnlyMareEditProfileUI", performanceCollectorService)
     {
         IsOpen = false;
         this.SizeConstraints = new()

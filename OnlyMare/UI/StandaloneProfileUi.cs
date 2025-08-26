@@ -27,7 +27,7 @@ public class StandaloneProfileUi : WindowMediatorSubscriberBase
     public StandaloneProfileUi(ILogger<StandaloneProfileUi> logger, LightlessMediator mediator, UiSharedService uiBuilder,
         ServerConfigurationManager serverManager, LightlessProfileManager lightlessProfileManager, PairManager pairManager, Pair pair,
         PerformanceCollectorService performanceCollector)
-        : base(logger, mediator, "Lightless Profile of " + pair.UserData.AliasOrUID + "##LightlessSyncStandaloneProfileUI" + pair.UserData.AliasOrUID, performanceCollector)
+        : base(logger, mediator, "OnlyMare Profile of " + pair.UserData.AliasOrUID + "##OnlyMareStandaloneProfileUI" + pair.UserData.AliasOrUID, performanceCollector)
     {
         _uiSharedService = uiBuilder;
         _serverManager = serverManager;

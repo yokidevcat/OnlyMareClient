@@ -29,7 +29,7 @@ public class PopoutProfileUi : WindowMediatorSubscriberBase
 
     public PopoutProfileUi(ILogger<PopoutProfileUi> logger, LightlessMediator mediator, UiSharedService uiBuilder,
         ServerConfigurationManager serverManager, LightlessConfigService lightlessConfigService,
-        LightlessProfileManager lightlessProfileManager, PairManager pairManager, PerformanceCollectorService performanceCollectorService) : base(logger, mediator, "###LightlessSyncPopoutProfileUI", performanceCollectorService)
+        LightlessProfileManager lightlessProfileManager, PairManager pairManager, PerformanceCollectorService performanceCollectorService) : base(logger, mediator, "###OnlyMarePopoutProfileUI", performanceCollectorService)
     {
         _uiSharedService = uiBuilder;
         _serverManager = serverManager;
