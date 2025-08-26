@@ -19,7 +19,7 @@ using System.Reflection;
 namespace OnlyMare.WebAPI;
 
 #pragma warning disable MA0040
-public sealed partial class ApiController : DisposableMediatorSubscriberBase, ILightlessHubClient
+public sealed partial class ApiController : DisposableMediatorSubscriberBase, IOnlyMareHubClient
 {
     public const string MainServer = "Follow the light (Official Central Server)";
     public const string MainServiceUri = "wss://sync.lightless-sync.org";
@@ -233,7 +233,7 @@ public sealed partial class ApiController : DisposableMediatorSubscriberBase, IL
 
                 var currentClientVer = Assembly.GetExecutingAssembly().GetName().Version!;
 
-                if (_connectionDto.ServerVersion != ILightlessHub.ApiVersion)
+                if (_connectionDto.ServerVersion != IOnlyMareHub.ApiVersion)
                 {
                     if (_connectionDto.CurrentClientVersion > currentClientVer)
                     {
@@ -511,7 +511,7 @@ public sealed partial class ApiController : DisposableMediatorSubscriberBase, IL
         {
             InitializeApiHooks();
             _connectionDto = await GetConnectionDtoAsync(publishConnected: false).ConfigureAwait(false);
-            if (_connectionDto.ServerVersion != ILightlessHub.ApiVersion)
+            if (_connectionDto.ServerVersion != IOnlyMareHub.ApiVersion)
             {
                 await StopConnectionAsync(ServerState.VersionMisMatch).ConfigureAwait(false);
                 return;

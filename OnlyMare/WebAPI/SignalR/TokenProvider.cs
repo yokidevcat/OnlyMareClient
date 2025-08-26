@@ -63,7 +63,7 @@ public sealed class TokenProvider : IDisposable, IMediatorSubscriber
 
                 if (!_serverManager.CurrentServer.UseOAuth2)
                 {
-                    tokenUri = LightlessAuth.AuthFullPath(new Uri(_serverManager.CurrentApiUrl
+                    tokenUri = OnlyMareAuth.AuthFullPath(new Uri(_serverManager.CurrentApiUrl
                         .Replace("wss://", "https://", StringComparison.OrdinalIgnoreCase)
                         .Replace("ws://", "http://", StringComparison.OrdinalIgnoreCase)));
                     var secretKey = _serverManager.GetSecretKey(out _)!;
@@ -77,7 +77,7 @@ public sealed class TokenProvider : IDisposable, IMediatorSubscriber
                 }
                 else
                 {
-                    tokenUri = LightlessAuth.AuthWithOauthFullPath(new Uri(_serverManager.CurrentApiUrl
+                    tokenUri = OnlyMareAuth.AuthWithOauthFullPath(new Uri(_serverManager.CurrentApiUrl
                         .Replace("wss://", "https://", StringComparison.OrdinalIgnoreCase)
                         .Replace("ws://", "http://", StringComparison.OrdinalIgnoreCase)));
                     HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, tokenUri.ToString());
@@ -94,7 +94,7 @@ public sealed class TokenProvider : IDisposable, IMediatorSubscriber
             {
                 _logger.LogDebug("GetNewToken: Renewal");
 
-                tokenUri = LightlessAuth.RenewTokenFullPath(new Uri(_serverManager.CurrentApiUrl
+                tokenUri = OnlyMareAuth.RenewTokenFullPath(new Uri(_serverManager.CurrentApiUrl
                     .Replace("wss://", "https://", StringComparison.OrdinalIgnoreCase)
                     .Replace("ws://", "http://", StringComparison.OrdinalIgnoreCase)));
                 HttpRequestMessage request = new(HttpMethod.Get, tokenUri.ToString());
@@ -253,7 +253,7 @@ public sealed class TokenProvider : IDisposable, IMediatorSubscriber
                 return false;
         }
 
-        var tokenUri = LightlessAuth.RenewOAuthTokenFullPath(new Uri(currentServer.ServerUri
+        var tokenUri = OnlyMareAuth.RenewOAuthTokenFullPath(new Uri(currentServer.ServerUri
             .Replace("wss://", "https://", StringComparison.OrdinalIgnoreCase)
             .Replace("ws://", "http://", StringComparison.OrdinalIgnoreCase)));
         HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, tokenUri.ToString());

@@ -80,7 +80,7 @@ public class HubFactory : MediatorSubscriberBase
         Logger.LogDebug("Building new HubConnection using transport {transport}", transportType);
 
         _instance = new HubConnectionBuilder()
-            .WithUrl(_serverConfigurationManager.CurrentApiUrl + ILightlessHub.Path, options =>
+            .WithUrl(_serverConfigurationManager.CurrentApiUrl + IOnlyMareHub.Path, options =>
             {
                 options.AccessTokenProvider = () => _tokenProvider.GetOrUpdateToken(ct);
                 options.Transports = transportType;

@@ -512,7 +512,7 @@ public class ServerConfigurationManager
         try
         {
             var baseUri = serverUri.Replace("wss://", "https://").Replace("ws://", "http://");
-            var oauthCheckUri = LightlessAuth.GetUIDsFullPath(new Uri(baseUri));
+            var oauthCheckUri = OnlyMareAuth.GetUIDsFullPath(new Uri(baseUri));
             _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
             var response = await _httpClient.GetAsync(oauthCheckUri).ConfigureAwait(false);
             var responseStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
@@ -530,7 +530,7 @@ public class ServerConfigurationManager
         try
         {
             var baseUri = serverUri.Replace("wss://", "https://").Replace("ws://", "http://");
-            var oauthCheckUri = LightlessAuth.GetDiscordOAuthEndpointFullPath(new Uri(baseUri));
+            var oauthCheckUri = OnlyMareAuth.GetDiscordOAuthEndpointFullPath(new Uri(baseUri));
             var response = await _httpClient.GetFromJsonAsync<Uri?>(oauthCheckUri).ConfigureAwait(false);
             return response;
         }
@@ -553,7 +553,7 @@ public class ServerConfigurationManager
         try
         {
             var baseUri = serverUri.Replace("wss://", "https://").Replace("ws://", "http://");
-            var oauthCheckUri = LightlessAuth.GetDiscordOAuthTokenFullPath(new Uri(baseUri), sessionId);
+            var oauthCheckUri = OnlyMareAuth.GetDiscordOAuthTokenFullPath(new Uri(baseUri), sessionId);
             var response = await _httpClient.GetAsync(oauthCheckUri, linkedCts.Token).ConfigureAwait(false);
             discordToken = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
         }
