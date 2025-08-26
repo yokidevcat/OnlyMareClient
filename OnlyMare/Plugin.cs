@@ -166,9 +166,15 @@ public sealed class Plugin : IDalamudPlugin
                 notificationManager, chatGui, s.GetRequiredService<LightlessConfigService>()));
             collection.AddSingleton((s) =>
             {
-                var httpClient = new HttpClient();
+                var httpClient = new HttpClient
+                {
+                    Timeout = TimeSpan.FromMinutes(30) // set very high for testing
+                };
+
                 var ver = Assembly.GetExecutingAssembly().GetName().Version;
-                httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("OnlyMare", ver!.Major + "." + ver!.Minor + "." + ver!.Build));
+                httpClient.DefaultRequestHeaders.UserAgent.Add(
+                    new ProductInfoHeaderValue("OnlyMare", $"{ver.Major}.{ver.Minor}.{ver.Build}"));
+
                 return httpClient;
             });
             collection.AddSingleton((s) => new LightlessConfigService(pluginInterface.ConfigDirectory.FullName));
