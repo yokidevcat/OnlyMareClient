@@ -1,8 +1,8 @@
 ﻿namespace OnlyMare.WebAPI.SignalR;
 
-public class LightlessAuthFailureException : Exception
+public class OnlyMareAuthFailureException : Exception
 {
-    public LightlessAuthFailureException(string reason)
+    public OnlyMareAuthFailureException(string reason)
     {
         Reason = reason;
     }

@@ -30,7 +30,7 @@ public class CharaDataGposeTogetherManager : DisposableMediatorSubscriberBase
     private CancellationTokenSource _lobbyCts = new();
     private int _poseGenerationExecutions = 0;
 
-    public CharaDataGposeTogetherManager(ILogger<CharaDataGposeTogetherManager> logger, LightlessMediator mediator,
+    public CharaDataGposeTogetherManager(ILogger<CharaDataGposeTogetherManager> logger, OnlyMareMediator mediator,
             ApiController apiController, IpcCallerBrio brio, DalamudUtilService dalamudUtil, VfxSpawnManager vfxSpawnManager,
         CharaDataFileHandler charaDataFileHandler, CharaDataManager charaDataManager) : base(logger, mediator)
     {

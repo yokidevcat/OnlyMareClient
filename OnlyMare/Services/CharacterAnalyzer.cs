@@ -17,7 +17,7 @@ public sealed class CharacterAnalyzer : MediatorSubscriberBase, IDisposable
     private CancellationTokenSource _baseAnalysisCts = new();
     private string _lastDataHash = string.Empty;
 
-    public CharacterAnalyzer(ILogger<CharacterAnalyzer> logger, LightlessMediator mediator, FileCacheManager fileCacheManager, XivDataAnalyzer modelAnalyzer)
+    public CharacterAnalyzer(ILogger<CharacterAnalyzer> logger, OnlyMareMediator mediator, FileCacheManager fileCacheManager, XivDataAnalyzer modelAnalyzer)
         : base(logger, mediator)
     {
         Mediator.Subscribe<CharacterDataCreatedMessage>(this, (msg) =>
@@ -185,7 +185,7 @@ public sealed class CharacterAnalyzer : MediatorSubscriberBase, IDisposable
             LastAnalysis.Values.Sum(v => v.Values.Count),
             UiSharedService.ByteToString(LastAnalysis.Values.Sum(c => c.Values.Sum(v => v.OriginalSize))),
             UiSharedService.ByteToString(LastAnalysis.Values.Sum(c => c.Values.Sum(v => v.CompressedSize))));
-        Logger.LogInformation("IMPORTANT NOTES:\n\r- For Lightless up- and downloads only the compressed size is relevant.\n\r- An unusually high total files count beyond 200 and up will also increase your download time to others significantly.");
+        Logger.LogInformation("IMPORTANT NOTES:\n\r- For OnlyMare up- and downloads only the compressed size is relevant.\n\r- An unusually high total files count beyond 200 and up will also increase your download time to others significantly.");
     }
 
     internal sealed record FileDataEntry(string Hash, string FileType, List<string> GamePaths, List<string> FilePaths, long OriginalSize, long CompressedSize, long Triangles)

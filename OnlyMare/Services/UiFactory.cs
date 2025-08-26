@@ -12,43 +12,43 @@ namespace OnlyMare.Services;
 public class UiFactory
 {
     private readonly ILoggerFactory _loggerFactory;
-    private readonly LightlessMediator _lightlessMediator;
+    private readonly OnlyMareMediator _onlymareMediator;
     private readonly ApiController _apiController;
     private readonly UiSharedService _uiSharedService;
     private readonly PairManager _pairManager;
     private readonly ServerConfigurationManager _serverConfigManager;
-    private readonly LightlessProfileManager _lightlessProfileManager;
+    private readonly OnlyMareProfileManager _onlymareProfileManager;
     private readonly PerformanceCollectorService _performanceCollectorService;
 
-    public UiFactory(ILoggerFactory loggerFactory, LightlessMediator lightlessMediator, ApiController apiController,
+    public UiFactory(ILoggerFactory loggerFactory, OnlyMareMediator onlymareMediator, ApiController apiController,
         UiSharedService uiSharedService, PairManager pairManager, ServerConfigurationManager serverConfigManager,
-        LightlessProfileManager lightlessProfileManager, PerformanceCollectorService performanceCollectorService)
+        OnlyMareProfileManager onlymareProfileManager, PerformanceCollectorService performanceCollectorService)
     {
         _loggerFactory = loggerFactory;
-        _lightlessMediator = lightlessMediator;
+        _onlymareMediator = onlymareMediator;
         _apiController = apiController;
         _uiSharedService = uiSharedService;
         _pairManager = pairManager;
         _serverConfigManager = serverConfigManager;
-        _lightlessProfileManager = lightlessProfileManager;
+        _onlymareProfileManager = onlymareProfileManager;
         _performanceCollectorService = performanceCollectorService;
     }
 
     public SyncshellAdminUI CreateSyncshellAdminUi(GroupFullInfoDto dto)
     {
-        return new SyncshellAdminUI(_loggerFactory.CreateLogger<SyncshellAdminUI>(), _lightlessMediator,
+        return new SyncshellAdminUI(_loggerFactory.CreateLogger<SyncshellAdminUI>(), _onlymareMediator,
             _apiController, _uiSharedService, _pairManager, dto, _performanceCollectorService);
     }
 
     public StandaloneProfileUi CreateStandaloneProfileUi(Pair pair)
     {
-        return new StandaloneProfileUi(_loggerFactory.CreateLogger<StandaloneProfileUi>(), _lightlessMediator,
-            _uiSharedService, _serverConfigManager, _lightlessProfileManager, _pairManager, pair, _performanceCollectorService);
+        return new StandaloneProfileUi(_loggerFactory.CreateLogger<StandaloneProfileUi>(), _onlymareMediator,
+            _uiSharedService, _serverConfigManager, _onlymareProfileManager, _pairManager, pair, _performanceCollectorService);
     }
 
     public PermissionWindowUI CreatePermissionPopupUi(Pair pair)
     {
         return new PermissionWindowUI(_loggerFactory.CreateLogger<PermissionWindowUI>(), pair,
-            _lightlessMediator, _uiSharedService, _apiController, _performanceCollectorService);
+            _onlymareMediator, _uiSharedService, _apiController, _performanceCollectorService);
     }
 }

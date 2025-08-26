@@ -16,14 +16,14 @@ public sealed class IpcCallerMoodles : IIpcCaller
     private readonly ICallGateSubscriber<nint, object> _moodlesRevertStatus;
     private readonly ILogger<IpcCallerMoodles> _logger;
     private readonly DalamudUtilService _dalamudUtil;
-    private readonly LightlessMediator _lightlessMediator;
+    private readonly OnlyMareMediator _onlymareMediator;
 
     public IpcCallerMoodles(ILogger<IpcCallerMoodles> logger, IDalamudPluginInterface pi, DalamudUtilService dalamudUtil,
-        LightlessMediator lightlessMediator)
+        OnlyMareMediator onlymareMediator)
     {
         _logger = logger;
         _dalamudUtil = dalamudUtil;
-        _lightlessMediator = lightlessMediator;
+        _onlymareMediator = onlymareMediator;
 
         _moodlesApiVersion = pi.GetIpcSubscriber<int>("Moodles.Version");
         _moodlesOnChange = pi.GetIpcSubscriber<IPlayerCharacter, object>("Moodles.StatusManagerModified");
@@ -38,7 +38,7 @@ public sealed class IpcCallerMoodles : IIpcCaller
 
     private void OnMoodlesChange(IPlayerCharacter character)
     {
-        _lightlessMediator.Publish(new MoodlesMessage(character.Address));
+        _onlymareMediator.Publish(new MoodlesMessage(character.Address));
     }
 
     public bool APIAvailable { get; private set; } = false;

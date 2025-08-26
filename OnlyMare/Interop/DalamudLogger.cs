@@ -1,5 +1,5 @@
 ﻿using Dalamud.Plugin.Services;
-using OnlyMare.LightlessConfiguration;
+using OnlyMare.OnlyMareConfiguration;
 using Microsoft.Extensions.Logging;
 using System.Text;
 
@@ -7,15 +7,15 @@ namespace OnlyMare.Interop;
 
 internal sealed class DalamudLogger : ILogger
 {
-    private readonly LightlessConfigService _lightlessConfigService;
+    private readonly OnlyMareConfigService _onlymareConfigService;
     private readonly string _name;
     private readonly IPluginLog _pluginLog;
     private readonly bool _hasModifiedGameFiles;
 
-    public DalamudLogger(string name, LightlessConfigService lightlessConfigService, IPluginLog pluginLog, bool hasModifiedGameFiles)
+    public DalamudLogger(string name, OnlyMareConfigService onlymareConfigService, IPluginLog pluginLog, bool hasModifiedGameFiles)
     {
         _name = name;
-        _lightlessConfigService = lightlessConfigService;
+        _onlymareConfigService = onlymareConfigService;
         _pluginLog = pluginLog;
         _hasModifiedGameFiles = hasModifiedGameFiles;
     }
@@ -24,7 +24,7 @@ internal sealed class DalamudLogger : ILogger
 
     public bool IsEnabled(LogLevel logLevel)
     {
-        return (int)_lightlessConfigService.Current.LogLevel <= (int)logLevel;
+        return (int)_onlymareConfigService.Current.LogLevel <= (int)logLevel;
     }
 
     public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)

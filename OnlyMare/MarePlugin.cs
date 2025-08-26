@@ -1,5 +1,5 @@
 ﻿using OnlyMare.FileCache;
-using OnlyMare.LightlessConfiguration;
+using OnlyMare.OnlyMareConfiguration;
 using OnlyMare.PlayerData.Pairs;
 using OnlyMare.PlayerData.Services;
 using OnlyMare.Services;
@@ -67,21 +67,21 @@ namespace OnlyMare;
 #pragma warning restore S125 // Sections of code should not be commented out
 // thank you dark 🙏
 
-public class LightlessPlugin : MediatorSubscriberBase, IHostedService
+public class OnlyMarePlugin : MediatorSubscriberBase, IHostedService
 {
     private readonly DalamudUtilService _dalamudUtil;
-    private readonly LightlessConfigService _lightlessConfigService;
+    private readonly OnlyMareConfigService _onlymareConfigService;
     private readonly ServerConfigurationManager _serverConfigurationManager;
     private readonly IServiceScopeFactory _serviceScopeFactory;
     private IServiceScope? _runtimeServiceScope;
     private Task? _launchTask = null;
 
-    public LightlessPlugin(ILogger<LightlessPlugin> logger, LightlessConfigService lightlessConfigService,
+    public OnlyMarePlugin(ILogger<OnlyMarePlugin> logger, OnlyMareConfigService onlymareConfigService,
         ServerConfigurationManager serverConfigurationManager,
         DalamudUtilService dalamudUtil,
-        IServiceScopeFactory serviceScopeFactory, LightlessMediator mediator) : base(logger, mediator)
+        IServiceScopeFactory serviceScopeFactory, OnlyMareMediator mediator) : base(logger, mediator)
     {
-        _lightlessConfigService = lightlessConfigService;
+        _onlymareConfigService = onlymareConfigService;
         _serverConfigurationManager = serverConfigurationManager;
         _dalamudUtil = dalamudUtil;
         _serviceScopeFactory = serviceScopeFactory;
@@ -90,9 +90,9 @@ public class LightlessPlugin : MediatorSubscriberBase, IHostedService
     public Task StartAsync(CancellationToken cancellationToken)
     {
         var version = Assembly.GetExecutingAssembly().GetName().Version!;
-        Logger.LogInformation("Launching {name} {major}.{minor}.{build}", "Lightless Sync", version.Major, version.Minor, version.Build);
-        Mediator.Publish(new EventMessage(new Services.Events.Event(nameof(LightlessPlugin), Services.Events.EventSeverity.Informational,
-            $"Starting Lightless Sync {version.Major}.{version.Minor}.{version.Build}")));
+        Logger.LogInformation("Launching {name} {major}.{minor}.{build}", "OnlyMare", version.Major, version.Minor, version.Build);
+        Mediator.Publish(new EventMessage(new Services.Events.Event(nameof(OnlyMarePlugin), Services.Events.EventSeverity.Informational,
+            $"Starting OnlyMare {version.Major}.{version.Minor}.{version.Build}")));
 
         Mediator.Subscribe<SwitchToMainUiMessage>(this, (msg) => { if (_launchTask == null || _launchTask.IsCompleted) _launchTask = Task.Run(WaitForPlayerAndLaunchCharacterManager); });
         Mediator.Subscribe<DalamudLoginMessage>(this, (_) => DalamudUtilOnLogIn());
@@ -109,7 +109,7 @@ public class LightlessPlugin : MediatorSubscriberBase, IHostedService
 
         DalamudUtilOnLogOut();
 
-        Logger.LogDebug("Halting LightlessPlugin");
+        Logger.LogDebug("Halting OnlyMarePlugin");
 
         return Task.CompletedTask;
     }
@@ -142,7 +142,7 @@ public class LightlessPlugin : MediatorSubscriberBase, IHostedService
             _runtimeServiceScope = _serviceScopeFactory.CreateScope();
             _runtimeServiceScope.ServiceProvider.GetRequiredService<UiService>();
             _runtimeServiceScope.ServiceProvider.GetRequiredService<CommandManagerService>();
-            if (!_lightlessConfigService.Current.HasValidSetup() || !_serverConfigurationManager.HasValidConfig())
+            if (!_onlymareConfigService.Current.HasValidSetup() || !_serverConfigurationManager.HasValidConfig())
             {
                 Mediator.Publish(new SwitchToIntroUiMessage());
                 return;
@@ -153,11 +153,11 @@ public class LightlessPlugin : MediatorSubscriberBase, IHostedService
             _runtimeServiceScope.ServiceProvider.GetRequiredService<NotificationService>();
 
 #if !DEBUG
-            if (_lightlessConfigService.Current.LogLevel != LogLevel.Information)
+            if (_onlymareConfigService.Current.LogLevel != LogLevel.Information)
             {
                 Mediator.Publish(new NotificationMessage("Abnormal Log Level",
-                    $"Your log level is set to '{_lightlessConfigService.Current.LogLevel}' which is not recommended for normal usage. Set it to '{LogLevel.Information}' in \"Lightless Settings -> Debug\" unless instructed otherwise.",
-                    LightlessConfiguration.Models.NotificationType.Error, TimeSpan.FromSeconds(15000)));
+                    $"Your log level is set to '{_onlymareConfigService.Current.LogLevel}' which is not recommended for normal usage. Set it to '{LogLevel.Information}' in \"OnlyMare Settings -> Debug\" unless instructed otherwise.",
+                    OnlyMareConfiguration.Models.NotificationType.Error, TimeSpan.FromSeconds(15000)));
             }
 #endif
         }

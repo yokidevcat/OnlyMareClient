@@ -2,5 +2,5 @@
 
 public interface IMediatorSubscriber
 {
-    LightlessMediator Mediator { get; }
+    OnlyMareMediator Mediator { get; }
 }

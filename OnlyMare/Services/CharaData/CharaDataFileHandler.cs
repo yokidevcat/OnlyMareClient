@@ -22,7 +22,7 @@ public sealed class CharaDataFileHandler : IDisposable
     private readonly FileUploadManager _fileUploadManager;
     private readonly GameObjectHandlerFactory _gameObjectHandlerFactory;
     private readonly ILogger<CharaDataFileHandler> _logger;
-    private readonly LightlessCharaFileDataFactory _lightlessCharaFileDataFactory;
+    private readonly OnlyMareCharaFileDataFactory _onlymareCharaFileDataFactory;
     private readonly PlayerDataFactory _playerDataFactory;
     private int _globalFileCounter = 0;
 
@@ -36,7 +36,7 @@ public sealed class CharaDataFileHandler : IDisposable
         _dalamudUtilService = dalamudUtilService;
         _gameObjectHandlerFactory = gameObjectHandlerFactory;
         _playerDataFactory = playerDataFactory;
-        _lightlessCharaFileDataFactory = new(fileCacheManager);
+        _onlymareCharaFileDataFactory = new(fileCacheManager);
     }
 
     public void ComputeMissingFiles(CharaDataDownloadDto charaDataDownloadDto, out Dictionary<string, string> modPaths, out List<FileReplacementData> missingFiles)
@@ -132,16 +132,16 @@ public sealed class CharaDataFileHandler : IDisposable
         }
     }
 
-    public Task<(LightlessCharaFileHeader loadedCharaFile, long expectedLength)> LoadCharaFileHeader(string filePath)
+    public Task<(OnlyMareCharaFileHeader loadedCharaFile, long expectedLength)> LoadCharaFileHeader(string filePath)
     {
         try
         {
             using var unwrapped = File.OpenRead(filePath);
             using var lz4Stream = new LZ4Stream(unwrapped, LZ4StreamMode.Decompress, LZ4StreamFlags.HighCompression);
             using var reader = new BinaryReader(lz4Stream);
-            var loadedCharaFile = LightlessCharaFileHeader.FromBinaryReader(filePath, reader);
+            var loadedCharaFile = OnlyMareCharaFileHeader.FromBinaryReader(filePath, reader);
 
-            _logger.LogInformation("Read Lightless Chara File");
+            _logger.LogInformation("Read OnlyMare Chara File");
             _logger.LogInformation("Version: {ver}", (loadedCharaFile?.Version ?? -1));
             long expectedLength = 0;
             if (loadedCharaFile != null)
@@ -181,19 +181,19 @@ public sealed class CharaDataFileHandler : IDisposable
         }
     }
 
-    public Dictionary<string, string> McdfExtractFiles(LightlessCharaFileHeader? charaFileHeader, long expectedLength, List<string> extractedFiles)
+    public Dictionary<string, string> McdfExtractFiles(OnlyMareCharaFileHeader? charaFileHeader, long expectedLength, List<string> extractedFiles)
     {
         if (charaFileHeader == null) return [];
 
         using var lz4Stream = new LZ4Stream(File.OpenRead(charaFileHeader.FilePath), LZ4StreamMode.Decompress, LZ4StreamFlags.HighCompression);
         using var reader = new BinaryReader(lz4Stream);
-        LightlessCharaFileHeader.AdvanceReaderToData(reader);
+        OnlyMareCharaFileHeader.AdvanceReaderToData(reader);
 
         long totalRead = 0;
         Dictionary<string, string> gamePathToFilePath = new(StringComparer.Ordinal);
         foreach (var fileData in charaFileHeader.CharaFileData.Files)
         {
-            var fileName = Path.Combine(_fileCacheManager.CacheFolder, "lightless_" + _globalFileCounter++ + ".tmp");
+            var fileName = Path.Combine(_fileCacheManager.CacheFolder, "onlymare_" + _globalFileCounter++ + ".tmp");
             extractedFiles.Add(fileName);
             var length = fileData.Length;
             var bufferSize = length;
@@ -256,8 +256,8 @@ public sealed class CharaDataFileHandler : IDisposable
             var data = await CreatePlayerData().ConfigureAwait(false);
             if (data == null) return;
 
-            var lightlessCharaFileData = _lightlessCharaFileDataFactory.Create(description, data);
-            LightlessCharaFileHeader output = new(LightlessCharaFileHeader.CurrentVersion, lightlessCharaFileData);
+            var onlymareCharaFileData = _onlymareCharaFileDataFactory.Create(description, data);
+            OnlyMareCharaFileHeader output = new(OnlyMareCharaFileHeader.CurrentVersion, onlymareCharaFileData);
 
             using var fs = new FileStream(tempFilePath, FileMode.Create, FileAccess.ReadWrite, FileShare.None);
             using var lz4 = new LZ4Stream(fs, LZ4StreamMode.Compress, LZ4StreamFlags.HighCompression);
@@ -291,7 +291,7 @@ public sealed class CharaDataFileHandler : IDisposable
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failure Saving Lightless Chara File, deleting output");
+            _logger.LogError(ex, "Failure Saving OnlyMare Chara File, deleting output");
             File.Delete(tempFilePath);
         }
     }

@@ -1,5 +1,5 @@
 ﻿using OnlyMare.API.Dto.Group;
-using OnlyMare.LightlessConfiguration;
+using OnlyMare.OnlyMareConfiguration;
 using OnlyMare.PlayerData.Pairs;
 using OnlyMare.Services;
 using OnlyMare.Services.Mediator;
@@ -16,7 +16,7 @@ public class DrawEntityFactory
 {
     private readonly ILogger<DrawEntityFactory> _logger;
     private readonly ApiController _apiController;
-    private readonly LightlessMediator _mediator;
+    private readonly OnlyMareMediator _mediator;
     private readonly SelectPairForTagUi _selectPairForTagUi;
     private readonly ServerConfigurationManager _serverConfigurationManager;
     private readonly UiSharedService _uiSharedService;
@@ -27,7 +27,7 @@ public class DrawEntityFactory
     private readonly IdDisplayHandler _uidDisplayHandler;
 
     public DrawEntityFactory(ILogger<DrawEntityFactory> logger, ApiController apiController, IdDisplayHandler uidDisplayHandler,
-        SelectTagForPairUi selectTagForPairUi, LightlessMediator mediator,
+        SelectTagForPairUi selectTagForPairUi, OnlyMareMediator mediator,
         TagHandler tagHandler, SelectPairForTagUi selectPairForTagUi,
         ServerConfigurationManager serverConfigurationManager, UiSharedService uiSharedService,
         PlayerPerformanceConfigService playerPerformanceConfigService, CharaDataManager charaDataManager)

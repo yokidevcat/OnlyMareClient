@@ -2,8 +2,8 @@
 using Dalamud.Game.Text.SeStringHandling;
 using Dalamud.Game.Text.SeStringHandling.Payloads;
 using Dalamud.Plugin.Services;
-using OnlyMare.LightlessConfiguration;
-using OnlyMare.LightlessConfiguration.Configurations;
+using OnlyMare.OnlyMareConfiguration;
+using OnlyMare.OnlyMareConfiguration.Configurations;
 using OnlyMare.PlayerData.Pairs;
 using OnlyMare.Services.Mediator;
 using OnlyMare.WebAPI;
@@ -17,24 +17,24 @@ public sealed class DtrEntry : IDisposable, IHostedService
 {
     private readonly ApiController _apiController;
     private readonly CancellationTokenSource _cancellationTokenSource = new();
-    private readonly ConfigurationServiceBase<LightlessConfig> _configService;
+    private readonly ConfigurationServiceBase<OnlyMareConfig> _configService;
     private readonly IDtrBar _dtrBar;
     private readonly Lazy<IDtrBarEntry> _entry;
     private readonly ILogger<DtrEntry> _logger;
-    private readonly LightlessMediator _lightlessMediator;
+    private readonly OnlyMareMediator _onlymareMediator;
     private readonly PairManager _pairManager;
     private Task? _runTask;
     private string? _text;
     private string? _tooltip;
     private Colors _colors;
 
-    public DtrEntry(ILogger<DtrEntry> logger, IDtrBar dtrBar, ConfigurationServiceBase<LightlessConfig> configService, LightlessMediator lightlessMediator, PairManager pairManager, ApiController apiController)
+    public DtrEntry(ILogger<DtrEntry> logger, IDtrBar dtrBar, ConfigurationServiceBase<OnlyMareConfig> configService, OnlyMareMediator onlymareMediator, PairManager pairManager, ApiController apiController)
     {
         _logger = logger;
         _dtrBar = dtrBar;
         _entry = new(CreateEntry);
         _configService = configService;
-        _lightlessMediator = lightlessMediator;
+        _onlymareMediator = onlymareMediator;
         _pairManager = pairManager;
         _apiController = apiController;
     }
@@ -88,8 +88,8 @@ public sealed class DtrEntry : IDisposable, IHostedService
     private IDtrBarEntry CreateEntry()
     {
         _logger.LogTrace("Creating new DtrBar entry");
-        var entry = _dtrBar.Get("Lightless Sync");
-        entry.OnClick = _ => _lightlessMediator.Publish(new UiToggleMessage(typeof(CompactUi)));
+        var entry = _dtrBar.Get("OnlyMare");
+        entry.OnClick = _ => _onlymareMediator.Publish(new UiToggleMessage(typeof(CompactUi)));
 
         return entry;
     }
@@ -146,19 +146,19 @@ public sealed class DtrEntry : IDisposable, IHostedService
                         .Select(x => string.Format("{0}", _configService.Current.PreferNoteInDtrTooltip ? x.GetNote() ?? x.PlayerName : x.PlayerName));
                 }
 
-                tooltip = $"Lightless Sync: Connected{Environment.NewLine}----------{Environment.NewLine}{string.Join(Environment.NewLine, visiblePairs)}";
+                tooltip = $"OnlyMare: Connected{Environment.NewLine}----------{Environment.NewLine}{string.Join(Environment.NewLine, visiblePairs)}";
                 colors = _configService.Current.DtrColorsPairsInRange;
             }
             else
             {
-                tooltip = "Lightless Sync: Connected";
+                tooltip = "OnlyMare: Connected";
                 colors = _configService.Current.DtrColorsDefault;
             }
         }
         else
         {
             text = "\uE044 \uE04C";
-            tooltip = "Lightless Sync: Not Connected";
+            tooltip = "OnlyMare: Not Connected";
             colors = _configService.Current.DtrColorsNotConnected;
         }
 

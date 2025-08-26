@@ -9,7 +9,7 @@ namespace OnlyMare.Interop.Ipc;
 public sealed class IpcCallerHeels : IIpcCaller
 {
     private readonly ILogger<IpcCallerHeels> _logger;
-    private readonly LightlessMediator _lightlessMediator;
+    private readonly OnlyMareMediator _onlymareMediator;
     private readonly DalamudUtilService _dalamudUtil;
     private readonly ICallGateSubscriber<(int, int)> _heelsGetApiVersion;
     private readonly ICallGateSubscriber<string> _heelsGetOffset;
@@ -17,10 +17,10 @@ public sealed class IpcCallerHeels : IIpcCaller
     private readonly ICallGateSubscriber<int, string, object?> _heelsRegisterPlayer;
     private readonly ICallGateSubscriber<int, object?> _heelsUnregisterPlayer;
 
-    public IpcCallerHeels(ILogger<IpcCallerHeels> logger, IDalamudPluginInterface pi, DalamudUtilService dalamudUtil, LightlessMediator lightlessMediator)
+    public IpcCallerHeels(ILogger<IpcCallerHeels> logger, IDalamudPluginInterface pi, DalamudUtilService dalamudUtil, OnlyMareMediator onlymareMediator)
     {
         _logger = logger;
-        _lightlessMediator = lightlessMediator;
+        _onlymareMediator = onlymareMediator;
         _dalamudUtil = dalamudUtil;
         _heelsGetApiVersion = pi.GetIpcSubscriber<(int, int)>("SimpleHeels.ApiVersion");
         _heelsGetOffset = pi.GetIpcSubscriber<string>("SimpleHeels.GetLocalPlayer");
@@ -37,7 +37,7 @@ public sealed class IpcCallerHeels : IIpcCaller
 
     private void HeelsOffsetChange(string offset)
     {
-        _lightlessMediator.Publish(new HeelsOffsetMessage());
+        _onlymareMediator.Publish(new HeelsOffsetMessage());
     }
 
     public async Task<string> GetOffsetAsync()

@@ -10,21 +10,21 @@ public class GameObjectHandlerFactory
 {
     private readonly DalamudUtilService _dalamudUtilService;
     private readonly ILoggerFactory _loggerFactory;
-    private readonly LightlessMediator _lightlessMediator;
+    private readonly OnlyMareMediator _onlymareMediator;
     private readonly PerformanceCollectorService _performanceCollectorService;
 
-    public GameObjectHandlerFactory(ILoggerFactory loggerFactory, PerformanceCollectorService performanceCollectorService, LightlessMediator lightlessMediator,
+    public GameObjectHandlerFactory(ILoggerFactory loggerFactory, PerformanceCollectorService performanceCollectorService, OnlyMareMediator onlymareMediator,
         DalamudUtilService dalamudUtilService)
     {
         _loggerFactory = loggerFactory;
         _performanceCollectorService = performanceCollectorService;
-        _lightlessMediator = lightlessMediator;
+        _onlymareMediator = onlymareMediator;
         _dalamudUtilService = dalamudUtilService;
     }
 
     public async Task<GameObjectHandler> Create(ObjectKind objectKind, Func<nint> getAddressFunc, bool isWatched = false)
     {
         return await _dalamudUtilService.RunOnFrameworkThread(() => new GameObjectHandler(_loggerFactory.CreateLogger<GameObjectHandler>(),
-            _performanceCollectorService, _lightlessMediator, _dalamudUtilService, objectKind, getAddressFunc, isWatched)).ConfigureAwait(false);
+            _performanceCollectorService, _onlymareMediator, _dalamudUtilService, objectKind, getAddressFunc, isWatched)).ConfigureAwait(false);
     }
 }

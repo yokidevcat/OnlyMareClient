@@ -4,12 +4,12 @@ namespace OnlyMare.UI.Handlers;
 
 public class TagHandler
 {
-    public const string CustomAllTag = "Lightless_All";
-    public const string CustomOfflineTag = "Lightless_Offline";
-    public const string CustomOfflineSyncshellTag = "Lightless_OfflineSyncshell";
-    public const string CustomOnlineTag = "Lightless_Online";
-    public const string CustomUnpairedTag = "Lightless_Unpaired";
-    public const string CustomVisibleTag = "Lightless_Visible";
+    public const string CustomAllTag = "OnlyMare_All";
+    public const string CustomOfflineTag = "OnlyMare_Offline";
+    public const string CustomOfflineSyncshellTag = "OnlyMare_OfflineSyncshell";
+    public const string CustomOnlineTag = "OnlyMare_Online";
+    public const string CustomUnpairedTag = "OnlyMare_Unpaired";
+    public const string CustomVisibleTag = "OnlyMare_Visible";
     private readonly ServerConfigurationManager _serverConfigurationManager;
 
     public TagHandler(ServerConfigurationManager serverConfigurationManager)

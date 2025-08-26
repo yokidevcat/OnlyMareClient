@@ -1,11 +1,11 @@
-﻿using OnlyMare.LightlessConfiguration.Models;
+﻿using OnlyMare.OnlyMareConfiguration.Models;
 using OnlyMare.UI;
 using Microsoft.Extensions.Logging;
 
-namespace OnlyMare.LightlessConfiguration.Configurations;
+namespace OnlyMare.OnlyMareConfiguration.Configurations;
 
 [Serializable]
-public class LightlessConfig : ILightlessConfiguration
+public class OnlyMareConfig : IOnlyMareConfiguration
 {
     public bool AcceptedAgreement { get; set; } = false;
     public string CacheFolder { get; set; } = string.Empty;

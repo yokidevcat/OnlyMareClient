@@ -1,11 +1,11 @@
 ﻿namespace OnlyMare.Services.CharaData.Models;
 
-public record LightlessCharaFileHeader(byte Version, LightlessCharaFileData CharaFileData)
+public record OnlyMareCharaFileHeader(byte Version, OnlyMareCharaFileData CharaFileData)
 {
     public static readonly byte CurrentVersion = 1;
 
     public byte Version { get; set; } = Version;
-    public LightlessCharaFileData CharaFileData { get; set; } = CharaFileData;
+    public OnlyMareCharaFileData CharaFileData { get; set; } = CharaFileData;
     public string FilePath { get; private set; } = string.Empty;
 
     public void WriteToStream(BinaryWriter writer)
@@ -20,19 +20,19 @@ public record LightlessCharaFileHeader(byte Version, LightlessCharaFileData Char
         writer.Write(charaFileDataArray);
     }
 
-    public static LightlessCharaFileHeader? FromBinaryReader(string path, BinaryReader reader)
+    public static OnlyMareCharaFileHeader? FromBinaryReader(string path, BinaryReader reader)
     {
         var chars = new string(reader.ReadChars(4));
-        if (!string.Equals(chars, "MCDF", StringComparison.Ordinal)) throw new InvalidDataException("Not a Lightless Chara File");
+        if (!string.Equals(chars, "MCDF", StringComparison.Ordinal)) throw new InvalidDataException("Not a OnlyMare Chara File");
 
-        LightlessCharaFileHeader? decoded = null;
+        OnlyMareCharaFileHeader? decoded = null;
 
         var version = reader.ReadByte();
         if (version == 1)
         {
             var dataLength = reader.ReadInt32();
 
-            decoded = new(version, LightlessCharaFileData.FromByteArray(reader.ReadBytes(dataLength)))
+            decoded = new(version, OnlyMareCharaFileData.FromByteArray(reader.ReadBytes(dataLength)))
             {
                 FilePath = path,
             };

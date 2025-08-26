@@ -13,7 +13,7 @@ using FFXIVClientStructs.FFXIV.Client.UI.Agent;
 using Lumina.Excel.Sheets;
 using OnlyMare.API.Dto.CharaData;
 using OnlyMare.Interop;
-using OnlyMare.LightlessConfiguration;
+using OnlyMare.OnlyMareConfiguration;
 using OnlyMare.PlayerData.Handlers;
 using OnlyMare.Services.Mediator;
 using OnlyMare.Utils;
@@ -39,7 +39,7 @@ public class DalamudUtilService : IHostedService, IMediatorSubscriber
     private readonly ILogger<DalamudUtilService> _logger;
     private readonly IObjectTable _objectTable;
     private readonly PerformanceCollectorService _performanceCollector;
-    private readonly LightlessConfigService _configService;
+    private readonly OnlyMareConfigService _configService;
     private uint? _classJobId = 0;
     private DateTime _delayedFrameworkUpdateCheck = DateTime.UtcNow;
     private string _lastGlobalBlockPlayer = string.Empty;
@@ -52,8 +52,8 @@ public class DalamudUtilService : IHostedService, IMediatorSubscriber
 
     public DalamudUtilService(ILogger<DalamudUtilService> logger, IClientState clientState, IObjectTable objectTable, IFramework framework,
         IGameGui gameGui, ICondition condition, IDataManager gameData, ITargetManager targetManager, IGameConfig gameConfig,
-        BlockedCharacterHandler blockedCharacterHandler, LightlessMediator mediator, PerformanceCollectorService performanceCollector,
-        LightlessConfigService configService)
+        BlockedCharacterHandler blockedCharacterHandler, OnlyMareMediator mediator, PerformanceCollectorService performanceCollector,
+        OnlyMareConfigService configService)
     {
         _logger = logger;
         _clientState = clientState;
@@ -169,7 +169,7 @@ public class DalamudUtilService : IHostedService, IMediatorSubscriber
     public Lazy<Dictionary<uint, string>> TerritoryData { get; private set; }
     public Lazy<Dictionary<uint, (Map Map, string MapName)>> MapData { get; private set; }
     public bool IsLodEnabled { get; private set; }
-    public LightlessMediator Mediator { get; }
+    public OnlyMareMediator Mediator { get; }
 
     public IGameObject? CreateGameObject(IntPtr reference)
     {

@@ -1,9 +1,9 @@
 ﻿using OnlyMare.API.Data.Enum;
-using OnlyMare.LightlessConfiguration.Configurations;
+using OnlyMare.OnlyMareConfiguration.Configurations;
 
-namespace OnlyMare.LightlessConfiguration.Configurations;
+namespace OnlyMare.OnlyMareConfiguration.Configurations;
 
-public class TransientConfig : ILightlessConfiguration
+public class TransientConfig : IOnlyMareConfiguration
 {
     public Dictionary<string, TransientPlayerConfig> TransientConfigs { get; set; } = [];
     public int Version { get; set; } = 1;

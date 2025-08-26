@@ -1,5 +1,5 @@
 ﻿using OnlyMare.Interop.Ipc;
-using OnlyMare.LightlessConfiguration;
+using OnlyMare.OnlyMareConfiguration;
 using OnlyMare.Services;
 using OnlyMare.Services.Mediator;
 using OnlyMare.Utils;
@@ -11,7 +11,7 @@ namespace OnlyMare.FileCache;
 
 public sealed class CacheMonitor : DisposableMediatorSubscriberBase
 {
-    private readonly LightlessConfigService _configService;
+    private readonly OnlyMareConfigService _configService;
     private readonly DalamudUtilService _dalamudUtil;
     private readonly FileCompactor _fileCompactor;
     private readonly FileCacheManager _fileDbManager;
@@ -22,8 +22,8 @@ public sealed class CacheMonitor : DisposableMediatorSubscriberBase
     private readonly CancellationTokenSource _periodicCalculationTokenSource = new();
     public static readonly IImmutableList<string> AllowedFileExtensions = [".mdl", ".tex", ".mtrl", ".tmb", ".pap", ".avfx", ".atex", ".sklb", ".eid", ".phyb", ".pbd", ".scd", ".skp", ".shpk"];
 
-    public CacheMonitor(ILogger<CacheMonitor> logger, IpcManager ipcManager, LightlessConfigService configService,
-        FileCacheManager fileDbManager, LightlessMediator mediator, PerformanceCollectorService performanceCollector, DalamudUtilService dalamudUtil,
+    public CacheMonitor(ILogger<CacheMonitor> logger, IpcManager ipcManager, OnlyMareConfigService configService,
+        FileCacheManager fileDbManager, OnlyMareMediator mediator, PerformanceCollectorService performanceCollector, DalamudUtilService dalamudUtil,
         FileCompactor fileCompactor) : base(logger, mediator)
     {
         _ipcManager = ipcManager;
@@ -35,14 +35,14 @@ public sealed class CacheMonitor : DisposableMediatorSubscriberBase
         Mediator.Subscribe<PenumbraInitializedMessage>(this, (_) =>
         {
             StartPenumbraWatcher(_ipcManager.Penumbra.ModDirectory);
-            StartLightlessWatcher(configService.Current.CacheFolder);
+            StartOnlyMareWatcher(configService.Current.CacheFolder);
             InvokeScan();
         });
         Mediator.Subscribe<HaltScanMessage>(this, (msg) => HaltScan(msg.Source));
         Mediator.Subscribe<ResumeScanMessage>(this, (msg) => ResumeScan(msg.Source));
         Mediator.Subscribe<DalamudLoginMessage>(this, (_) =>
         {
-            StartLightlessWatcher(configService.Current.CacheFolder);
+            StartOnlyMareWatcher(configService.Current.CacheFolder);
             StartPenumbraWatcher(_ipcManager.Penumbra.ModDirectory);
             InvokeScan();
         });
@@ -57,7 +57,7 @@ public sealed class CacheMonitor : DisposableMediatorSubscriberBase
         }
         if (configService.Current.HasValidSetup())
         {
-            StartLightlessWatcher(configService.Current.CacheFolder);
+            StartOnlyMareWatcher(configService.Current.CacheFolder);
             InvokeScan();
         }
 
@@ -102,37 +102,37 @@ public sealed class CacheMonitor : DisposableMediatorSubscriberBase
 
     record WatcherChange(WatcherChangeTypes ChangeType, string? OldPath = null);
     private readonly Dictionary<string, WatcherChange> _watcherChanges = new Dictionary<string, WatcherChange>(StringComparer.OrdinalIgnoreCase);
-    private readonly Dictionary<string, WatcherChange> _lightlessChanges = new Dictionary<string, WatcherChange>(StringComparer.OrdinalIgnoreCase);
+    private readonly Dictionary<string, WatcherChange> _onlymareChanges = new Dictionary<string, WatcherChange>(StringComparer.OrdinalIgnoreCase);
 
     public void StopMonitoring()
     {
-        Logger.LogInformation("Stopping monitoring of Penumbra and Lightless storage folders");
-        LightlessWatcher?.Dispose();
+        Logger.LogInformation("Stopping monitoring of Penumbra and OnlyMare storage folders");
+        OnlyMareWatcher?.Dispose();
         PenumbraWatcher?.Dispose();
-        LightlessWatcher = null;
+        OnlyMareWatcher = null;
         PenumbraWatcher = null;
     }
 
     public bool StorageisNTFS { get; private set; } = false;
 
-    public void StartLightlessWatcher(string? lightlessPath)
+    public void StartOnlyMareWatcher(string? onlymarePath)
     {
-        LightlessWatcher?.Dispose();
-        if (string.IsNullOrEmpty(lightlessPath) || !Directory.Exists(lightlessPath))
+        OnlyMareWatcher?.Dispose();
+        if (string.IsNullOrEmpty(onlymarePath) || !Directory.Exists(onlymarePath))
         {
-            LightlessWatcher = null;
-            Logger.LogWarning("Lightless file path is not set, cannot start the FSW for Lightless.");
+            OnlyMareWatcher = null;
+            Logger.LogWarning("OnlyMare file path is not set, cannot start the FSW for OnlyMare.");
             return;
         }
 
         DriveInfo di = new(new DirectoryInfo(_configService.Current.CacheFolder).Root.FullName);
         StorageisNTFS = string.Equals("NTFS", di.DriveFormat, StringComparison.OrdinalIgnoreCase);
-        Logger.LogInformation("Lightless Storage is on NTFS drive: {isNtfs}", StorageisNTFS);
+        Logger.LogInformation("OnlyMare Storage is on NTFS drive: {isNtfs}", StorageisNTFS);
 
-        Logger.LogDebug("Initializing Lightless FSW on {path}", lightlessPath);
-        LightlessWatcher = new()
+        Logger.LogDebug("Initializing OnlyMare FSW on {path}", onlymarePath);
+        OnlyMareWatcher = new()
         {
-            Path = lightlessPath,
+            Path = onlymarePath,
             InternalBufferSize = 8388608,
             NotifyFilter = NotifyFilters.CreationTime
                 | NotifyFilters.LastWrite
@@ -143,23 +143,23 @@ public sealed class CacheMonitor : DisposableMediatorSubscriberBase
             IncludeSubdirectories = false,
         };
 
-        LightlessWatcher.Deleted += LightlessWatcher_FileChanged;
-        LightlessWatcher.Created += LightlessWatcher_FileChanged;
-        LightlessWatcher.EnableRaisingEvents = true;
+        OnlyMareWatcher.Deleted += OnlyMareWatcher_FileChanged;
+        OnlyMareWatcher.Created += OnlyMareWatcher_FileChanged;
+        OnlyMareWatcher.EnableRaisingEvents = true;
     }
 
-    private void LightlessWatcher_FileChanged(object sender, FileSystemEventArgs e)
+    private void OnlyMareWatcher_FileChanged(object sender, FileSystemEventArgs e)
     {
-        Logger.LogTrace("Lightless FSW: FileChanged: {change} => {path}", e.ChangeType, e.FullPath);
+        Logger.LogTrace("OnlyMare FSW: FileChanged: {change} => {path}", e.ChangeType, e.FullPath);
 
         if (!AllowedFileExtensions.Any(ext => e.FullPath.EndsWith(ext, StringComparison.OrdinalIgnoreCase))) return;
 
         lock (_watcherChanges)
         {
-            _lightlessChanges[e.FullPath] = new(e.ChangeType);
+            _onlymareChanges[e.FullPath] = new(e.ChangeType);
         }
 
-        _ = LightlessWatcherExecution();
+        _ = OnlyMareWatcherExecution();
     }
 
     public void StartPenumbraWatcher(string? penumbraPath)
@@ -247,18 +247,18 @@ public sealed class CacheMonitor : DisposableMediatorSubscriberBase
     }
 
     private CancellationTokenSource _penumbraFswCts = new();
-    private CancellationTokenSource _lightlessFswCts = new();
+    private CancellationTokenSource _onlymareFswCts = new();
     public FileSystemWatcher? PenumbraWatcher { get; private set; }
-    public FileSystemWatcher? LightlessWatcher { get; private set; }
+    public FileSystemWatcher? OnlyMareWatcher { get; private set; }
 
-    private async Task LightlessWatcherExecution()
+    private async Task OnlyMareWatcherExecution()
     {
-        _lightlessFswCts = _lightlessFswCts.CancelRecreate();
-        var token = _lightlessFswCts.Token;
+        _onlymareFswCts = _onlymareFswCts.CancelRecreate();
+        var token = _onlymareFswCts.Token;
         var delay = TimeSpan.FromSeconds(5);
         Dictionary<string, WatcherChange> changes;
-        lock (_lightlessChanges)
-            changes = _lightlessChanges.ToDictionary(t => t.Key, t => t.Value, StringComparer.Ordinal);
+        lock (_onlymareChanges)
+            changes = _onlymareChanges.ToDictionary(t => t.Key, t => t.Value, StringComparer.Ordinal);
         try
         {
             do
@@ -271,11 +271,11 @@ public sealed class CacheMonitor : DisposableMediatorSubscriberBase
             return;
         }
 
-        lock (_lightlessChanges)
+        lock (_onlymareChanges)
         {
             foreach (var key in changes.Keys)
             {
-                _lightlessChanges.Remove(key);
+                _onlymareChanges.Remove(key);
             }
         }
 
@@ -458,9 +458,9 @@ public sealed class CacheMonitor : DisposableMediatorSubscriberBase
         base.Dispose(disposing);
         _scanCancellationTokenSource?.Cancel();
         PenumbraWatcher?.Dispose();
-        LightlessWatcher?.Dispose();
+        OnlyMareWatcher?.Dispose();
         _penumbraFswCts?.CancelDispose();
-        _lightlessFswCts?.CancelDispose();
+        _onlymareFswCts?.CancelDispose();
         _periodicCalculationTokenSource?.CancelDispose();
     }
 
@@ -478,7 +478,7 @@ public sealed class CacheMonitor : DisposableMediatorSubscriberBase
         if (string.IsNullOrEmpty(_configService.Current.CacheFolder) || !Directory.Exists(_configService.Current.CacheFolder))
         {
             cacheDirExists = false;
-            Logger.LogWarning("Lightless Cache directory is not set or does not exist.");
+            Logger.LogWarning("OnlyMare Cache directory is not set or does not exist.");
         }
         if (!penDirExists || !cacheDirExists)
         {
@@ -681,7 +681,7 @@ public sealed class CacheMonitor : DisposableMediatorSubscriberBase
         {
             _configService.Current.InitialScanComplete = true;
             _configService.Save();
-            StartLightlessWatcher(_configService.Current.CacheFolder);
+            StartOnlyMareWatcher(_configService.Current.CacheFolder);
             StartPenumbraWatcher(penumbraDir);
         }
     }

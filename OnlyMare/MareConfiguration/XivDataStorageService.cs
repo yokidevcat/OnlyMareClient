@@ -1,6 +1,6 @@
-﻿using OnlyMare.LightlessConfiguration.Configurations;
+﻿using OnlyMare.OnlyMareConfiguration.Configurations;
 
-namespace OnlyMare.LightlessConfiguration;
+namespace OnlyMare.OnlyMareConfiguration;
 
 public class XivDataStorageService : ConfigurationServiceBase<XivDataStorageConfig>
 {

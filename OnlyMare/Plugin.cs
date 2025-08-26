@@ -6,8 +6,8 @@ using Dalamud.Plugin.Services;
 using OnlyMare.FileCache;
 using OnlyMare.Interop;
 using OnlyMare.Interop.Ipc;
-using OnlyMare.LightlessConfiguration;
-using OnlyMare.LightlessConfiguration.Configurations;
+using OnlyMare.OnlyMareConfiguration;
+using OnlyMare.OnlyMareConfiguration.Configurations;
 using OnlyMare.PlayerData.Factories;
 using OnlyMare.PlayerData.Pairs;
 using OnlyMare.PlayerData.Services;
@@ -76,7 +76,7 @@ public sealed class Plugin : IDalamudPlugin
         {
             lb.ClearProviders();
             lb.AddDalamudLogging(pluginLog, gameData.HasModifiedGameDataFiles);
-            lb.AddFile(Path.Combine(traceDir, $"lightless-trace-{DateTime.Now:yyyy-MM-dd-HH-mm-ss}.log"), (opt) =>
+            lb.AddFile(Path.Combine(traceDir, $"onlymare-trace-{DateTime.Now:yyyy-MM-dd-HH-mm-ss}.log"), (opt) =>
             {
                 opt.Append = true;
                 opt.RollingFilesConvention = FileLoggerOptions.FileRollingConvention.Ascending;
@@ -91,8 +91,8 @@ public sealed class Plugin : IDalamudPlugin
             collection.AddSingleton<FileDialogManager>();
             collection.AddSingleton(new Dalamud.Localization("OnlyMare.Localization.", "", useEmbedded: true));
 
-            // add lightless related singletons
-            collection.AddSingleton<LightlessMediator>();
+            // add onlymare related singletons
+            collection.AddSingleton<OnlyMareMediator>();
             collection.AddSingleton<FileCacheManager>();
             collection.AddSingleton<ServerConfigurationManager>();
             collection.AddSingleton<ApiController>();
@@ -100,8 +100,8 @@ public sealed class Plugin : IDalamudPlugin
             collection.AddSingleton<HubFactory>();
             collection.AddSingleton<FileUploadManager>();
             collection.AddSingleton<FileTransferOrchestrator>();
-            collection.AddSingleton<LightlessPlugin>();
-            collection.AddSingleton<LightlessProfileManager>();
+            collection.AddSingleton<OnlyMarePlugin>();
+            collection.AddSingleton<OnlyMareProfileManager>();
             collection.AddSingleton<GameObjectHandlerFactory>();
             collection.AddSingleton<FileDownloadManagerFactory>();
             collection.AddSingleton<PairHandlerFactory>();
@@ -123,47 +123,47 @@ public sealed class Plugin : IDalamudPlugin
             collection.AddSingleton<CharaDataGposeTogetherManager>();
 
             collection.AddSingleton(s => new VfxSpawnManager(s.GetRequiredService<ILogger<VfxSpawnManager>>(),
-                gameInteropProvider, s.GetRequiredService<LightlessMediator>()));
+                gameInteropProvider, s.GetRequiredService<OnlyMareMediator>()));
             collection.AddSingleton((s) => new BlockedCharacterHandler(s.GetRequiredService<ILogger<BlockedCharacterHandler>>(), gameInteropProvider));
             collection.AddSingleton((s) => new IpcProvider(s.GetRequiredService<ILogger<IpcProvider>>(),
                 pluginInterface,
                 s.GetRequiredService<CharaDataManager>(),
-                s.GetRequiredService<LightlessMediator>()));
+                s.GetRequiredService<OnlyMareMediator>()));
             collection.AddSingleton<SelectPairForTagUi>();
             collection.AddSingleton((s) => new EventAggregator(pluginInterface.ConfigDirectory.FullName,
-                s.GetRequiredService<ILogger<EventAggregator>>(), s.GetRequiredService<LightlessMediator>()));
+                s.GetRequiredService<ILogger<EventAggregator>>(), s.GetRequiredService<OnlyMareMediator>()));
             collection.AddSingleton((s) => new DalamudUtilService(s.GetRequiredService<ILogger<DalamudUtilService>>(),
                 clientState, objectTable, framework, gameGui, condition, gameData, targetManager, gameConfig,
-                s.GetRequiredService<BlockedCharacterHandler>(), s.GetRequiredService<LightlessMediator>(), s.GetRequiredService<PerformanceCollectorService>(),
-                s.GetRequiredService<LightlessConfigService>()));
-            collection.AddSingleton((s) => new DtrEntry(s.GetRequiredService<ILogger<DtrEntry>>(), dtrBar, s.GetRequiredService<LightlessConfigService>(),
-                s.GetRequiredService<LightlessMediator>(), s.GetRequiredService<PairManager>(), s.GetRequiredService<ApiController>()));
+                s.GetRequiredService<BlockedCharacterHandler>(), s.GetRequiredService<OnlyMareMediator>(), s.GetRequiredService<PerformanceCollectorService>(),
+                s.GetRequiredService<OnlyMareConfigService>()));
+            collection.AddSingleton((s) => new DtrEntry(s.GetRequiredService<ILogger<DtrEntry>>(), dtrBar, s.GetRequiredService<OnlyMareConfigService>(),
+                s.GetRequiredService<OnlyMareMediator>(), s.GetRequiredService<PairManager>(), s.GetRequiredService<ApiController>()));
             collection.AddSingleton(s => new PairManager(s.GetRequiredService<ILogger<PairManager>>(), s.GetRequiredService<PairFactory>(),
-                s.GetRequiredService<LightlessConfigService>(), s.GetRequiredService<LightlessMediator>(), contextMenu));
+                s.GetRequiredService<OnlyMareConfigService>(), s.GetRequiredService<OnlyMareMediator>(), contextMenu));
             collection.AddSingleton<RedrawManager>();
             collection.AddSingleton((s) => new IpcCallerPenumbra(s.GetRequiredService<ILogger<IpcCallerPenumbra>>(), pluginInterface,
-                s.GetRequiredService<DalamudUtilService>(), s.GetRequiredService<LightlessMediator>(), s.GetRequiredService<RedrawManager>()));
+                s.GetRequiredService<DalamudUtilService>(), s.GetRequiredService<OnlyMareMediator>(), s.GetRequiredService<RedrawManager>()));
             collection.AddSingleton((s) => new IpcCallerGlamourer(s.GetRequiredService<ILogger<IpcCallerGlamourer>>(), pluginInterface,
-                s.GetRequiredService<DalamudUtilService>(), s.GetRequiredService<LightlessMediator>(), s.GetRequiredService<RedrawManager>()));
+                s.GetRequiredService<DalamudUtilService>(), s.GetRequiredService<OnlyMareMediator>(), s.GetRequiredService<RedrawManager>()));
             collection.AddSingleton((s) => new IpcCallerCustomize(s.GetRequiredService<ILogger<IpcCallerCustomize>>(), pluginInterface,
-                s.GetRequiredService<DalamudUtilService>(), s.GetRequiredService<LightlessMediator>()));
+                s.GetRequiredService<DalamudUtilService>(), s.GetRequiredService<OnlyMareMediator>()));
             collection.AddSingleton((s) => new IpcCallerHeels(s.GetRequiredService<ILogger<IpcCallerHeels>>(), pluginInterface,
-                s.GetRequiredService<DalamudUtilService>(), s.GetRequiredService<LightlessMediator>()));
+                s.GetRequiredService<DalamudUtilService>(), s.GetRequiredService<OnlyMareMediator>()));
             collection.AddSingleton((s) => new IpcCallerHonorific(s.GetRequiredService<ILogger<IpcCallerHonorific>>(), pluginInterface,
-                s.GetRequiredService<DalamudUtilService>(), s.GetRequiredService<LightlessMediator>()));
+                s.GetRequiredService<DalamudUtilService>(), s.GetRequiredService<OnlyMareMediator>()));
             collection.AddSingleton((s) => new IpcCallerMoodles(s.GetRequiredService<ILogger<IpcCallerMoodles>>(), pluginInterface,
-                s.GetRequiredService<DalamudUtilService>(), s.GetRequiredService<LightlessMediator>()));
+                s.GetRequiredService<DalamudUtilService>(), s.GetRequiredService<OnlyMareMediator>()));
             collection.AddSingleton((s) => new IpcCallerPetNames(s.GetRequiredService<ILogger<IpcCallerPetNames>>(), pluginInterface,
-                s.GetRequiredService<DalamudUtilService>(), s.GetRequiredService<LightlessMediator>()));
+                s.GetRequiredService<DalamudUtilService>(), s.GetRequiredService<OnlyMareMediator>()));
             collection.AddSingleton((s) => new IpcCallerBrio(s.GetRequiredService<ILogger<IpcCallerBrio>>(), pluginInterface,
                 s.GetRequiredService<DalamudUtilService>()));
             collection.AddSingleton((s) => new IpcManager(s.GetRequiredService<ILogger<IpcManager>>(),
-                s.GetRequiredService<LightlessMediator>(), s.GetRequiredService<IpcCallerPenumbra>(), s.GetRequiredService<IpcCallerGlamourer>(),
+                s.GetRequiredService<OnlyMareMediator>(), s.GetRequiredService<IpcCallerPenumbra>(), s.GetRequiredService<IpcCallerGlamourer>(),
                 s.GetRequiredService<IpcCallerCustomize>(), s.GetRequiredService<IpcCallerHeels>(), s.GetRequiredService<IpcCallerHonorific>(),
                 s.GetRequiredService<IpcCallerMoodles>(), s.GetRequiredService<IpcCallerPetNames>(), s.GetRequiredService<IpcCallerBrio>()));
             collection.AddSingleton((s) => new NotificationService(s.GetRequiredService<ILogger<NotificationService>>(),
-                s.GetRequiredService<LightlessMediator>(), s.GetRequiredService<DalamudUtilService>(),
-                notificationManager, chatGui, s.GetRequiredService<LightlessConfigService>()));
+                s.GetRequiredService<OnlyMareMediator>(), s.GetRequiredService<DalamudUtilService>(),
+                notificationManager, chatGui, s.GetRequiredService<OnlyMareConfigService>()));
             collection.AddSingleton((s) =>
             {
                 var httpClient = new HttpClient
@@ -177,7 +177,7 @@ public sealed class Plugin : IDalamudPlugin
 
                 return httpClient;
             });
-            collection.AddSingleton((s) => new LightlessConfigService(pluginInterface.ConfigDirectory.FullName));
+            collection.AddSingleton((s) => new OnlyMareConfigService(pluginInterface.ConfigDirectory.FullName));
             collection.AddSingleton((s) => new ServerConfigService(pluginInterface.ConfigDirectory.FullName));
             collection.AddSingleton((s) => new NotesConfigService(pluginInterface.ConfigDirectory.FullName));
             collection.AddSingleton((s) => new ServerTagConfigService(pluginInterface.ConfigDirectory.FullName));
@@ -185,14 +185,14 @@ public sealed class Plugin : IDalamudPlugin
             collection.AddSingleton((s) => new XivDataStorageService(pluginInterface.ConfigDirectory.FullName));
             collection.AddSingleton((s) => new PlayerPerformanceConfigService(pluginInterface.ConfigDirectory.FullName));
             collection.AddSingleton((s) => new CharaDataConfigService(pluginInterface.ConfigDirectory.FullName));
-            collection.AddSingleton<IConfigService<ILightlessConfiguration>>(s => s.GetRequiredService<LightlessConfigService>());
-            collection.AddSingleton<IConfigService<ILightlessConfiguration>>(s => s.GetRequiredService<ServerConfigService>());
-            collection.AddSingleton<IConfigService<ILightlessConfiguration>>(s => s.GetRequiredService<NotesConfigService>());
-            collection.AddSingleton<IConfigService<ILightlessConfiguration>>(s => s.GetRequiredService<ServerTagConfigService>());
-            collection.AddSingleton<IConfigService<ILightlessConfiguration>>(s => s.GetRequiredService<TransientConfigService>());
-            collection.AddSingleton<IConfigService<ILightlessConfiguration>>(s => s.GetRequiredService<XivDataStorageService>());
-            collection.AddSingleton<IConfigService<ILightlessConfiguration>>(s => s.GetRequiredService<PlayerPerformanceConfigService>());
-            collection.AddSingleton<IConfigService<ILightlessConfiguration>>(s => s.GetRequiredService<CharaDataConfigService>());
+            collection.AddSingleton<IConfigService<IOnlyMareConfiguration>>(s => s.GetRequiredService<OnlyMareConfigService>());
+            collection.AddSingleton<IConfigService<IOnlyMareConfiguration>>(s => s.GetRequiredService<ServerConfigService>());
+            collection.AddSingleton<IConfigService<IOnlyMareConfiguration>>(s => s.GetRequiredService<NotesConfigService>());
+            collection.AddSingleton<IConfigService<IOnlyMareConfiguration>>(s => s.GetRequiredService<ServerTagConfigService>());
+            collection.AddSingleton<IConfigService<IOnlyMareConfiguration>>(s => s.GetRequiredService<TransientConfigService>());
+            collection.AddSingleton<IConfigService<IOnlyMareConfiguration>>(s => s.GetRequiredService<XivDataStorageService>());
+            collection.AddSingleton<IConfigService<IOnlyMareConfiguration>>(s => s.GetRequiredService<PlayerPerformanceConfigService>());
+            collection.AddSingleton<IConfigService<IOnlyMareConfiguration>>(s => s.GetRequiredService<CharaDataConfigService>());
             collection.AddSingleton<ConfigurationMigrator>();
             collection.AddSingleton<ConfigurationSaveService>();
 
@@ -215,28 +215,28 @@ public sealed class Plugin : IDalamudPlugin
             collection.AddScoped<WindowMediatorSubscriberBase, CharaDataHubUi>();
 
             collection.AddScoped<WindowMediatorSubscriberBase, EditProfileUi>((s) => new EditProfileUi(s.GetRequiredService<ILogger<EditProfileUi>>(),
-                s.GetRequiredService<LightlessMediator>(), s.GetRequiredService<ApiController>(), s.GetRequiredService<UiSharedService>(), s.GetRequiredService<FileDialogManager>(),
-                s.GetRequiredService<LightlessProfileManager>(), s.GetRequiredService<PerformanceCollectorService>()));
+                s.GetRequiredService<OnlyMareMediator>(), s.GetRequiredService<ApiController>(), s.GetRequiredService<UiSharedService>(), s.GetRequiredService<FileDialogManager>(),
+                s.GetRequiredService<OnlyMareProfileManager>(), s.GetRequiredService<PerformanceCollectorService>()));
             collection.AddScoped<WindowMediatorSubscriberBase, PopupHandler>();
             collection.AddScoped<IPopupHandler, BanUserPopupHandler>();
             collection.AddScoped<IPopupHandler, CensusPopupHandler>();
             collection.AddScoped<CacheCreationService>();
             collection.AddScoped<PlayerDataFactory>();
             collection.AddScoped<VisibleUserDataDistributor>();
-            collection.AddScoped((s) => new UiService(s.GetRequiredService<ILogger<UiService>>(), pluginInterface.UiBuilder, s.GetRequiredService<LightlessConfigService>(),
+            collection.AddScoped((s) => new UiService(s.GetRequiredService<ILogger<UiService>>(), pluginInterface.UiBuilder, s.GetRequiredService<OnlyMareConfigService>(),
                 s.GetRequiredService<WindowSystem>(), s.GetServices<WindowMediatorSubscriberBase>(),
                 s.GetRequiredService<UiFactory>(),
-                s.GetRequiredService<FileDialogManager>(), s.GetRequiredService<LightlessMediator>()));
+                s.GetRequiredService<FileDialogManager>(), s.GetRequiredService<OnlyMareMediator>()));
             collection.AddScoped((s) => new CommandManagerService(commandManager, s.GetRequiredService<PerformanceCollectorService>(),
                 s.GetRequiredService<ServerConfigurationManager>(), s.GetRequiredService<CacheMonitor>(), s.GetRequiredService<ApiController>(),
-                s.GetRequiredService<LightlessMediator>(), s.GetRequiredService<LightlessConfigService>()));
+                s.GetRequiredService<OnlyMareMediator>(), s.GetRequiredService<OnlyMareConfigService>()));
             collection.AddScoped((s) => new UiSharedService(s.GetRequiredService<ILogger<UiSharedService>>(), s.GetRequiredService<IpcManager>(), s.GetRequiredService<ApiController>(),
-                s.GetRequiredService<CacheMonitor>(), s.GetRequiredService<FileDialogManager>(), s.GetRequiredService<LightlessConfigService>(), s.GetRequiredService<DalamudUtilService>(),
+                s.GetRequiredService<CacheMonitor>(), s.GetRequiredService<FileDialogManager>(), s.GetRequiredService<OnlyMareConfigService>(), s.GetRequiredService<DalamudUtilService>(),
                 pluginInterface, textureProvider, s.GetRequiredService<Dalamud.Localization>(), s.GetRequiredService<ServerConfigurationManager>(), s.GetRequiredService<TokenProvider>(),
-                s.GetRequiredService<LightlessMediator>()));
+                s.GetRequiredService<OnlyMareMediator>()));
 
             collection.AddHostedService(p => p.GetRequiredService<ConfigurationSaveService>());
-            collection.AddHostedService(p => p.GetRequiredService<LightlessMediator>());
+            collection.AddHostedService(p => p.GetRequiredService<OnlyMareMediator>());
             collection.AddHostedService(p => p.GetRequiredService<NotificationService>());
             collection.AddHostedService(p => p.GetRequiredService<FileCacheManager>());
             collection.AddHostedService(p => p.GetRequiredService<ConfigurationMigrator>());
@@ -245,7 +245,7 @@ public sealed class Plugin : IDalamudPlugin
             collection.AddHostedService(p => p.GetRequiredService<DtrEntry>());
             collection.AddHostedService(p => p.GetRequiredService<EventAggregator>());
             collection.AddHostedService(p => p.GetRequiredService<IpcProvider>());
-            collection.AddHostedService(p => p.GetRequiredService<LightlessPlugin>());
+            collection.AddHostedService(p => p.GetRequiredService<OnlyMarePlugin>());
         })
         .Build();
 

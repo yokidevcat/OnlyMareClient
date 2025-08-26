@@ -1,10 +1,10 @@
-﻿using OnlyMare.LightlessConfiguration.Models;
+﻿using OnlyMare.OnlyMareConfiguration.Models;
 using OnlyMare.WebAPI;
 
-namespace OnlyMare.LightlessConfiguration.Configurations;
+namespace OnlyMare.OnlyMareConfiguration.Configurations;
 
 [Serializable]
-public class ServerConfig : ILightlessConfiguration
+public class ServerConfig : IOnlyMareConfiguration
 {
     public int CurrentServer { get; set; } = 0;
 

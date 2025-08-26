@@ -1,10 +1,10 @@
-﻿using OnlyMare.LightlessConfiguration.Models;
+﻿using OnlyMare.OnlyMareConfiguration.Models;
 
-namespace OnlyMare.LightlessConfiguration.Configurations;
+namespace OnlyMare.OnlyMareConfiguration.Configurations;
 
-public class CharaDataConfig : ILightlessConfiguration
+public class CharaDataConfig : IOnlyMareConfiguration
 {
-    public bool OpenLightlessHubOnGposeStart { get; set; } = false;
+    public bool OpenOnlyMareHubOnGposeStart { get; set; } = false;
     public string LastSavedCharaDataLocation { get; set; } = string.Empty;
     public Dictionary<string, CharaDataFavorite> FavoriteCodes { get; set; } = [];
     public bool DownloadMcdDataOnConnection { get; set; } = true;

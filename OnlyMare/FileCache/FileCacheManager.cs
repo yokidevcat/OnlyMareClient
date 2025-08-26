@@ -1,6 +1,6 @@
 ﻿using K4os.Compression.LZ4.Legacy;
 using OnlyMare.Interop.Ipc;
-using OnlyMare.LightlessConfiguration;
+using OnlyMare.OnlyMareConfiguration;
 using OnlyMare.Services.Mediator;
 using OnlyMare.Utils;
 using Microsoft.Extensions.Hosting;
@@ -16,8 +16,8 @@ public sealed class FileCacheManager : IHostedService
     public const string CachePrefix = "{cache}";
     public const string CsvSplit = "|";
     public const string PenumbraPrefix = "{penumbra}";
-    private readonly LightlessConfigService _configService;
-    private readonly LightlessMediator _lightlessMediator;
+    private readonly OnlyMareConfigService _configService;
+    private readonly OnlyMareMediator _onlymareMediator;
     private readonly string _csvPath;
     private readonly ConcurrentDictionary<string, List<FileCacheEntity>> _fileCaches = new(StringComparer.Ordinal);
     private readonly SemaphoreSlim _getCachesByPathsSemaphore = new(1, 1);
@@ -26,12 +26,12 @@ public sealed class FileCacheManager : IHostedService
     private readonly ILogger<FileCacheManager> _logger;
     public string CacheFolder => _configService.Current.CacheFolder;
 
-    public FileCacheManager(ILogger<FileCacheManager> logger, IpcManager ipcManager, LightlessConfigService configService, LightlessMediator lightlessMediator)
+    public FileCacheManager(ILogger<FileCacheManager> logger, IpcManager ipcManager, OnlyMareConfigService configService, OnlyMareMediator onlymareMediator)
     {
         _logger = logger;
         _ipcManager = ipcManager;
         _configService = configService;
-        _lightlessMediator = lightlessMediator;
+        _onlymareMediator = onlymareMediator;
         _csvPath = Path.Combine(configService.ConfigurationDirectory, "FileCache.csv");
     }
 
@@ -82,7 +82,7 @@ public sealed class FileCacheManager : IHostedService
 
     public Task<List<FileCacheEntity>> ValidateLocalIntegrity(IProgress<(int, int, FileCacheEntity)> progress, CancellationToken cancellationToken)
     {
-        _lightlessMediator.Publish(new HaltScanMessage(nameof(ValidateLocalIntegrity)));
+        _onlymareMediator.Publish(new HaltScanMessage(nameof(ValidateLocalIntegrity)));
         _logger.LogInformation("Validating local storage");
         var cacheEntries = _fileCaches.SelectMany(v => v.Value).Where(v => v.IsCacheEntry).ToList();
         List<FileCacheEntity> brokenEntities = [];
@@ -131,7 +131,7 @@ public sealed class FileCacheManager : IHostedService
             }
         }
 
-        _lightlessMediator.Publish(new ResumeScanMessage(nameof(ValidateLocalIntegrity)));
+        _onlymareMediator.Publish(new ResumeScanMessage(nameof(ValidateLocalIntegrity)));
         return Task.FromResult(brokenEntities);
     }
 
@@ -417,9 +417,9 @@ public sealed class FileCacheManager : IHostedService
         {
             if (!_ipcManager.Penumbra.APIAvailable || string.IsNullOrEmpty(_ipcManager.Penumbra.ModDirectory))
             {
-                _lightlessMediator.Publish(new NotificationMessage("Penumbra not connected",
-                    "Could not load local file cache data. Penumbra is not connected or not properly set up. Please enable and/or configure Penumbra properly to use Lightless. After, reload Lightless in the Plugin installer.",
-                    LightlessConfiguration.Models.NotificationType.Error));
+                _onlymareMediator.Publish(new NotificationMessage("Penumbra not connected",
+                    "Could not load local file cache data. Penumbra is not connected or not properly set up. Please enable and/or configure Penumbra properly to use OnlyMare. After, reload OnlyMare in the Plugin installer.",
+                    OnlyMareConfiguration.Models.NotificationType.Error));
             }
 
             _logger.LogInformation("{csvPath} found, parsing", _csvPath);

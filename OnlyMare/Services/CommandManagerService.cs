@@ -1,8 +1,8 @@
 ﻿using Dalamud.Game.Command;
 using Dalamud.Plugin.Services;
 using OnlyMare.FileCache;
-using OnlyMare.LightlessConfiguration;
-using OnlyMare.LightlessConfiguration.Models;
+using OnlyMare.OnlyMareConfiguration;
+using OnlyMare.OnlyMareConfiguration.Models;
 using OnlyMare.Services.Mediator;
 using OnlyMare.Services.ServerConfiguration;
 using OnlyMare.UI;
@@ -13,19 +13,19 @@ namespace OnlyMare.Services;
 
 public sealed class CommandManagerService : IDisposable
 {
-    private const string _commandName = "/light";
+    private const string _commandName = "/onlymare";
 
     private readonly ApiController _apiController;
     private readonly ICommandManager _commandManager;
-    private readonly LightlessMediator _mediator;
-    private readonly LightlessConfigService _lightlessConfigService;
+    private readonly OnlyMareMediator _mediator;
+    private readonly OnlyMareConfigService _onlymareConfigService;
     private readonly PerformanceCollectorService _performanceCollectorService;
     private readonly CacheMonitor _cacheMonitor;
     private readonly ServerConfigurationManager _serverConfigurationManager;
 
     public CommandManagerService(ICommandManager commandManager, PerformanceCollectorService performanceCollectorService,
         ServerConfigurationManager serverConfigurationManager, CacheMonitor periodicFileScanner,
-        ApiController apiController, LightlessMediator mediator, LightlessConfigService lightlessConfigService)
+        ApiController apiController, OnlyMareMediator mediator, OnlyMareConfigService onlymareConfigService)
     {
         _commandManager = commandManager;
         _performanceCollectorService = performanceCollectorService;
@@ -33,16 +33,16 @@ public sealed class CommandManagerService : IDisposable
         _cacheMonitor = periodicFileScanner;
         _apiController = apiController;
         _mediator = mediator;
-        _lightlessConfigService = lightlessConfigService;
+        _onlymareConfigService = onlymareConfigService;
         _commandManager.AddHandler(_commandName, new CommandInfo(OnCommand)
         {
-            HelpMessage = "Opens the Lightless Sync UI" + Environment.NewLine + Environment.NewLine +
+            HelpMessage = "Opens the OnlyMare UI" + Environment.NewLine + Environment.NewLine +
                 "Additionally possible commands:" + Environment.NewLine +
-                "\t /light toggle - Disconnects from Lightless, if connected. Connects to Lightless, if disconnected" + Environment.NewLine +
-                "\t /light toggle on|off - Connects or disconnects to Lightless respectively" + Environment.NewLine +
-                "\t /light gpose - Opens the Lightless Character Data Hub window" + Environment.NewLine +
-                "\t /light analyze - Opens the Lightless Character Data Analysis window" + Environment.NewLine +
-                "\t /light settings - Opens the Lightless Settings window"
+                "\t /onlymare toggle - Disconnects from OnlyMare, if connected. Connects to OnlyMare, if disconnected" + Environment.NewLine +
+                "\t /onlymare toggle on|off - Connects or disconnects to OnlyMare respectively" + Environment.NewLine +
+                "\t /onlymare gpose - Opens the OnlyMare Character Data Hub window" + Environment.NewLine +
+                "\t /onlymare analyze - Opens the OnlyMare Character Data Analysis window" + Environment.NewLine +
+                "\t /onlymare settings - Opens the OnlyMare Settings window"
         });
     }
 
@@ -58,21 +58,21 @@ public sealed class CommandManagerService : IDisposable
         if (splitArgs.Length == 0)
         {
             // Interpret this as toggling the UI
-            if (_lightlessConfigService.Current.HasValidSetup())
+            if (_onlymareConfigService.Current.HasValidSetup())
                 _mediator.Publish(new UiToggleMessage(typeof(CompactUi)));
             else
                 _mediator.Publish(new UiToggleMessage(typeof(IntroUi)));
             return;
         }
 
-        if (!_lightlessConfigService.Current.HasValidSetup())
+        if (!_onlymareConfigService.Current.HasValidSetup())
             return;
 
         if (string.Equals(splitArgs[0], "toggle", StringComparison.OrdinalIgnoreCase))
         {
             if (_apiController.ServerState == WebAPI.SignalR.Utils.ServerState.Disconnecting)
             {
-                _mediator.Publish(new NotificationMessage("Lightless disconnecting", "Cannot use /toggle while Lightless Sync is still disconnecting",
+                _mediator.Publish(new NotificationMessage("OnlyMare disconnecting", "Cannot use /toggle while OnlyMare is still disconnecting",
                     NotificationType.Error));
             }
 

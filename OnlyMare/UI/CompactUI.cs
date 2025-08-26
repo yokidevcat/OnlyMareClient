@@ -7,7 +7,7 @@ using Dalamud.Utility;
 using OnlyMare.API.Data.Extensions;
 using OnlyMare.API.Dto.Group;
 using OnlyMare.Interop.Ipc;
-using OnlyMare.LightlessConfiguration;
+using OnlyMare.OnlyMareConfiguration;
 using OnlyMare.PlayerData.Handlers;
 using OnlyMare.PlayerData.Pairs;
 using OnlyMare.Services;
@@ -31,7 +31,7 @@ namespace OnlyMare.UI;
 public class CompactUi : WindowMediatorSubscriberBase
 {
     private readonly ApiController _apiController;
-    private readonly LightlessConfigService _configService;
+    private readonly OnlyMareConfigService _configService;
     private readonly ConcurrentDictionary<GameObjectHandler, Dictionary<string, FileDownloadStatus>> _currentDownloads = new();
     private readonly DrawEntityFactory _drawEntityFactory;
     private readonly FileUploadManager _fileTransferManager;
@@ -54,8 +54,8 @@ public class CompactUi : WindowMediatorSubscriberBase
     private bool _wasOpen;
     private float _windowContentWidth;
 
-    public CompactUi(ILogger<CompactUi> logger, UiSharedService uiShared, LightlessConfigService configService, ApiController apiController, PairManager pairManager,
-        ServerConfigurationManager serverManager, LightlessMediator mediator, FileUploadManager fileTransferManager,
+    public CompactUi(ILogger<CompactUi> logger, UiSharedService uiShared, OnlyMareConfigService configService, ApiController apiController, PairManager pairManager,
+        ServerConfigurationManager serverManager, OnlyMareMediator mediator, FileUploadManager fileTransferManager,
         TagHandler tagHandler, DrawEntityFactory drawEntityFactory, SelectTagForPairUi selectTagForPairUi, SelectPairForTagUi selectPairForTagUi,
         PerformanceCollectorService performanceCollectorService, IpcManager ipcManager)
         : base(logger, mediator, "###OnlyMareMainUI", performanceCollectorService)
@@ -88,7 +88,7 @@ public class CompactUi : WindowMediatorSubscriberBase
                 ShowTooltip = () =>
                 {
                     ImGui.BeginTooltip();
-                    ImGui.Text("Open Lightless Settings");
+                    ImGui.Text("Open OnlyMare Settings");
                     ImGui.EndTooltip();
                 }
             },
@@ -103,7 +103,7 @@ public class CompactUi : WindowMediatorSubscriberBase
                 ShowTooltip = () =>
                 {
                     ImGui.BeginTooltip();
-                    ImGui.Text("Open Lightless Event Viewer");
+                    ImGui.Text("Open OnlyMare Event Viewer");
                     ImGui.EndTooltip();
                 }
             }
@@ -151,8 +151,8 @@ public class CompactUi : WindowMediatorSubscriberBase
                 ImGui.AlignTextToFramePadding();
                 ImGui.TextColored(ImGuiColors.DalamudRed, unsupported);
             }
-            UiSharedService.ColorTextWrapped($"Your Lightless Sync installation is out of date, the current version is {ver.Major}.{ver.Minor}.{ver.Build}. " +
-                $"It is highly recommended to keep Lightless Sync up to date. Open /xlplugins and update the plugin.", ImGuiColors.DalamudRed);
+            UiSharedService.ColorTextWrapped($"Your OnlyMare installation is out of date, the current version is {ver.Major}.{ver.Minor}.{ver.Build}. " +
+                $"It is highly recommended to keep OnlyMare up to date. Open /xlplugins and update the plugin.", ImGuiColors.DalamudRed);
         }
 
         if (!_ipcManager.Initialized)
@@ -169,7 +169,7 @@ public class CompactUi : WindowMediatorSubscriberBase
             var penumAvailable = _ipcManager.Penumbra.APIAvailable;
             var glamAvailable = _ipcManager.Glamourer.APIAvailable;
 
-            UiSharedService.ColorTextWrapped($"One or more Plugins essential for Lightless operation are unavailable. Enable or update following plugins:", ImGuiColors.DalamudRed);
+            UiSharedService.ColorTextWrapped($"One or more Plugins essential for OnlyMare operation are unavailable. Enable or update following plugins:", ImGuiColors.DalamudRed);
             using var indent = ImRaii.PushIndent(10f);
             if (!penumAvailable)
             {
@@ -566,10 +566,10 @@ public class CompactUi : WindowMediatorSubscriberBase
         {
             ServerState.Connecting => "Attempting to connect to the server.",
             ServerState.Reconnecting => "Connection to server interrupted, attempting to reconnect to the server.",
-            ServerState.Disconnected => "You are currently disconnected from the Lightless Sync server.",
+            ServerState.Disconnected => "You are currently disconnected from the OnlyMare server.",
             ServerState.Disconnecting => "Disconnecting from the server",
             ServerState.Unauthorized => "Server Response: " + _apiController.AuthFailureMessage,
-            ServerState.Offline => "Your selected Lightless Sync server is currently offline.",
+            ServerState.Offline => "Your selected OnlyMare server is currently offline.",
             ServerState.VersionMisMatch =>
                 "Your plugin or the server you are connecting to is out of date. Please update your plugin now. If you already did so, contact the server provider to update their server to the latest version.",
             ServerState.RateLimited => "You are rate limited for (re)connecting too often. Disconnect, wait 10 minutes and try again.",
@@ -578,7 +578,7 @@ public class CompactUi : WindowMediatorSubscriberBase
             ServerState.MultiChara => "Your Character Configuration has multiple characters configured with same name and world. You will not be able to connect until you fix this issue. Remove the duplicates from the configuration in Settings -> Service Settings -> Character Management and reconnect manually after.",
             ServerState.OAuthMisconfigured => "OAuth2 is enabled but not fully configured, verify in the Settings -> Service Settings that you have OAuth2 connected and, importantly, a UID assigned to your current character.",
             ServerState.OAuthLoginTokenStale => "Your OAuth2 login token is stale and cannot be used to renew. Go to the Settings -> Service Settings and unlink then relink your OAuth2 configuration.",
-            ServerState.NoAutoLogon => "This character has automatic login into Lightless disabled. Press the connect button to connect to Lightless.",
+            ServerState.NoAutoLogon => "This character has automatic login into OnlyMare disabled. Press the connect button to connect to OnlyMare.",
             _ => string.Empty
         };
     }

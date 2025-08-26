@@ -1,4 +1,4 @@
-﻿using OnlyMare.LightlessConfiguration;
+﻿using OnlyMare.OnlyMareConfiguration;
 using OnlyMare.Services;
 using Microsoft.Extensions.Logging;
 using System.Runtime.InteropServices;
@@ -15,14 +15,14 @@ public sealed class FileCompactor
     private readonly WOF_FILE_COMPRESSION_INFO_V1 _efInfo;
     private readonly ILogger<FileCompactor> _logger;
 
-    private readonly LightlessConfigService _lightlessConfigService;
+    private readonly OnlyMareConfigService _onlymareConfigService;
     private readonly DalamudUtilService _dalamudUtilService;
 
-    public FileCompactor(ILogger<FileCompactor> logger, LightlessConfigService lightlessConfigService, DalamudUtilService dalamudUtilService)
+    public FileCompactor(ILogger<FileCompactor> logger, OnlyMareConfigService onlymareConfigService, DalamudUtilService dalamudUtilService)
     {
         _clusterSizes = new(StringComparer.Ordinal);
         _logger = logger;
-        _lightlessConfigService = lightlessConfigService;
+        _onlymareConfigService = onlymareConfigService;
         _dalamudUtilService = dalamudUtilService;
         _efInfo = new WOF_FILE_COMPRESSION_INFO_V1
         {
@@ -50,7 +50,7 @@ public sealed class FileCompactor
         MassCompactRunning = true;
 
         int currentFile = 1;
-        var allFiles = Directory.EnumerateFiles(_lightlessConfigService.Current.CacheFolder).ToList();
+        var allFiles = Directory.EnumerateFiles(_onlymareConfigService.Current.CacheFolder).ToList();
         int allFilesCount = allFiles.Count;
         foreach (var file in allFiles)
         {
@@ -82,7 +82,7 @@ public sealed class FileCompactor
     {
         await File.WriteAllBytesAsync(filePath, decompressedFile, token).ConfigureAwait(false);
 
-        if (_dalamudUtilService.IsWine || !_lightlessConfigService.Current.UseCompactor)
+        if (_dalamudUtilService.IsWine || !_onlymareConfigService.Current.UseCompactor)
         {
             return;
         }

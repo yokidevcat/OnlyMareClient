@@ -6,7 +6,7 @@ using Dalamud.Interface.Utility.Raii;
 using OnlyMare.API.Data.Extensions;
 using OnlyMare.API.Dto.Group;
 using OnlyMare.API.Dto.User;
-using OnlyMare.LightlessConfiguration;
+using OnlyMare.OnlyMareConfiguration;
 using OnlyMare.PlayerData.Pairs;
 using OnlyMare.Services;
 using OnlyMare.Services.Mediator;
@@ -20,7 +20,7 @@ public class DrawUserPair
 {
     protected readonly ApiController _apiController;
     protected readonly IdDisplayHandler _displayHandler;
-    protected readonly LightlessMediator _mediator;
+    protected readonly OnlyMareMediator _mediator;
     protected readonly List<GroupFullInfoDto> _syncedGroups;
     private readonly GroupFullInfoDto? _currentGroup;
     protected Pair _pair;
@@ -36,7 +36,7 @@ public class DrawUserPair
     public DrawUserPair(string id, Pair entry, List<GroupFullInfoDto> syncedGroups,
         GroupFullInfoDto? currentGroup,
         ApiController apiController, IdDisplayHandler uIDDisplayHandler,
-        LightlessMediator lightlessMediator, SelectTagForPairUi selectTagForPairUi,
+        OnlyMareMediator onlymareMediator, SelectTagForPairUi selectTagForPairUi,
         ServerConfigurationManager serverConfigurationManager,
         UiSharedService uiSharedService, PlayerPerformanceConfigService performanceConfigService,
         CharaDataManager charaDataManager)
@@ -47,7 +47,7 @@ public class DrawUserPair
         _currentGroup = currentGroup;
         _apiController = apiController;
         _displayHandler = uIDDisplayHandler;
-        _mediator = lightlessMediator;
+        _mediator = onlymareMediator;
         _selectTagForPairUi = selectTagForPairUi;
         _serverConfigurationManager = serverConfigurationManager;
         _uiSharedService = uiSharedService;

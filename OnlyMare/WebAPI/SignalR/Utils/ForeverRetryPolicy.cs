@@ -1,4 +1,4 @@
-﻿using OnlyMare.LightlessConfiguration.Models;
+﻿using OnlyMare.OnlyMareConfiguration.Models;
 using OnlyMare.Services.Mediator;
 using Microsoft.AspNetCore.SignalR.Client;
 
@@ -6,10 +6,10 @@ namespace OnlyMare.WebAPI.SignalR.Utils;
 
 public class ForeverRetryPolicy : IRetryPolicy
 {
-    private readonly LightlessMediator _mediator;
+    private readonly OnlyMareMediator _mediator;
     private bool _sentDisconnected = false;
 
-    public ForeverRetryPolicy(LightlessMediator mediator)
+    public ForeverRetryPolicy(OnlyMareMediator mediator)
     {
         _mediator = mediator;
     }

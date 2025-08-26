@@ -19,7 +19,7 @@ public class PairHandlerFactory
     private readonly IHostApplicationLifetime _hostApplicationLifetime;
     private readonly IpcManager _ipcManager;
     private readonly ILoggerFactory _loggerFactory;
-    private readonly LightlessMediator _lightlessMediator;
+    private readonly OnlyMareMediator _onlymareMediator;
     private readonly PlayerPerformanceService _playerPerformanceService;
     private readonly ServerConfigurationManager _serverConfigManager;
     private readonly PluginWarningNotificationService _pluginWarningNotificationManager;
@@ -27,7 +27,7 @@ public class PairHandlerFactory
     public PairHandlerFactory(ILoggerFactory loggerFactory, GameObjectHandlerFactory gameObjectHandlerFactory, IpcManager ipcManager,
         FileDownloadManagerFactory fileDownloadManagerFactory, DalamudUtilService dalamudUtilService,
         PluginWarningNotificationService pluginWarningNotificationManager, IHostApplicationLifetime hostApplicationLifetime,
-        FileCacheManager fileCacheManager, LightlessMediator lightlessMediator, PlayerPerformanceService playerPerformanceService,
+        FileCacheManager fileCacheManager, OnlyMareMediator onlymareMediator, PlayerPerformanceService playerPerformanceService,
         ServerConfigurationManager serverConfigManager)
     {
         _loggerFactory = loggerFactory;
@@ -38,7 +38,7 @@ public class PairHandlerFactory
         _pluginWarningNotificationManager = pluginWarningNotificationManager;
         _hostApplicationLifetime = hostApplicationLifetime;
         _fileCacheManager = fileCacheManager;
-        _lightlessMediator = lightlessMediator;
+        _onlymareMediator = onlymareMediator;
         _playerPerformanceService = playerPerformanceService;
         _serverConfigManager = serverConfigManager;
     }
@@ -47,6 +47,6 @@ public class PairHandlerFactory
     {
         return new PairHandler(_loggerFactory.CreateLogger<PairHandler>(), pair, _gameObjectHandlerFactory,
             _ipcManager, _fileDownloadManagerFactory.Create(), _pluginWarningNotificationManager, _dalamudUtilService, _hostApplicationLifetime,
-            _fileCacheManager, _lightlessMediator, _playerPerformanceService, _serverConfigManager);
+            _fileCacheManager, _onlymareMediator, _playerPerformanceService, _serverConfigManager);
     }
 }

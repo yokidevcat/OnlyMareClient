@@ -3,7 +3,7 @@ using Dalamud.Interface.Colors;
 using Dalamud.Interface.Textures.TextureWraps;
 using Dalamud.Interface.Utility;
 using OnlyMare.API.Data.Extensions;
-using OnlyMare.LightlessConfiguration;
+using OnlyMare.OnlyMareConfiguration;
 using OnlyMare.PlayerData.Pairs;
 using OnlyMare.Services;
 using OnlyMare.Services.Mediator;
@@ -15,7 +15,7 @@ namespace OnlyMare.UI;
 
 public class PopoutProfileUi : WindowMediatorSubscriberBase
 {
-    private readonly LightlessProfileManager _lightlessProfileManager;
+    private readonly OnlyMareProfileManager _onlymareProfileManager;
     private readonly PairManager _pairManager;
     private readonly ServerConfigurationManager _serverManager;
     private readonly UiSharedService _uiSharedService;
@@ -27,13 +27,13 @@ public class PopoutProfileUi : WindowMediatorSubscriberBase
     private IDalamudTextureWrap? _supporterTextureWrap;
     private IDalamudTextureWrap? _textureWrap;
 
-    public PopoutProfileUi(ILogger<PopoutProfileUi> logger, LightlessMediator mediator, UiSharedService uiBuilder,
-        ServerConfigurationManager serverManager, LightlessConfigService lightlessConfigService,
-        LightlessProfileManager lightlessProfileManager, PairManager pairManager, PerformanceCollectorService performanceCollectorService) : base(logger, mediator, "###OnlyMarePopoutProfileUI", performanceCollectorService)
+    public PopoutProfileUi(ILogger<PopoutProfileUi> logger, OnlyMareMediator mediator, UiSharedService uiBuilder,
+        ServerConfigurationManager serverManager, OnlyMareConfigService onlymareConfigService,
+        OnlyMareProfileManager onlymareProfileManager, PairManager pairManager, PerformanceCollectorService performanceCollectorService) : base(logger, mediator, "###OnlyMarePopoutProfileUI", performanceCollectorService)
     {
         _uiSharedService = uiBuilder;
         _serverManager = serverManager;
-        _lightlessProfileManager = lightlessProfileManager;
+        _onlymareProfileManager = onlymareProfileManager;
         _pairManager = pairManager;
         Flags = ImGuiWindowFlags.NoDecoration;
 
@@ -59,7 +59,7 @@ public class PopoutProfileUi : WindowMediatorSubscriberBase
                 _lastMainSize = msg.Size;
             }
             var mainPos = msg.Position == Vector2.Zero ? _lastMainPos : msg.Position;
-            if (lightlessConfigService.Current.ProfilePopoutRight)
+            if (onlymareConfigService.Current.ProfilePopoutRight)
             {
                 Position = new(mainPos.X + _lastMainSize.X * ImGuiHelpers.GlobalScale, mainPos.Y);
             }
@@ -85,22 +85,22 @@ public class PopoutProfileUi : WindowMediatorSubscriberBase
         {
             var spacing = ImGui.GetStyle().ItemSpacing;
 
-            var lightlessProfile = _lightlessProfileManager.GetLightlessProfile(_pair.UserData);
+            var onlymareProfile = _onlymareProfileManager.GetOnlyMareProfile(_pair.UserData);
 
-            if (_textureWrap == null || !lightlessProfile.ImageData.Value.SequenceEqual(_lastProfilePicture))
+            if (_textureWrap == null || !onlymareProfile.ImageData.Value.SequenceEqual(_lastProfilePicture))
             {
                 _textureWrap?.Dispose();
-                _lastProfilePicture = lightlessProfile.ImageData.Value;
+                _lastProfilePicture = onlymareProfile.ImageData.Value;
                 _textureWrap = _uiSharedService.LoadImage(_lastProfilePicture);
             }
 
-            if (_supporterTextureWrap == null || !lightlessProfile.SupporterImageData.Value.SequenceEqual(_lastSupporterPicture))
+            if (_supporterTextureWrap == null || !onlymareProfile.SupporterImageData.Value.SequenceEqual(_lastSupporterPicture))
             {
                 _supporterTextureWrap?.Dispose();
                 _supporterTextureWrap = null;
-                if (!string.IsNullOrEmpty(lightlessProfile.Base64SupporterPicture))
+                if (!string.IsNullOrEmpty(onlymareProfile.Base64SupporterPicture))
                 {
-                    _lastSupporterPicture = lightlessProfile.SupporterImageData.Value;
+                    _lastSupporterPicture = onlymareProfile.SupporterImageData.Value;
                     _supporterTextureWrap = _uiSharedService.LoadImage(_lastSupporterPicture);
                 }
             }
@@ -158,7 +158,7 @@ public class PopoutProfileUi : WindowMediatorSubscriberBase
             ImGui.Separator();
             var font = _uiSharedService.GameFont.Push();
             var remaining = ImGui.GetWindowContentRegionMax().Y - ImGui.GetCursorPosY();
-            var descText = lightlessProfile.Description;
+            var descText = onlymareProfile.Description;
             var textSize = ImGui.CalcTextSize(descText, wrapWidth: 256f * ImGuiHelpers.GlobalScale);
             bool trimmed = textSize.Y > remaining;
             while (textSize.Y > remaining && descText.Contains(' '))
@@ -166,7 +166,7 @@ public class PopoutProfileUi : WindowMediatorSubscriberBase
                 descText = descText[..descText.LastIndexOf(' ')].TrimEnd();
                 textSize = ImGui.CalcTextSize(descText + $"...{Environment.NewLine}[Open Full Profile for complete description]", wrapWidth: 256f * ImGuiHelpers.GlobalScale);
             }
-            UiSharedService.TextWrapped(trimmed ? descText + $"...{Environment.NewLine}[Open Full Profile for complete description]" : lightlessProfile.Description);
+            UiSharedService.TextWrapped(trimmed ? descText + $"...{Environment.NewLine}[Open Full Profile for complete description]" : onlymareProfile.Description);
             font.Dispose();
 
             var padding = ImGui.GetStyle().WindowPadding.X / 2;

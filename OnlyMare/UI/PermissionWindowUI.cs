@@ -20,7 +20,7 @@ public class PermissionWindowUI : WindowMediatorSubscriberBase
     private readonly ApiController _apiController;
     private UserPermissions _ownPermissions;
 
-    public PermissionWindowUI(ILogger<PermissionWindowUI> logger, Pair pair, LightlessMediator mediator, UiSharedService uiSharedService,
+    public PermissionWindowUI(ILogger<PermissionWindowUI> logger, Pair pair, OnlyMareMediator mediator, UiSharedService uiSharedService,
         ApiController apiController, PerformanceCollectorService performanceCollectorService)
         : base(logger, mediator, "Permissions for " + pair.UserData.AliasOrUID + "###OnlyMarePermissions" + pair.UserData.UID, performanceCollectorService)
     {
@@ -175,7 +175,7 @@ public class PermissionWindowUI : WindowMediatorSubscriberBase
                 new(StringComparer.Ordinal)
             ));
         }
-        UiSharedService.AttachToolTip("This will set all permissions to your defined default permissions in the Lightless Settings");
+        UiSharedService.AttachToolTip("This will set all permissions to your defined default permissions in the OnlyMare Settings");
 
         var ySize = ImGui.GetCursorPosY() + style.FramePadding.Y * ImGuiHelpers.GlobalScale + style.FrameBorderSize;
         ImGui.SetWindowSize(new(400, ySize));

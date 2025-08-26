@@ -1,8 +1,8 @@
 ﻿using OnlyMare.API.Data;
 using OnlyMare.API.Data.Comparer;
 using OnlyMare.Interop.Ipc;
-using OnlyMare.LightlessConfiguration;
-using OnlyMare.LightlessConfiguration.Models;
+using OnlyMare.OnlyMareConfiguration;
+using OnlyMare.OnlyMareConfiguration.Models;
 using OnlyMare.Services.Mediator;
 using System.Collections.Concurrent;
 
@@ -12,12 +12,12 @@ public class PluginWarningNotificationService
 {
     private readonly ConcurrentDictionary<UserData, OptionalPluginWarning> _cachedOptionalPluginWarnings = new(UserDataComparer.Instance);
     private readonly IpcManager _ipcManager;
-    private readonly LightlessConfigService _lightlessConfigService;
-    private readonly LightlessMediator _mediator;
+    private readonly OnlyMareConfigService _onlymareConfigService;
+    private readonly OnlyMareMediator _mediator;
 
-    public PluginWarningNotificationService(LightlessConfigService lightlessConfigService, IpcManager ipcManager, LightlessMediator mediator)
+    public PluginWarningNotificationService(OnlyMareConfigService onlymareConfigService, IpcManager ipcManager, OnlyMareMediator mediator)
     {
-        _lightlessConfigService = lightlessConfigService;
+        _onlymareConfigService = onlymareConfigService;
         _ipcManager = ipcManager;
         _mediator = mediator;
     }
@@ -28,11 +28,11 @@ public class PluginWarningNotificationService
         {
             _cachedOptionalPluginWarnings[user] = warning = new()
             {
-                ShownCustomizePlusWarning = _lightlessConfigService.Current.DisableOptionalPluginWarnings,
-                ShownHeelsWarning = _lightlessConfigService.Current.DisableOptionalPluginWarnings,
-                ShownHonorificWarning = _lightlessConfigService.Current.DisableOptionalPluginWarnings,
-                ShownMoodlesWarning = _lightlessConfigService.Current.DisableOptionalPluginWarnings,
-                ShowPetNicknamesWarning = _lightlessConfigService.Current.DisableOptionalPluginWarnings
+                ShownCustomizePlusWarning = _onlymareConfigService.Current.DisableOptionalPluginWarnings,
+                ShownHeelsWarning = _onlymareConfigService.Current.DisableOptionalPluginWarnings,
+                ShownHonorificWarning = _onlymareConfigService.Current.DisableOptionalPluginWarnings,
+                ShownMoodlesWarning = _onlymareConfigService.Current.DisableOptionalPluginWarnings,
+                ShowPetNicknamesWarning = _onlymareConfigService.Current.DisableOptionalPluginWarnings
             };
         }
 

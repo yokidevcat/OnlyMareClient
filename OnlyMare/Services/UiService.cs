@@ -1,7 +1,7 @@
 ﻿using Dalamud.Interface;
 using Dalamud.Interface.ImGuiFileDialog;
 using Dalamud.Interface.Windowing;
-using OnlyMare.LightlessConfiguration;
+using OnlyMare.OnlyMareConfiguration;
 using OnlyMare.Services.Mediator;
 using OnlyMare.UI;
 using OnlyMare.UI.Components.Popup;
@@ -15,20 +15,20 @@ public sealed class UiService : DisposableMediatorSubscriberBase
     private readonly IUiBuilder _uiBuilder;
     private readonly FileDialogManager _fileDialogManager;
     private readonly ILogger<UiService> _logger;
-    private readonly LightlessConfigService _lightlessConfigService;
+    private readonly OnlyMareConfigService _onlymareConfigService;
     private readonly WindowSystem _windowSystem;
     private readonly UiFactory _uiFactory;
 
     public UiService(ILogger<UiService> logger, IUiBuilder uiBuilder,
-        LightlessConfigService lightlessConfigService, WindowSystem windowSystem,
+        OnlyMareConfigService onlymareConfigService, WindowSystem windowSystem,
         IEnumerable<WindowMediatorSubscriberBase> windows,
         UiFactory uiFactory, FileDialogManager fileDialogManager,
-        LightlessMediator lightlessMediator) : base(logger, lightlessMediator)
+        OnlyMareMediator onlymareMediator) : base(logger, onlymareMediator)
     {
         _logger = logger;
         _logger.LogTrace("Creating {type}", GetType().Name);
         _uiBuilder = uiBuilder;
-        _lightlessConfigService = lightlessConfigService;
+        _onlymareConfigService = onlymareConfigService;
         _windowSystem = windowSystem;
         _uiFactory = uiFactory;
         _fileDialogManager = fileDialogManager;
@@ -86,7 +86,7 @@ public sealed class UiService : DisposableMediatorSubscriberBase
 
     public void ToggleMainUi()
     {
-        if (_lightlessConfigService.Current.HasValidSetup())
+        if (_onlymareConfigService.Current.HasValidSetup())
             Mediator.Publish(new UiToggleMessage(typeof(CompactUi)));
         else
             Mediator.Publish(new UiToggleMessage(typeof(IntroUi)));
@@ -94,7 +94,7 @@ public sealed class UiService : DisposableMediatorSubscriberBase
 
     public void ToggleUi()
     {
-        if (_lightlessConfigService.Current.HasValidSetup())
+        if (_onlymareConfigService.Current.HasValidSetup())
             Mediator.Publish(new UiToggleMessage(typeof(SettingsUi)));
         else
             Mediator.Publish(new UiToggleMessage(typeof(IntroUi)));

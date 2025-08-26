@@ -1,11 +1,11 @@
-﻿using OnlyMare.LightlessConfiguration.Configurations;
-using OnlyMare.LightlessConfiguration;
+﻿using OnlyMare.OnlyMareConfiguration.Configurations;
+using OnlyMare.OnlyMareConfiguration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
 using System.Text.Json;
 
-namespace OnlyMare.LightlessConfiguration;
+namespace OnlyMare.OnlyMareConfiguration;
 
 public class ConfigurationSaveService : IHostedService
 {
@@ -16,7 +16,7 @@ public class ConfigurationSaveService : IHostedService
     public const string BackupFolder = "config_backup";
     private readonly MethodInfo _saveMethod;
 
-    public ConfigurationSaveService(ILogger<ConfigurationSaveService> logger, IEnumerable<IConfigService<ILightlessConfiguration>> configs)
+    public ConfigurationSaveService(ILogger<ConfigurationSaveService> logger, IEnumerable<IConfigService<IOnlyMareConfiguration>> configs)
     {
         foreach (var config in configs)
         {
@@ -69,7 +69,7 @@ public class ConfigurationSaveService : IHostedService
         }
     }
 
-    private async Task SaveConfig<T>(IConfigService<T> config) where T : ILightlessConfiguration
+    private async Task SaveConfig<T>(IConfigService<T> config) where T : IOnlyMareConfiguration
     {
         _logger.LogTrace("Saving {configName}", config.ConfigurationName);
         var configDir = config.ConfigurationPath.Replace(config.ConfigurationName, string.Empty);

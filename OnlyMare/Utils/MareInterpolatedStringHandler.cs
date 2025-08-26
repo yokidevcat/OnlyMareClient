@@ -4,11 +4,11 @@ using System.Text;
 namespace OnlyMare.Utils;
 
 [InterpolatedStringHandler]
-public readonly ref struct LightlessInterpolatedStringHandler
+public readonly ref struct OnlyMareInterpolatedStringHandler
 {
     readonly StringBuilder _logMessageStringbuilder;
 
-    public LightlessInterpolatedStringHandler(int literalLength, int formattedCount)
+    public OnlyMareInterpolatedStringHandler(int literalLength, int formattedCount)
     {
         _logMessageStringbuilder = new StringBuilder(literalLength);
     }

@@ -18,17 +18,17 @@ public class DrawFolderGroup : DrawFolderBase
     private readonly ApiController _apiController;
     private readonly GroupFullInfoDto _groupFullInfoDto;
     private readonly IdDisplayHandler _idDisplayHandler;
-    private readonly LightlessMediator _lightlessMediator;
+    private readonly OnlyMareMediator _onlymareMediator;
 
     public DrawFolderGroup(string id, GroupFullInfoDto groupFullInfoDto, ApiController apiController,
         IImmutableList<DrawUserPair> drawPairs, IImmutableList<Pair> allPairs, TagHandler tagHandler, IdDisplayHandler idDisplayHandler,
-        LightlessMediator lightlessMediator, UiSharedService uiSharedService) :
+        OnlyMareMediator onlymareMediator, UiSharedService uiSharedService) :
         base(id, drawPairs, allPairs, tagHandler, uiSharedService)
     {
         _groupFullInfoDto = groupFullInfoDto;
         _apiController = apiController;
         _idDisplayHandler = idDisplayHandler;
-        _lightlessMediator = lightlessMediator;
+        _onlymareMediator = onlymareMediator;
     }
 
     protected override bool RenderIfEmpty => true;
@@ -154,7 +154,7 @@ public class DrawFolderGroup : DrawFolderBase
             if (_uiSharedService.IconTextButton(FontAwesomeIcon.Cog, "Open Admin Panel", menuWidth, true))
             {
                 ImGui.CloseCurrentPopup();
-                _lightlessMediator.Publish(new OpenSyncshellAdminPanel(_groupFullInfoDto));
+                _onlymareMediator.Publish(new OpenSyncshellAdminPanel(_groupFullInfoDto));
             }
         }
     }

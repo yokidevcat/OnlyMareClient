@@ -1,5 +1,5 @@
 ﻿using OnlyMare.API.Routes;
-using OnlyMare.LightlessConfiguration.Models;
+using OnlyMare.OnlyMareConfiguration.Models;
 using OnlyMare.Services;
 using OnlyMare.Services.Mediator;
 using OnlyMare.Services.ServerConfiguration;
@@ -20,13 +20,13 @@ public sealed class TokenProvider : IDisposable, IMediatorSubscriber
     private readonly ServerConfigurationManager _serverManager;
     private readonly ConcurrentDictionary<JwtIdentifier, string> _tokenCache = new();
 
-    public TokenProvider(ILogger<TokenProvider> logger, ServerConfigurationManager serverManager, DalamudUtilService dalamudUtil, LightlessMediator lightlessMediator, HttpClient httpClient)
+    public TokenProvider(ILogger<TokenProvider> logger, ServerConfigurationManager serverManager, DalamudUtilService dalamudUtil, OnlyMareMediator onlymareMediator, HttpClient httpClient)
     {
         _logger = logger;
         _serverManager = serverManager;
         _dalamudUtil = dalamudUtil;
         var ver = Assembly.GetExecutingAssembly().GetName().Version;
-        Mediator = lightlessMediator;
+        Mediator = onlymareMediator;
         _httpClient = httpClient;
         Mediator.Subscribe<DalamudLogoutMessage>(this, (_) =>
         {
@@ -40,7 +40,7 @@ public sealed class TokenProvider : IDisposable, IMediatorSubscriber
         });
     }
 
-    public LightlessMediator Mediator { get; }
+    public OnlyMareMediator Mediator { get; }
 
     private JwtIdentifier? _lastJwtIdentifier;
 
@@ -115,13 +115,13 @@ public sealed class TokenProvider : IDisposable, IMediatorSubscriber
             if (ex.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
                 if (isRenewal)
-                    Mediator.Publish(new NotificationMessage("Error refreshing token", "Your authentication token could not be renewed. Try reconnecting to Lightless manually.",
+                    Mediator.Publish(new NotificationMessage("Error refreshing token", "Your authentication token could not be renewed. Try reconnecting to OnlyMare manually.",
                     NotificationType.Error));
                 else
-                    Mediator.Publish(new NotificationMessage("Error generating token", "Your authentication token could not be generated. Check Lightless Main UI (/light in chat) to see the error message.",
+                    Mediator.Publish(new NotificationMessage("Error generating token", "Your authentication token could not be generated. Check OnlyMare Main UI (/onlymare in chat) to see the error message.",
                     NotificationType.Error));
                 Mediator.Publish(new DisconnectedMessage());
-                throw new LightlessAuthFailureException(response);
+                throw new OnlyMareAuthFailureException(response);
             }
 
             throw;
@@ -139,7 +139,7 @@ public sealed class TokenProvider : IDisposable, IMediatorSubscriber
         {
             _tokenCache.TryRemove(identifier, out _);
             Mediator.Publish(new NotificationMessage("Invalid system clock", "The clock of your computer is invalid. " +
-                "Lightless will not function properly if the time zone is not set correctly. " +
+                "OnlyMare will not function properly if the time zone is not set correctly. " +
                 "Please set your computers time zone correctly and keep your clock synchronized with the internet.",
                 NotificationType.Error));
             throw new InvalidOperationException($"JwtToken is behind DateTime.UtcNow, DateTime.UtcNow is possibly wrong. DateTime.UtcNow is {DateTime.UtcNow}, JwtToken.ValidTo is {jwtToken.ValidTo}");

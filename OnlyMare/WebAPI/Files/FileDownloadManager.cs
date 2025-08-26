@@ -21,7 +21,7 @@ public partial class FileDownloadManager : DisposableMediatorSubscriberBase
     private readonly FileTransferOrchestrator _orchestrator;
     private readonly List<ThrottledStream> _activeDownloadStreams;
 
-    public FileDownloadManager(ILogger<FileDownloadManager> logger, LightlessMediator mediator,
+    public FileDownloadManager(ILogger<FileDownloadManager> logger, OnlyMareMediator mediator,
         FileTransferOrchestrator orchestrator,
         FileCacheManager fileCacheManager, FileCompactor fileCompactor) : base(logger, mediator)
     {

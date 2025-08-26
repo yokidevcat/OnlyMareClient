@@ -18,13 +18,13 @@ public class Pair
     private readonly PairHandlerFactory _cachedPlayerFactory;
     private readonly SemaphoreSlim _creationSemaphore = new(1);
     private readonly ILogger<Pair> _logger;
-    private readonly LightlessMediator _mediator;
+    private readonly OnlyMareMediator _mediator;
     private readonly ServerConfigurationManager _serverConfigurationManager;
     private CancellationTokenSource _applicationCts = new();
     private OnlineUserIdentDto? _onlineUserIdentDto = null;
 
     public Pair(ILogger<Pair> logger, UserFullPairDto userPair, PairHandlerFactory cachedPlayerFactory,
-        LightlessMediator mediator, ServerConfigurationManager serverConfigurationManager)
+        OnlyMareMediator mediator, ServerConfigurationManager serverConfigurationManager)
     {
         _logger = logger;
         UserPair = userPair;

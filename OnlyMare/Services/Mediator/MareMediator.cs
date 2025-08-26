@@ -1,4 +1,4 @@
-﻿using OnlyMare.LightlessConfiguration;
+﻿using OnlyMare.OnlyMareConfiguration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
@@ -7,23 +7,23 @@ using System.Text;
 
 namespace OnlyMare.Services.Mediator;
 
-public sealed class LightlessMediator : IHostedService
+public sealed class OnlyMareMediator : IHostedService
 {
     private readonly object _addRemoveLock = new();
     private readonly ConcurrentDictionary<object, DateTime> _lastErrorTime = [];
-    private readonly ILogger<LightlessMediator> _logger;
+    private readonly ILogger<OnlyMareMediator> _logger;
     private readonly CancellationTokenSource _loopCts = new();
     private readonly ConcurrentQueue<MessageBase> _messageQueue = new();
     private readonly PerformanceCollectorService _performanceCollector;
-    private readonly LightlessConfigService _lightlessConfigService;
+    private readonly OnlyMareConfigService _onlymareConfigService;
     private readonly ConcurrentDictionary<Type, HashSet<SubscriberAction>> _subscriberDict = [];
     private bool _processQueue = false;
     private readonly ConcurrentDictionary<Type, MethodInfo?> _genericExecuteMethods = new();
-    public LightlessMediator(ILogger<LightlessMediator> logger, PerformanceCollectorService performanceCollector, LightlessConfigService lightlessConfigService)
+    public OnlyMareMediator(ILogger<OnlyMareMediator> logger, PerformanceCollectorService performanceCollector, OnlyMareConfigService onlymareConfigService)
     {
         _logger = logger;
         _performanceCollector = performanceCollector;
-        _lightlessConfigService = lightlessConfigService;
+        _onlymareConfigService = onlymareConfigService;
     }
 
     public void PrintSubscriberInfo()
@@ -59,7 +59,7 @@ public sealed class LightlessMediator : IHostedService
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
-        _logger.LogInformation("Starting LightlessMediator");
+        _logger.LogInformation("Starting OnlyMareMediator");
 
         _ = Task.Run(async () =>
         {
@@ -83,7 +83,7 @@ public sealed class LightlessMediator : IHostedService
             }
         });
 
-        _logger.LogInformation("Started LightlessMediator");
+        _logger.LogInformation("Started OnlyMareMediator");
 
         return Task.CompletedTask;
     }
@@ -164,7 +164,7 @@ public sealed class LightlessMediator : IHostedService
         {
             try
             {
-                if (_lightlessConfigService.Current.LogPerformance)
+                if (_onlymareConfigService.Current.LogPerformance)
                 {
                     var isSameThread = message.KeepThreadContext ? "$" : string.Empty;
                     _performanceCollector.LogPerformance(this, $"{isSameThread}Execute>{message.GetType().Name}+{subscriber.Subscriber.GetType().Name}>{subscriber.Subscriber}",

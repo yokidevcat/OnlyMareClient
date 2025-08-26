@@ -4,8 +4,8 @@ using OnlyMare.API.Data.Comparer;
 using OnlyMare.API.Data.Extensions;
 using OnlyMare.API.Dto.Group;
 using OnlyMare.API.Dto.User;
-using OnlyMare.LightlessConfiguration;
-using OnlyMare.LightlessConfiguration.Models;
+using OnlyMare.OnlyMareConfiguration;
+using OnlyMare.OnlyMareConfiguration.Models;
 using OnlyMare.PlayerData.Factories;
 using OnlyMare.Services.Events;
 using OnlyMare.Services.Mediator;
@@ -18,7 +18,7 @@ public sealed class PairManager : DisposableMediatorSubscriberBase
 {
     private readonly ConcurrentDictionary<UserData, Pair> _allClientPairs = new(UserDataComparer.Instance);
     private readonly ConcurrentDictionary<GroupData, GroupFullInfoDto> _allGroups = new(GroupDataComparer.Instance);
-    private readonly LightlessConfigService _configurationService;
+    private readonly OnlyMareConfigService _configurationService;
     private readonly IContextMenu _dalamudContextMenu;
     private readonly PairFactory _pairFactory;
     private Lazy<List<Pair>> _directPairsInternal;
@@ -26,7 +26,7 @@ public sealed class PairManager : DisposableMediatorSubscriberBase
     private Lazy<Dictionary<Pair, List<GroupFullInfoDto>>> _pairsWithGroupsInternal;
 
     public PairManager(ILogger<PairManager> logger, PairFactory pairFactory,
-                LightlessConfigService configurationService, LightlessMediator mediator,
+                OnlyMareConfigService configurationService, OnlyMareMediator mediator,
                 IContextMenu dalamudContextMenu) : base(logger, mediator)
     {
         _pairFactory = pairFactory;

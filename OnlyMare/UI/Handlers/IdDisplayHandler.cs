@@ -2,7 +2,7 @@
 using Dalamud.Interface;
 using Dalamud.Interface.Utility.Raii;
 using OnlyMare.API.Dto.Group;
-using OnlyMare.LightlessConfiguration;
+using OnlyMare.OnlyMareConfiguration;
 using OnlyMare.PlayerData.Pairs;
 using OnlyMare.Services.Mediator;
 using OnlyMare.Services.ServerConfiguration;
@@ -11,8 +11,8 @@ namespace OnlyMare.UI.Handlers;
 
 public class IdDisplayHandler
 {
-    private readonly LightlessConfigService _lightlessConfigService;
-    private readonly LightlessMediator _mediator;
+    private readonly OnlyMareConfigService _onlymareConfigService;
+    private readonly OnlyMareMediator _mediator;
     private readonly ServerConfigurationManager _serverManager;
     private readonly Dictionary<string, bool> _showIdForEntry = new(StringComparer.Ordinal);
     private string _editComment = string.Empty;
@@ -22,11 +22,11 @@ public class IdDisplayHandler
     private bool _popupShown = false;
     private DateTime? _popupTime;
 
-    public IdDisplayHandler(LightlessMediator mediator, ServerConfigurationManager serverManager, LightlessConfigService lightlessConfigService)
+    public IdDisplayHandler(OnlyMareMediator mediator, ServerConfigurationManager serverManager, OnlyMareConfigService onlymareConfigService)
     {
         _mediator = mediator;
         _serverManager = serverManager;
-        _lightlessConfigService = lightlessConfigService;
+        _onlymareConfigService = onlymareConfigService;
     }
 
     public void DrawGroupText(string id, GroupFullInfoDto group, float textPosX, Func<float> editBoxWidth)
@@ -99,12 +99,12 @@ public class IdDisplayHandler
             {
                 if (!string.Equals(_lastMouseOverUid, id))
                 {
-                    _popupTime = DateTime.UtcNow.AddSeconds(_lightlessConfigService.Current.ProfileDelay);
+                    _popupTime = DateTime.UtcNow.AddSeconds(_onlymareConfigService.Current.ProfileDelay);
                 }
 
                 _lastMouseOverUid = id;
 
-                if (_popupTime > DateTime.UtcNow || !_lightlessConfigService.Current.ProfilesShow)
+                if (_popupTime > DateTime.UtcNow || !_onlymareConfigService.Current.ProfilesShow)
                 {
                     ImGui.SetTooltip("Left click to switch between UID display and nick" + Environment.NewLine
                         + "Right click to change nick for " + pair.UserData.AliasOrUID + Environment.NewLine
@@ -222,11 +222,11 @@ public class IdDisplayHandler
             playerText = pair.UserData.AliasOrUID;
         }
 
-        if (_lightlessConfigService.Current.ShowCharacterNameInsteadOfNotesForVisible && pair.IsVisible && !showUidInsteadOfName)
+        if (_onlymareConfigService.Current.ShowCharacterNameInsteadOfNotesForVisible && pair.IsVisible && !showUidInsteadOfName)
         {
             playerText = pair.PlayerName;
             textIsUid = false;
-            if (_lightlessConfigService.Current.PreferNotesOverNamesForVisible)
+            if (_onlymareConfigService.Current.PreferNotesOverNamesForVisible)
             {
                 var note = pair.GetNote();
                 if (note != null)

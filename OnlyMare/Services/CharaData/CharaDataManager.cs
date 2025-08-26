@@ -3,7 +3,7 @@ using K4os.Compression.LZ4.Legacy;
 using OnlyMare.API.Data;
 using OnlyMare.API.Dto.CharaData;
 using OnlyMare.Interop.Ipc;
-using OnlyMare.LightlessConfiguration;
+using OnlyMare.OnlyMareConfiguration;
 using OnlyMare.PlayerData.Factories;
 using OnlyMare.PlayerData.Handlers;
 using OnlyMare.PlayerData.Pairs;
@@ -42,10 +42,10 @@ public sealed partial class CharaDataManager : DisposableMediatorSubscriberBase
 
     public CharaDataManager(ILogger<CharaDataManager> logger, ApiController apiController,
         CharaDataFileHandler charaDataFileHandler,
-        LightlessMediator lightlessMediator, IpcManager ipcManager, DalamudUtilService dalamudUtilService,
+        OnlyMareMediator onlymareMediator, IpcManager ipcManager, DalamudUtilService dalamudUtilService,
         FileDownloadManagerFactory fileDownloadManagerFactory,
         CharaDataConfigService charaDataConfigService, CharaDataNearbyManager charaDataNearbyManager,
-        CharaDataCharacterHandler charaDataCharacterHandler, PairManager pairManager) : base(logger, lightlessMediator)
+        CharaDataCharacterHandler charaDataCharacterHandler, PairManager pairManager) : base(logger, onlymareMediator)
     {
         _apiController = apiController;
         _fileHandler = charaDataFileHandler;
@@ -55,7 +55,7 @@ public sealed partial class CharaDataManager : DisposableMediatorSubscriberBase
         _nearbyManager = charaDataNearbyManager;
         _characterHandler = charaDataCharacterHandler;
         _pairManager = pairManager;
-        lightlessMediator.Subscribe<ConnectedMessage>(this, (msg) =>
+        onlymareMediator.Subscribe<ConnectedMessage>(this, (msg) =>
         {
             _connectCts?.Cancel();
             _connectCts?.Dispose();
@@ -75,7 +75,7 @@ public sealed partial class CharaDataManager : DisposableMediatorSubscriberBase
                 _ = GetAllSharedData(token);
             }
         });
-        lightlessMediator.Subscribe<DisconnectedMessage>(this, (msg) =>
+        onlymareMediator.Subscribe<DisconnectedMessage>(this, (msg) =>
         {
             _ownCharaData.Clear();
             _metaInfoCache.Clear();
@@ -98,7 +98,7 @@ public sealed partial class CharaDataManager : DisposableMediatorSubscriberBase
     public IEnumerable<HandledCharaDataEntry> HandledCharaData => _characterHandler.HandledCharaData;
     public bool Initialized { get; private set; }
     public CharaDataMetaInfoExtendedDto? LastDownloadedMetaInfo { get; private set; }
-    public Task<(LightlessCharaFileHeader LoadedFile, long ExpectedLength)>? LoadedMcdfHeader { get; private set; }
+    public Task<(OnlyMareCharaFileHeader LoadedFile, long ExpectedLength)>? LoadedMcdfHeader { get; private set; }
     public int MaxCreatableCharaData { get; private set; }
     public Task? McdfApplicationTask { get; private set; }
     public List<CharaDataMetaInfoExtendedDto> NearbyData => _nearbyData;
@@ -519,7 +519,7 @@ public sealed partial class CharaDataManager : DisposableMediatorSubscriberBase
         }
     }
 
-    public void SaveLightlessCharaFile(string description, string filePath)
+    public void SaveOnlyMareCharaFile(string description, string filePath)
     {
         UiBlockingComputation = Task.Run(async () => await _fileHandler.SaveCharaFileAsync(description, filePath).ConfigureAwait(false));
     }

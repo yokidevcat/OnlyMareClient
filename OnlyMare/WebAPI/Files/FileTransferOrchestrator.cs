@@ -1,4 +1,4 @@
-﻿using OnlyMare.LightlessConfiguration;
+﻿using OnlyMare.OnlyMareConfiguration;
 using OnlyMare.Services.Mediator;
 using OnlyMare.WebAPI.Files.Models;
 using OnlyMare.WebAPI.SignalR;
@@ -14,23 +14,23 @@ public class FileTransferOrchestrator : DisposableMediatorSubscriberBase
 {
     private readonly ConcurrentDictionary<Guid, bool> _downloadReady = new();
     private readonly HttpClient _httpClient;
-    private readonly LightlessConfigService _lightlessConfig;
+    private readonly OnlyMareConfigService _onlymareConfig;
     private readonly object _semaphoreModificationLock = new();
     private readonly TokenProvider _tokenProvider;
     private int _availableDownloadSlots;
     private SemaphoreSlim _downloadSemaphore;
     private int CurrentlyUsedDownloadSlots => _availableDownloadSlots - _downloadSemaphore.CurrentCount;
 
-    public FileTransferOrchestrator(ILogger<FileTransferOrchestrator> logger, LightlessConfigService lightlessConfig,
-        LightlessMediator mediator, TokenProvider tokenProvider, HttpClient httpClient) : base(logger, mediator)
+    public FileTransferOrchestrator(ILogger<FileTransferOrchestrator> logger, OnlyMareConfigService onlymareConfig,
+        OnlyMareMediator mediator, TokenProvider tokenProvider, HttpClient httpClient) : base(logger, mediator)
     {
-        _lightlessConfig = lightlessConfig;
+        _onlymareConfig = onlymareConfig;
         _tokenProvider = tokenProvider;
         _httpClient = httpClient;
         var ver = Assembly.GetExecutingAssembly().GetName().Version;
         _httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("OnlyMare", ver!.Major + "." + ver!.Minor + "." + ver!.Build));
 
-        _availableDownloadSlots = lightlessConfig.Current.ParallelDownloads;
+        _availableDownloadSlots = onlymareConfig.Current.ParallelDownloads;
         _downloadSemaphore = new(_availableDownloadSlots, _availableDownloadSlots);
 
         Mediator.Subscribe<ConnectedMessage>(this, (msg) =>
@@ -108,9 +108,9 @@ public class FileTransferOrchestrator : DisposableMediatorSubscriberBase
     {
         lock (_semaphoreModificationLock)
         {
-            if (_availableDownloadSlots != _lightlessConfig.Current.ParallelDownloads && _availableDownloadSlots == _downloadSemaphore.CurrentCount)
+            if (_availableDownloadSlots != _onlymareConfig.Current.ParallelDownloads && _availableDownloadSlots == _downloadSemaphore.CurrentCount)
             {
-                _availableDownloadSlots = _lightlessConfig.Current.ParallelDownloads;
+                _availableDownloadSlots = _onlymareConfig.Current.ParallelDownloads;
                 _downloadSemaphore = new(_availableDownloadSlots, _availableDownloadSlots);
             }
         }
@@ -121,13 +121,13 @@ public class FileTransferOrchestrator : DisposableMediatorSubscriberBase
 
     public long DownloadLimitPerSlot()
     {
-        var limit = _lightlessConfig.Current.DownloadSpeedLimitInBytes;
+        var limit = _onlymareConfig.Current.DownloadSpeedLimitInBytes;
         if (limit <= 0) return 0;
-        limit = _lightlessConfig.Current.DownloadSpeedType switch
+        limit = _onlymareConfig.Current.DownloadSpeedType switch
         {
-            LightlessConfiguration.Models.DownloadSpeeds.Bps => limit,
-            LightlessConfiguration.Models.DownloadSpeeds.KBps => limit * 1024,
-            LightlessConfiguration.Models.DownloadSpeeds.MBps => limit * 1024 * 1024,
+            OnlyMareConfiguration.Models.DownloadSpeeds.Bps => limit,
+            OnlyMareConfiguration.Models.DownloadSpeeds.KBps => limit * 1024,
+            OnlyMareConfiguration.Models.DownloadSpeeds.MBps => limit * 1024 * 1024,
             _ => limit,
         };
         var currentUsedDlSlots = CurrentlyUsedDownloadSlots;

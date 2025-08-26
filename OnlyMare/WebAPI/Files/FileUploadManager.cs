@@ -2,7 +2,7 @@
 using OnlyMare.API.Dto.Files;
 using OnlyMare.API.Routes;
 using OnlyMare.FileCache;
-using OnlyMare.LightlessConfiguration;
+using OnlyMare.OnlyMareConfiguration;
 using OnlyMare.Services.Mediator;
 using OnlyMare.Services.ServerConfiguration;
 using OnlyMare.UI;
@@ -16,19 +16,19 @@ namespace OnlyMare.WebAPI.Files;
 public sealed class FileUploadManager : DisposableMediatorSubscriberBase
 {
     private readonly FileCacheManager _fileDbManager;
-    private readonly LightlessConfigService _lightlessConfigService;
+    private readonly OnlyMareConfigService _onlymareConfigService;
     private readonly FileTransferOrchestrator _orchestrator;
     private readonly ServerConfigurationManager _serverManager;
     private readonly Dictionary<string, DateTime> _verifiedUploadedHashes = new(StringComparer.Ordinal);
     private CancellationTokenSource? _uploadCancellationTokenSource = new();
 
-    public FileUploadManager(ILogger<FileUploadManager> logger, LightlessMediator mediator,
-        LightlessConfigService lightlessConfigService,
+    public FileUploadManager(ILogger<FileUploadManager> logger, OnlyMareMediator mediator,
+        OnlyMareConfigService onlymareConfigService,
         FileTransferOrchestrator orchestrator,
         FileCacheManager fileDbManager,
         ServerConfigurationManager serverManager) : base(logger, mediator)
     {
-        _lightlessConfigService = lightlessConfigService;
+        _onlymareConfigService = onlymareConfigService;
         _orchestrator = orchestrator;
         _fileDbManager = fileDbManager;
         _serverManager = serverManager;
@@ -181,12 +181,12 @@ public sealed class FileUploadManager : DisposableMediatorSubscriberBase
 
         try
         {
-            await UploadFileStream(compressedFile, fileHash, _lightlessConfigService.Current.UseAlternativeFileUpload, postProgress, uploadToken).ConfigureAwait(false);
+            await UploadFileStream(compressedFile, fileHash, _onlymareConfigService.Current.UseAlternativeFileUpload, postProgress, uploadToken).ConfigureAwait(false);
             _verifiedUploadedHashes[fileHash] = DateTime.UtcNow;
         }
         catch (Exception ex)
         {
-            if (!_lightlessConfigService.Current.UseAlternativeFileUpload && ex is not OperationCanceledException)
+            if (!_onlymareConfigService.Current.UseAlternativeFileUpload && ex is not OperationCanceledException)
             {
                 Logger.LogWarning(ex, "[{hash}] Error during file upload, trying alternative file upload", fileHash);
                 await UploadFileStream(compressedFile, fileHash, munged: true, postProgress, uploadToken).ConfigureAwait(false);

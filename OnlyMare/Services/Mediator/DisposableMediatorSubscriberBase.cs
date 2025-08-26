@@ -4,7 +4,7 @@ namespace OnlyMare.Services.Mediator;
 
 public abstract class DisposableMediatorSubscriberBase : MediatorSubscriberBase, IDisposable
 {
-    protected DisposableMediatorSubscriberBase(ILogger logger, LightlessMediator mediator) : base(logger, mediator)
+    protected DisposableMediatorSubscriberBase(ILogger logger, OnlyMareMediator mediator) : base(logger, mediator)
     {
     }
 

@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace OnlyMare.LightlessConfiguration;
+namespace OnlyMare.OnlyMareConfiguration;
 
 public class ConfigurationMigrator(ILogger<ConfigurationMigrator> logger, TransientConfigService transientConfigService,
     ServerConfigService serverConfigService) : IHostedService
@@ -22,7 +22,7 @@ public class ConfigurationMigrator(ILogger<ConfigurationMigrator> logger, Transi
         if (serverConfigService.Current.Version == 1)
         {
             _logger.LogInformation("Migrating Server Config V1 => V2");
-            var centralServer = serverConfigService.Current.ServerStorage.Find(f => f.ServerName.Equals("Follow the light (Central Server EU)", StringComparison.Ordinal));
+            var centralServer = serverConfigService.Current.ServerStorage.Find(f => f.ServerName.Equals("Lunar Goonalis (Central Server EU)", StringComparison.Ordinal));
             if (centralServer != null)
             {
                 centralServer.ServerName = ApiController.MainServer;

@@ -5,8 +5,8 @@ using Dalamud.Interface.ImGuiFileDialog;
 using Dalamud.Interface.Utility;
 using Dalamud.Interface.Utility.Raii;
 using OnlyMare.API.Dto.CharaData;
-using OnlyMare.LightlessConfiguration;
-using OnlyMare.LightlessConfiguration.Models;
+using OnlyMare.OnlyMareConfiguration;
+using OnlyMare.OnlyMareConfiguration.Models;
 using OnlyMare.PlayerData.Pairs;
 using OnlyMare.Services;
 using OnlyMare.Services.CharaData;
@@ -74,7 +74,7 @@ internal sealed partial class CharaDataHubUi : WindowMediatorSubscriberBase
     private (string Id, string? Alias, string AliasOrId, string? Note)[]? _openComboHybridEntries = null;
     private bool _comboHybridUsedLastFrame = false;
 
-    public CharaDataHubUi(ILogger<CharaDataHubUi> logger, LightlessMediator mediator, PerformanceCollectorService performanceCollectorService,
+    public CharaDataHubUi(ILogger<CharaDataHubUi> logger, OnlyMareMediator mediator, PerformanceCollectorService performanceCollectorService,
                          CharaDataManager charaDataManager, CharaDataNearbyManager charaDataNearbyManager, CharaDataConfigService configService,
                          UiSharedService uiSharedService, ServerConfigurationManager serverConfigurationManager,
                          DalamudUtilService dalamudUtilService, FileDialogManager fileDialogManager, PairManager pairManager,
@@ -92,7 +92,7 @@ internal sealed partial class CharaDataHubUi : WindowMediatorSubscriberBase
         _fileDialogManager = fileDialogManager;
         _pairManager = pairManager;
         _charaDataGposeTogetherManager = charaDataGposeTogetherManager;
-        Mediator.Subscribe<GposeStartMessage>(this, (_) => IsOpen |= _configService.Current.OpenLightlessHubOnGposeStart);
+        Mediator.Subscribe<GposeStartMessage>(this, (_) => IsOpen |= _configService.Current.OpenOnlyMareHubOnGposeStart);
         Mediator.Subscribe<OpenCharaDataHubWithFilterMessage>(this, (msg) =>
         {
             IsOpen = true;
@@ -863,9 +863,9 @@ internal sealed partial class CharaDataHubUi : WindowMediatorSubscriberBase
 
     private void DrawMcdfExport()
     {
-        _uiSharedService.BigText("Lightless Character Data File Export");
+        _uiSharedService.BigText("OnlyMare Character Data File Export");
 
-        DrawHelpFoldout("This feature allows you to pack your character into a MCDF file and manually send it to other people. MCDF files can officially only be imported during GPose through Lightless. " +
+        DrawHelpFoldout("This feature allows you to pack your character into a MCDF file and manually send it to other people. MCDF files can officially only be imported during GPose through OnlyMare. " +
             "Be aware that the possibility exists that people write unofficial custom exporters to extract the containing data.");
 
         ImGuiHelpers.ScaledDummy(5);
@@ -891,7 +891,7 @@ internal sealed partial class CharaDataHubUi : WindowMediatorSubscriberBase
                     _configService.Current.LastSavedCharaDataLocation = Path.GetDirectoryName(path) ?? string.Empty;
                     _configService.Save();
 
-                    _charaDataManager.SaveLightlessCharaFile(_exportDescription, path);
+                    _charaDataManager.SaveOnlyMareCharaFile(_exportDescription, path);
                     _exportDescription = string.Empty;
                 }, Directory.Exists(_configService.Current.LastSavedCharaDataLocation) ? _configService.Current.LastSavedCharaDataLocation : null);
             }
@@ -1048,13 +1048,13 @@ internal sealed partial class CharaDataHubUi : WindowMediatorSubscriberBase
         ImGuiHelpers.ScaledDummy(5);
         _uiSharedService.BigText("Settings");
         ImGuiHelpers.ScaledDummy(5);
-        bool openInGpose = _configService.Current.OpenLightlessHubOnGposeStart;
+        bool openInGpose = _configService.Current.OpenOnlyMareHubOnGposeStart;
         if (ImGui.Checkbox("Open Character Data Hub when GPose loads", ref openInGpose))
         {
-            _configService.Current.OpenLightlessHubOnGposeStart = openInGpose;
+            _configService.Current.OpenOnlyMareHubOnGposeStart = openInGpose;
             _configService.Save();
         }
-        _uiSharedService.DrawHelpText("This will automatically open the import menu when loading into Gpose. If unchecked you can open the menu manually with /light gpose");
+        _uiSharedService.DrawHelpText("This will automatically open the import menu when loading into Gpose. If unchecked you can open the menu manually with /onlymare gpose");
         bool downloadDataOnConnection = _configService.Current.DownloadMcdDataOnConnection;
         if (ImGui.Checkbox("Download MCD Online Data on connecting", ref downloadDataOnConnection))
         {

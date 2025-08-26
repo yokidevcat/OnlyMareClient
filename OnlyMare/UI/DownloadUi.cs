@@ -1,6 +1,6 @@
 ﻿using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Colors;
-using OnlyMare.LightlessConfiguration;
+using OnlyMare.OnlyMareConfiguration;
 using OnlyMare.PlayerData.Handlers;
 using OnlyMare.Services;
 using OnlyMare.Services.Mediator;
@@ -14,16 +14,16 @@ namespace OnlyMare.UI;
 
 public class DownloadUi : WindowMediatorSubscriberBase
 {
-    private readonly LightlessConfigService _configService;
+    private readonly OnlyMareConfigService _configService;
     private readonly ConcurrentDictionary<GameObjectHandler, Dictionary<string, FileDownloadStatus>> _currentDownloads = new();
     private readonly DalamudUtilService _dalamudUtilService;
     private readonly FileUploadManager _fileTransferManager;
     private readonly UiSharedService _uiShared;
     private readonly ConcurrentDictionary<GameObjectHandler, bool> _uploadingPlayers = new();
 
-    public DownloadUi(ILogger<DownloadUi> logger, DalamudUtilService dalamudUtilService, LightlessConfigService configService,
-        FileUploadManager fileTransferManager, LightlessMediator mediator, UiSharedService uiShared, PerformanceCollectorService performanceCollectorService)
-        : base(logger, mediator, "Lightless Sync Downloads", performanceCollectorService)
+    public DownloadUi(ILogger<DownloadUi> logger, DalamudUtilService dalamudUtilService, OnlyMareConfigService configService,
+        FileUploadManager fileTransferManager, OnlyMareMediator mediator, UiSharedService uiShared, PerformanceCollectorService performanceCollectorService)
+        : base(logger, mediator, "OnlyMare Downloads", performanceCollectorService)
     {
         _dalamudUtilService = dalamudUtilService;
         _configService = configService;

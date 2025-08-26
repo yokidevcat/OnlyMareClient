@@ -1,5 +1,5 @@
 ﻿using Dalamud.Plugin.Services;
-using OnlyMare.LightlessConfiguration;
+using OnlyMare.OnlyMareConfiguration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
@@ -13,7 +13,7 @@ public static class DalamudLoggingProviderExtensions
         builder.ClearProviders();
 
         builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, DalamudLoggingProvider>
-            (b => new DalamudLoggingProvider(b.GetRequiredService<LightlessConfigService>(), pluginLog, hasModifiedGameFiles)));
+            (b => new DalamudLoggingProvider(b.GetRequiredService<OnlyMareConfigService>(), pluginLog, hasModifiedGameFiles)));
         return builder;
     }
 }

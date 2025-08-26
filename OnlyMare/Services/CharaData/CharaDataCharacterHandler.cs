@@ -17,7 +17,7 @@ public sealed class CharaDataCharacterHandler : DisposableMediatorSubscriberBase
 
     public IEnumerable<HandledCharaDataEntry> HandledCharaData => _handledCharaData;
 
-    public CharaDataCharacterHandler(ILogger<CharaDataCharacterHandler> logger, LightlessMediator mediator,
+    public CharaDataCharacterHandler(ILogger<CharaDataCharacterHandler> logger, OnlyMareMediator mediator,
         GameObjectHandlerFactory gameObjectHandlerFactory, DalamudUtilService dalamudUtilService,
         IpcManager ipcManager)
         : base(logger, mediator)

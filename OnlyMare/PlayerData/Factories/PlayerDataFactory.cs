@@ -2,7 +2,7 @@
 using OnlyMare.API.Data.Enum;
 using OnlyMare.FileCache;
 using OnlyMare.Interop.Ipc;
-using OnlyMare.LightlessConfiguration.Models;
+using OnlyMare.OnlyMareConfiguration.Models;
 using OnlyMare.PlayerData.Data;
 using OnlyMare.PlayerData.Handlers;
 using OnlyMare.Services;
@@ -20,12 +20,12 @@ public class PlayerDataFactory
     private readonly ILogger<PlayerDataFactory> _logger;
     private readonly PerformanceCollectorService _performanceCollector;
     private readonly XivDataAnalyzer _modelAnalyzer;
-    private readonly LightlessMediator _lightlessMediator;
+    private readonly OnlyMareMediator _onlymareMediator;
     private readonly TransientResourceManager _transientResourceManager;
 
     public PlayerDataFactory(ILogger<PlayerDataFactory> logger, DalamudUtilService dalamudUtil, IpcManager ipcManager,
         TransientResourceManager transientResourceManager, FileCacheManager fileReplacementFactory,
-        PerformanceCollectorService performanceCollector, XivDataAnalyzer modelAnalyzer, LightlessMediator lightlessMediator)
+        PerformanceCollectorService performanceCollector, XivDataAnalyzer modelAnalyzer, OnlyMareMediator onlymareMediator)
     {
         _logger = logger;
         _dalamudUtil = dalamudUtil;
@@ -34,7 +34,7 @@ public class PlayerDataFactory
         _fileCacheManager = fileReplacementFactory;
         _performanceCollector = performanceCollector;
         _modelAnalyzer = modelAnalyzer;
-        _lightlessMediator = lightlessMediator;
+        _onlymareMediator = onlymareMediator;
         _logger.LogTrace("Creating {this}", nameof(PlayerDataFactory));
     }
 
@@ -319,7 +319,7 @@ public class PlayerDataFactory
 
         if (noValidationFailed > 0)
         {
-            _lightlessMediator.Publish(new NotificationMessage("Invalid Skeleton Setup",
+            _onlymareMediator.Publish(new NotificationMessage("Invalid Skeleton Setup",
                 $"Your client is attempting to send {noValidationFailed} animation files with invalid bone data. Those animation files have been removed from your sent data. " +
                 $"Verify that you are using the correct skeleton for those animation files (Check /xllog for more information).",
                 NotificationType.Warning, TimeSpan.FromSeconds(10)));

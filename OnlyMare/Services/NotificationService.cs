@@ -1,12 +1,12 @@
 ﻿using Dalamud.Game.Text.SeStringHandling;
 using Dalamud.Interface.ImGuiNotification;
 using Dalamud.Plugin.Services;
-using OnlyMare.LightlessConfiguration;
-using OnlyMare.LightlessConfiguration.Models;
+using OnlyMare.OnlyMareConfiguration;
+using OnlyMare.OnlyMareConfiguration.Models;
 using OnlyMare.Services.Mediator;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using NotificationType = OnlyMare.LightlessConfiguration.Models.NotificationType;
+using NotificationType = OnlyMare.OnlyMareConfiguration.Models.NotificationType;
 
 namespace OnlyMare.Services;
 
@@ -15,12 +15,12 @@ public class NotificationService : DisposableMediatorSubscriberBase, IHostedServ
     private readonly DalamudUtilService _dalamudUtilService;
     private readonly INotificationManager _notificationManager;
     private readonly IChatGui _chatGui;
-    private readonly LightlessConfigService _configurationService;
+    private readonly OnlyMareConfigService _configurationService;
 
-    public NotificationService(ILogger<NotificationService> logger, LightlessMediator mediator,
+    public NotificationService(ILogger<NotificationService> logger, OnlyMareMediator mediator,
         DalamudUtilService dalamudUtilService,
         INotificationManager notificationManager,
-        IChatGui chatGui, LightlessConfigService configurationService) : base(logger, mediator)
+        IChatGui chatGui, OnlyMareConfigService configurationService) : base(logger, mediator)
     {
         _dalamudUtilService = dalamudUtilService;
         _notificationManager = notificationManager;
@@ -41,19 +41,19 @@ public class NotificationService : DisposableMediatorSubscriberBase, IHostedServ
 
     private void PrintErrorChat(string? message)
     {
-        SeStringBuilder se = new SeStringBuilder().AddText("[Lightless Sync] Error: " + message);
+        SeStringBuilder se = new SeStringBuilder().AddText("[OnlyMare] Error: " + message);
         _chatGui.PrintError(se.BuiltString);
     }
 
     private void PrintInfoChat(string? message)
     {
-        SeStringBuilder se = new SeStringBuilder().AddText("[Lightless Sync] Info: ").AddItalics(message ?? string.Empty);
+        SeStringBuilder se = new SeStringBuilder().AddText("[OnlyMare] Info: ").AddItalics(message ?? string.Empty);
         _chatGui.Print(se.BuiltString);
     }
 
     private void PrintWarnChat(string? message)
     {
-        SeStringBuilder se = new SeStringBuilder().AddText("[Lightless Sync] ").AddUiForeground("Warning: " + (message ?? string.Empty), 31).AddUiForegroundOff();
+        SeStringBuilder se = new SeStringBuilder().AddText("[OnlyMare] ").AddUiForeground("Warning: " + (message ?? string.Empty), 31).AddUiForegroundOff();
         _chatGui.Print(se.BuiltString);
     }
 

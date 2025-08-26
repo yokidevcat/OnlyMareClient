@@ -1,6 +1,6 @@
-﻿namespace OnlyMare.LightlessConfiguration.Configurations;
+﻿namespace OnlyMare.OnlyMareConfiguration.Configurations;
 
-public interface ILightlessConfiguration
+public interface IOnlyMareConfiguration
 {
     int Version { get; set; }
 }

@@ -1,5 +1,5 @@
 ﻿using Dalamud.Plugin;
-using OnlyMare.LightlessConfiguration.Models;
+using OnlyMare.OnlyMareConfiguration.Models;
 using OnlyMare.PlayerData.Handlers;
 using OnlyMare.Services;
 using OnlyMare.Services.Mediator;
@@ -15,7 +15,7 @@ public sealed class IpcCallerPenumbra : DisposableMediatorSubscriberBase, IIpcCa
 {
     private readonly IDalamudPluginInterface _pi;
     private readonly DalamudUtilService _dalamudUtil;
-    private readonly LightlessMediator _lightlessMediator;
+    private readonly OnlyMareMediator _onlymareMediator;
     private readonly RedrawManager _redrawManager;
     private bool _shownPenumbraUnavailable = false;
     private string? _penumbraModDirectory;
@@ -27,7 +27,7 @@ public sealed class IpcCallerPenumbra : DisposableMediatorSubscriberBase, IIpcCa
             if (!string.Equals(_penumbraModDirectory, value, StringComparison.Ordinal))
             {
                 _penumbraModDirectory = value;
-                _lightlessMediator.Publish(new PenumbraDirectoryChangedMessage(_penumbraModDirectory));
+                _onlymareMediator.Publish(new PenumbraDirectoryChangedMessage(_penumbraModDirectory));
             }
         }
     }
@@ -54,11 +54,11 @@ public sealed class IpcCallerPenumbra : DisposableMediatorSubscriberBase, IIpcCa
     private readonly GetGameObjectResourcePaths _penumbraResourcePaths;
 
     public IpcCallerPenumbra(ILogger<IpcCallerPenumbra> logger, IDalamudPluginInterface pi, DalamudUtilService dalamudUtil,
-        LightlessMediator lightlessMediator, RedrawManager redrawManager) : base(logger, lightlessMediator)
+        OnlyMareMediator onlymareMediator, RedrawManager redrawManager) : base(logger, onlymareMediator)
     {
         _pi = pi;
         _dalamudUtil = dalamudUtil;
-        _lightlessMediator = lightlessMediator;
+        _onlymareMediator = onlymareMediator;
         _redrawManager = redrawManager;
         _penumbraInit = Initialized.Subscriber(pi, PenumbraInit);
         _penumbraDispose = Disposed.Subscriber(pi, PenumbraDispose);
@@ -76,7 +76,7 @@ public sealed class IpcCallerPenumbra : DisposableMediatorSubscriberBase, IIpcCa
         _penumbraModSettingChanged = ModSettingChanged.Subscriber(pi, (change, arg1, arg, b) =>
         {
             if (change == ModSettingChange.EnableState)
-                _lightlessMediator.Publish(new PenumbraModSettingChangedMessage());
+                _onlymareMediator.Publish(new PenumbraModSettingChangedMessage());
         });
         _penumbraConvertTextureFile = new ConvertTextureFile(pi);
         _penumbraResourcePaths = new GetGameObjectResourcePaths(pi);
@@ -125,8 +125,8 @@ public sealed class IpcCallerPenumbra : DisposableMediatorSubscriberBase, IIpcCa
             if (!penumbraAvailable && !_shownPenumbraUnavailable)
             {
                 _shownPenumbraUnavailable = true;
-                _lightlessMediator.Publish(new NotificationMessage("Penumbra inactive",
-                    "Your Penumbra installation is not active or out of date. Update Penumbra and/or the Enable Mods setting in Penumbra to continue to use Lightless. If you just updated Penumbra, ignore this message.",
+                _onlymareMediator.Publish(new NotificationMessage("Penumbra inactive",
+                    "Your Penumbra installation is not active or out of date. Update Penumbra and/or the Enable Mods setting in Penumbra to continue to use OnlyMare. If you just updated Penumbra, ignore this message.",
                     NotificationType.Error));
             }
         }
@@ -173,7 +173,7 @@ public sealed class IpcCallerPenumbra : DisposableMediatorSubscriberBase, IIpcCa
     {
         if (!APIAvailable) return;
 
-        _lightlessMediator.Publish(new HaltScanMessage(nameof(ConvertTextureFiles)));
+        _onlymareMediator.Publish(new HaltScanMessage(nameof(ConvertTextureFiles)));
         int currentTexture = 0;
         foreach (var texture in textures)
         {
@@ -200,7 +200,7 @@ public sealed class IpcCallerPenumbra : DisposableMediatorSubscriberBase, IIpcCa
                 }
             }
         }
-        _lightlessMediator.Publish(new ResumeScanMessage(nameof(ConvertTextureFiles)));
+        _onlymareMediator.Publish(new ResumeScanMessage(nameof(ConvertTextureFiles)));
 
         await _dalamudUtil.RunOnFrameworkThread(async () =>
         {
@@ -215,7 +215,7 @@ public sealed class IpcCallerPenumbra : DisposableMediatorSubscriberBase, IIpcCa
 
         return await _dalamudUtil.RunOnFrameworkThread(() =>
         {
-            var collName = "Lightless_" + uid;
+            var collName = "OnlyMare_" + uid;
             _penumbraCreateNamedTemporaryCollection.Invoke(collName, collName, out var collId);
             logger.LogTrace("Creating Temp Collection {collName}, GUID: {collId}", collName, collId);
             return collId;
@@ -284,7 +284,7 @@ public sealed class IpcCallerPenumbra : DisposableMediatorSubscriberBase, IIpcCa
         await _dalamudUtil.RunOnFrameworkThread(() =>
         {
             logger.LogTrace("[{applicationId}] Manip: {data}", applicationId, manipulationData);
-            var retAdd = _penumbraAddTemporaryMod.Invoke("LightlessChara_Meta", collId, [], manipulationData, 0);
+            var retAdd = _penumbraAddTemporaryMod.Invoke("OnlyMareChara_Meta", collId, [], manipulationData, 0);
             logger.LogTrace("[{applicationId}] Setting temp meta mod for {collId}, Success: {ret}", applicationId, collId, retAdd);
         }).ConfigureAwait(false);
     }
@@ -299,9 +299,9 @@ public sealed class IpcCallerPenumbra : DisposableMediatorSubscriberBase, IIpcCa
             {
                 logger.LogTrace("[{applicationId}] Change: {from} => {to}", applicationId, mod.Key, mod.Value);
             }
-            var retRemove = _penumbraRemoveTemporaryMod.Invoke("LightlessChara_Files", collId, 0);
+            var retRemove = _penumbraRemoveTemporaryMod.Invoke("OnlyMareChara_Files", collId, 0);
             logger.LogTrace("[{applicationId}] Removing temp files mod for {collId}, Success: {ret}", applicationId, collId, retRemove);
-            var retAdd = _penumbraAddTemporaryMod.Invoke("LightlessChara_Files", collId, modPaths, string.Empty, 0);
+            var retAdd = _penumbraAddTemporaryMod.Invoke("OnlyMareChara_Files", collId, modPaths, string.Empty, 0);
             logger.LogTrace("[{applicationId}] Setting temp files mod for {collId}, Success: {ret}", applicationId, collId, retAdd);
         }).ConfigureAwait(false);
     }
@@ -315,7 +315,7 @@ public sealed class IpcCallerPenumbra : DisposableMediatorSubscriberBase, IIpcCa
         }
         else
         {
-            _lightlessMediator.Publish(new PenumbraRedrawMessage(objectAddress, objectTableIndex, wasRequested));
+            _onlymareMediator.Publish(new PenumbraRedrawMessage(objectAddress, objectTableIndex, wasRequested));
         }
     }
 
@@ -323,21 +323,21 @@ public sealed class IpcCallerPenumbra : DisposableMediatorSubscriberBase, IIpcCa
     {
         if (ptr != IntPtr.Zero && string.Compare(arg1, arg2, ignoreCase: true, System.Globalization.CultureInfo.InvariantCulture) != 0)
         {
-            _lightlessMediator.Publish(new PenumbraResourceLoadMessage(ptr, arg1, arg2));
+            _onlymareMediator.Publish(new PenumbraResourceLoadMessage(ptr, arg1, arg2));
         }
     }
 
     private void PenumbraDispose()
     {
         _redrawManager.Cancel();
-        _lightlessMediator.Publish(new PenumbraDisposedMessage());
+        _onlymareMediator.Publish(new PenumbraDisposedMessage());
     }
 
     private void PenumbraInit()
     {
         APIAvailable = true;
         ModDirectory = _penumbraResolveModDir.Invoke();
-        _lightlessMediator.Publish(new PenumbraInitializedMessage());
+        _onlymareMediator.Publish(new PenumbraInitializedMessage());
         _penumbraRedraw!.Invoke(0, setting: RedrawType.Redraw);
     }
 }

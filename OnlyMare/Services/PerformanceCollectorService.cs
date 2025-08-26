@@ -1,4 +1,4 @@
-﻿using OnlyMare.LightlessConfiguration;
+﻿using OnlyMare.OnlyMareConfiguration;
 using OnlyMare.Utils;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -12,19 +12,19 @@ public sealed class PerformanceCollectorService : IHostedService
 {
     private const string _counterSplit = "=>";
     private readonly ILogger<PerformanceCollectorService> _logger;
-    private readonly LightlessConfigService _lightlessConfigService;
+    private readonly OnlyMareConfigService _onlymareConfigService;
     public ConcurrentDictionary<string, RollingList<(TimeOnly, long)>> PerformanceCounters { get; } = new(StringComparer.Ordinal);
     private readonly CancellationTokenSource _periodicLogPruneTaskCts = new();
 
-    public PerformanceCollectorService(ILogger<PerformanceCollectorService> logger, LightlessConfigService lightlessConfigService)
+    public PerformanceCollectorService(ILogger<PerformanceCollectorService> logger, OnlyMareConfigService onlymareConfigService)
     {
         _logger = logger;
-        _lightlessConfigService = lightlessConfigService;
+        _onlymareConfigService = onlymareConfigService;
     }
 
-    public T LogPerformance<T>(object sender, LightlessInterpolatedStringHandler counterName, Func<T> func, int maxEntries = 10000)
+    public T LogPerformance<T>(object sender, OnlyMareInterpolatedStringHandler counterName, Func<T> func, int maxEntries = 10000)
     {
-        if (!_lightlessConfigService.Current.LogPerformance) return func.Invoke();
+        if (!_onlymareConfigService.Current.LogPerformance) return func.Invoke();
 
         string cn = sender.GetType().Name + _counterSplit + counterName.BuildMessage();
 
@@ -49,9 +49,9 @@ public sealed class PerformanceCollectorService : IHostedService
         }
     }
 
-    public void LogPerformance(object sender, LightlessInterpolatedStringHandler counterName, Action act, int maxEntries = 10000)
+    public void LogPerformance(object sender, OnlyMareInterpolatedStringHandler counterName, Action act, int maxEntries = 10000)
     {
-        if (!_lightlessConfigService.Current.LogPerformance) { act.Invoke(); return; }
+        if (!_onlymareConfigService.Current.LogPerformance) { act.Invoke(); return; }
 
         var cn = sender.GetType().Name + _counterSplit + counterName.BuildMessage();
 
@@ -93,7 +93,7 @@ public sealed class PerformanceCollectorService : IHostedService
 
     internal void PrintPerformanceStats(int limitBySeconds = 0)
     {
-        if (!_lightlessConfigService.Current.LogPerformance)
+        if (!_onlymareConfigService.Current.LogPerformance)
         {
             _logger.LogWarning("Performance counters are disabled");
         }

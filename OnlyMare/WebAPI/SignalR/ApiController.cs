@@ -4,8 +4,8 @@ using OnlyMare.API.Data.Extensions;
 using OnlyMare.API.Dto;
 using OnlyMare.API.Dto.User;
 using OnlyMare.API.SignalR;
-using OnlyMare.LightlessConfiguration;
-using OnlyMare.LightlessConfiguration.Models;
+using OnlyMare.OnlyMareConfiguration;
+using OnlyMare.OnlyMareConfiguration.Models;
 using OnlyMare.PlayerData.Pairs;
 using OnlyMare.Services;
 using OnlyMare.Services.Mediator;
@@ -21,42 +21,42 @@ namespace OnlyMare.WebAPI;
 #pragma warning disable MA0040
 public sealed partial class ApiController : DisposableMediatorSubscriberBase, IOnlyMareHubClient
 {
-    public const string MainServer = "Follow the light (Official Central Server)";
-    public const string MainServiceUri = "wss://sync.lightless-sync.org";
+    public const string MainServer = "Lunar Goonalis (Official Central Server)";
+    public const string MainServiceUri = "wss://mare.sprocket-audio.co.uk/";
 
     private readonly DalamudUtilService _dalamudUtil;
     private readonly HubFactory _hubFactory;
     private readonly PairManager _pairManager;
     private readonly ServerConfigurationManager _serverManager;
     private readonly TokenProvider _tokenProvider;
-    private readonly LightlessConfigService _lightlessConfigService;
+    private readonly OnlyMareConfigService _onlymareConfigService;
     private CancellationTokenSource _connectionCancellationTokenSource;
     private ConnectionDto? _connectionDto;
     private bool _doNotNotifyOnNextInfo = false;
     private CancellationTokenSource? _healthCheckTokenSource = new();
     private bool _initialized;
     private string? _lastUsedToken;
-    private HubConnection? _lightlessHub;
+    private HubConnection? _onlymareHub;
     private ServerState _serverState;
     private CensusUpdateMessage? _lastCensus;
 
     public ApiController(ILogger<ApiController> logger, HubFactory hubFactory, DalamudUtilService dalamudUtil,
-        PairManager pairManager, ServerConfigurationManager serverManager, LightlessMediator mediator,
-        TokenProvider tokenProvider, LightlessConfigService lightlessConfigService) : base(logger, mediator)
+        PairManager pairManager, ServerConfigurationManager serverManager, OnlyMareMediator mediator,
+        TokenProvider tokenProvider, OnlyMareConfigService onlymareConfigService) : base(logger, mediator)
     {
         _hubFactory = hubFactory;
         _dalamudUtil = dalamudUtil;
         _pairManager = pairManager;
         _serverManager = serverManager;
         _tokenProvider = tokenProvider;
-        _lightlessConfigService = lightlessConfigService;
+        _onlymareConfigService = onlymareConfigService;
         _connectionCancellationTokenSource = new CancellationTokenSource();
 
         Mediator.Subscribe<DalamudLoginMessage>(this, (_) => DalamudUtilOnLogIn());
         Mediator.Subscribe<DalamudLogoutMessage>(this, (_) => DalamudUtilOnLogOut());
-        Mediator.Subscribe<HubClosedMessage>(this, (msg) => LightlessHubOnClosed(msg.Exception));
-        Mediator.Subscribe<HubReconnectedMessage>(this, (msg) => _ = LightlessHubOnReconnectedAsync());
-        Mediator.Subscribe<HubReconnectingMessage>(this, (msg) => LightlessHubOnReconnecting(msg.Exception));
+        Mediator.Subscribe<HubClosedMessage>(this, (msg) => OnlyMareHubOnClosed(msg.Exception));
+        Mediator.Subscribe<HubReconnectedMessage>(this, (msg) => _ = OnlyMareHubOnReconnectedAsync());
+        Mediator.Subscribe<HubReconnectingMessage>(this, (msg) => OnlyMareHubOnReconnecting(msg.Exception));
         Mediator.Subscribe<CyclePauseMessage>(this, (msg) => _ = CyclePauseAsync(msg.UserData));
         Mediator.Subscribe<CensusUpdateMessage>(this, (msg) => _lastCensus = msg);
         Mediator.Subscribe<PauseMessage>(this, (msg) => _ = PauseAsync(msg.UserData));
@@ -102,7 +102,7 @@ public sealed partial class ApiController : DisposableMediatorSubscriberBase, IO
 
     public async Task<bool> CheckClientHealth()
     {
-        return await _lightlessHub!.InvokeAsync<bool>(nameof(CheckClientHealth)).ConfigureAwait(false);
+        return await _onlymareHub!.InvokeAsync<bool>(nameof(CheckClientHealth)).ConfigureAwait(false);
     }
 
     public async Task CreateConnectionsAsync()
@@ -134,7 +134,7 @@ public sealed partial class ApiController : DisposableMediatorSubscriberBase, IO
             {
                 Logger.LogWarning("Multiple secret keys for current character");
                 _connectionDto = null;
-                Mediator.Publish(new NotificationMessage("Multiple Identical Characters detected", "Your Service configuration has multiple characters with the same name and world set up. Delete the duplicates in the character management to be able to connect to Lightless.",
+                Mediator.Publish(new NotificationMessage("Multiple Identical Characters detected", "Your Service configuration has multiple characters with the same name and world set up. Delete the duplicates in the character management to be able to connect to OnlyMare.",
                     NotificationType.Error));
                 await StopConnectionAsync(ServerState.MultiChara).ConfigureAwait(false);
                 _connectionCancellationTokenSource?.Cancel();
@@ -157,7 +157,7 @@ public sealed partial class ApiController : DisposableMediatorSubscriberBase, IO
             {
                 Logger.LogWarning("Multiple secret keys for current character");
                 _connectionDto = null;
-                Mediator.Publish(new NotificationMessage("Multiple Identical Characters detected", "Your Service configuration has multiple characters with the same name and world set up. Delete the duplicates in the character management to be able to connect to Lightless.",
+                Mediator.Publish(new NotificationMessage("Multiple Identical Characters detected", "Your Service configuration has multiple characters with the same name and world set up. Delete the duplicates in the character management to be able to connect to OnlyMare.",
                     NotificationType.Error));
                 await StopConnectionAsync(ServerState.MultiChara).ConfigureAwait(false);
                 _connectionCancellationTokenSource?.Cancel();
@@ -208,7 +208,7 @@ public sealed partial class ApiController : DisposableMediatorSubscriberBase, IO
                 {
                     _lastUsedToken = await _tokenProvider.GetOrUpdateToken(token).ConfigureAwait(false);
                 }
-                catch (LightlessAuthFailureException ex)
+                catch (OnlyMareAuthFailureException ex)
                 {
                     AuthFailureMessage = ex.Reason;
                     throw new HttpRequestException("Error during authentication", ex, System.Net.HttpStatusCode.Unauthorized);
@@ -222,10 +222,10 @@ public sealed partial class ApiController : DisposableMediatorSubscriberBase, IO
 
                 if (token.IsCancellationRequested) break;
 
-                _lightlessHub = _hubFactory.GetOrCreate(token);
+                _onlymareHub = _hubFactory.GetOrCreate(token);
                 InitializeApiHooks();
 
-                await _lightlessHub.StartAsync(token).ConfigureAwait(false);
+                await _onlymareHub.StartAsync(token).ConfigureAwait(false);
 
                 _connectionDto = await GetConnectionDto().ConfigureAwait(false);
 
@@ -240,7 +240,7 @@ public sealed partial class ApiController : DisposableMediatorSubscriberBase, IO
                         Mediator.Publish(new NotificationMessage("Client incompatible",
                             $"Your client is outdated ({currentClientVer.Major}.{currentClientVer.Minor}.{currentClientVer.Build}), current is: " +
                             $"{_connectionDto.CurrentClientVersion.Major}.{_connectionDto.CurrentClientVersion.Minor}.{_connectionDto.CurrentClientVersion.Build}. " +
-                            $"This client version is incompatible and will not be able to connect. Please update your Lightless Sync client.",
+                            $"This client version is incompatible and will not be able to connect. Please update your OnlyMare client.",
                             NotificationType.Error));
                     }
                     await StopConnectionAsync(ServerState.VersionMisMatch).ConfigureAwait(false);
@@ -252,17 +252,17 @@ public sealed partial class ApiController : DisposableMediatorSubscriberBase, IO
                     Mediator.Publish(new NotificationMessage("Client outdated",
                         $"Your client is outdated ({currentClientVer.Major}.{currentClientVer.Minor}.{currentClientVer.Build}), current is: " +
                         $"{_connectionDto.CurrentClientVersion.Major}.{_connectionDto.CurrentClientVersion.Minor}.{_connectionDto.CurrentClientVersion.Build}. " +
-                        $"Please keep your Lightless Sync client up-to-date.",
+                        $"Please keep your OnlyMare client up-to-date.",
                         NotificationType.Warning));
                 }
 
                 if (_dalamudUtil.HasModifiedGameFiles)
                 {
                     Logger.LogError("Detected modified game files on connection");
-                    if (!_lightlessConfigService.Current.DebugStopWhining)
+                    if (!_onlymareConfigService.Current.DebugStopWhining)
                         Mediator.Publish(new NotificationMessage("Modified Game Files detected",
                             "Dalamud is reporting your FFXIV installation has modified game files. Any mods installed through TexTools will produce this message. " +
-                            "Lightless Sync, Penumbra, and some other plugins assume your FFXIV installation is unmodified in order to work. " +
+                            "OnlyMare, Penumbra, and some other plugins assume your FFXIV installation is unmodified in order to work. " +
                             "Synchronization with pairs/shells can break because of this. Exit the game, open XIVLauncher, click the arrow next to Log In " +
                             "and select 'repair game files' to resolve this issue. Afterwards, do not install any mods with TexTools. Your plugin configurations will remain, as will mods enabled in Penumbra.",
                             NotificationType.Error, TimeSpan.FromSeconds(15)));
@@ -272,11 +272,11 @@ public sealed partial class ApiController : DisposableMediatorSubscriberBase, IO
                 {
                     _naggedAboutLod = true;
                     Logger.LogWarning("Model LOD is enabled during connection");
-                    if (!_lightlessConfigService.Current.DebugStopWhining)
+                    if (!_onlymareConfigService.Current.DebugStopWhining)
                     {
                         Mediator.Publish(new NotificationMessage("Model LOD is enabled",
                             "You have \"Use low-detail models on distant objects (LOD)\" enabled. Having model LOD enabled is known to be a reason to cause " +
-                            "random crashes when loading in or rendering modded pairs. Disabling LOD has a very low performance impact. Disable LOD while using Lightless: " +
+                            "random crashes when loading in or rendering modded pairs. Disabling LOD has a very low performance impact. Disable LOD while using OnlyMare: " +
                             "Go to XIV Menu -> System Configuration -> Graphics Settings and disable the model LOD option.", NotificationType.Warning, TimeSpan.FromSeconds(15)));
                     }
                 }
@@ -361,7 +361,7 @@ public sealed partial class ApiController : DisposableMediatorSubscriberBase, IO
 
     public async Task<ConnectionDto> GetConnectionDtoAsync(bool publishConnected)
     {
-        var dto = await _lightlessHub!.InvokeAsync<ConnectionDto>(nameof(GetConnectionDto)).ConfigureAwait(false);
+        var dto = await _onlymareHub!.InvokeAsync<ConnectionDto>(nameof(GetConnectionDto)).ConfigureAwait(false);
         if (publishConnected) Mediator.Publish(new ConnectedMessage(dto));
         return dto;
     }
@@ -377,7 +377,7 @@ public sealed partial class ApiController : DisposableMediatorSubscriberBase, IO
 
     private async Task ClientHealthCheckAsync(CancellationToken ct)
     {
-        while (!ct.IsCancellationRequested && _lightlessHub != null)
+        while (!ct.IsCancellationRequested && _onlymareHub != null)
         {
             await Task.Delay(TimeSpan.FromSeconds(30), ct).ConfigureAwait(false);
             Logger.LogDebug("Checking Client Health State");
@@ -415,7 +415,7 @@ public sealed partial class ApiController : DisposableMediatorSubscriberBase, IO
 
     private void InitializeApiHooks()
     {
-        if (_lightlessHub == null) return;
+        if (_onlymareHub == null) return;
 
         Logger.LogDebug("Initializing data");
         OnDownloadReady((guid) => _ = Client_DownloadReady(guid));
@@ -489,7 +489,7 @@ public sealed partial class ApiController : DisposableMediatorSubscriberBase, IO
         }
     }
 
-    private void LightlessHubOnClosed(Exception? arg)
+    private void OnlyMareHubOnClosed(Exception? arg)
     {
         _healthCheckTokenSource?.Cancel();
         Mediator.Publish(new DisconnectedMessage());
@@ -504,7 +504,7 @@ public sealed partial class ApiController : DisposableMediatorSubscriberBase, IO
         }
     }
 
-    private async Task LightlessHubOnReconnectedAsync()
+    private async Task OnlyMareHubOnReconnectedAsync()
     {
         ServerState = ServerState.Reconnecting;
         try
@@ -528,7 +528,7 @@ public sealed partial class ApiController : DisposableMediatorSubscriberBase, IO
         }
     }
 
-    private void LightlessHubOnReconnecting(Exception? arg)
+    private void OnlyMareHubOnReconnecting(Exception? arg)
     {
         _doNotNotifyOnNextInfo = true;
         _healthCheckTokenSource?.Cancel();
@@ -554,7 +554,7 @@ public sealed partial class ApiController : DisposableMediatorSubscriberBase, IO
                 requireReconnect = true;
             }
         }
-        catch (LightlessAuthFailureException ex)
+        catch (OnlyMareAuthFailureException ex)
         {
             AuthFailureMessage = ex.Reason;
             await StopConnectionAsync(ServerState.Unauthorized).ConfigureAwait(false);
@@ -578,7 +578,7 @@ public sealed partial class ApiController : DisposableMediatorSubscriberBase, IO
         Logger.LogInformation("Stopping existing connection");
         await _hubFactory.DisposeHubAsync().ConfigureAwait(false);
 
-        if (_lightlessHub is not null)
+        if (_onlymareHub is not null)
         {
             Mediator.Publish(new EventMessage(new Services.Events.Event(nameof(ApiController), Services.Events.EventSeverity.Informational,
                 $"Stopping existing connection to {_serverManager.CurrentServer.ServerName}")));
@@ -586,7 +586,7 @@ public sealed partial class ApiController : DisposableMediatorSubscriberBase, IO
             _initialized = false;
             _healthCheckTokenSource?.Cancel();
             Mediator.Publish(new DisconnectedMessage());
-            _lightlessHub = null;
+            _onlymareHub = null;
             _connectionDto = null;
         }
 

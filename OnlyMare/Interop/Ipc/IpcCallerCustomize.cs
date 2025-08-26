@@ -20,10 +20,10 @@ public sealed class IpcCallerCustomize : IIpcCaller
     private readonly ICallGateSubscriber<Guid, int> _customizePlusDeleteByUniqueId;
     private readonly ILogger<IpcCallerCustomize> _logger;
     private readonly DalamudUtilService _dalamudUtil;
-    private readonly LightlessMediator _lightlessMediator;
+    private readonly OnlyMareMediator _onlymareMediator;
 
     public IpcCallerCustomize(ILogger<IpcCallerCustomize> logger, IDalamudPluginInterface dalamudPluginInterface,
-        DalamudUtilService dalamudUtil, LightlessMediator lightlessMediator)
+        DalamudUtilService dalamudUtil, OnlyMareMediator onlymareMediator)
     {
         _customizePlusApiVersion = dalamudPluginInterface.GetIpcSubscriber<(int, int)>("CustomizePlus.General.GetApiVersion");
         _customizePlusGetActiveProfile = dalamudPluginInterface.GetIpcSubscriber<ushort, (int, Guid?)>("CustomizePlus.Profile.GetActiveProfileIdOnCharacter");
@@ -36,7 +36,7 @@ public sealed class IpcCallerCustomize : IIpcCaller
         _customizePlusOnScaleUpdate.Subscribe(OnCustomizePlusScaleChange);
         _logger = logger;
         _dalamudUtil = dalamudUtil;
-        _lightlessMediator = lightlessMediator;
+        _onlymareMediator = onlymareMediator;
 
         CheckAPI();
     }
@@ -129,7 +129,7 @@ public sealed class IpcCallerCustomize : IIpcCaller
     private void OnCustomizePlusScaleChange(ushort c, Guid g)
     {
         var obj = _dalamudUtil.GetCharacterFromObjectTableByIndex(c);
-        _lightlessMediator.Publish(new CustomizePlusMessage(obj?.Address ?? null));
+        _onlymareMediator.Publish(new CustomizePlusMessage(obj?.Address ?? null));
     }
 
     public void Dispose()

@@ -1,8 +1,8 @@
-﻿using OnlyMare.LightlessConfiguration.Configurations;
+﻿using OnlyMare.OnlyMareConfiguration.Configurations;
 
-namespace OnlyMare.LightlessConfiguration;
+namespace OnlyMare.OnlyMareConfiguration;
 
-public interface IConfigService<out T> : IDisposable where T : ILightlessConfiguration
+public interface IConfigService<out T> : IDisposable where T : IOnlyMareConfiguration
 {
     T Current { get; }
     string ConfigurationName { get; }

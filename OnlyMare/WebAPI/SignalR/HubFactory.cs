@@ -21,7 +21,7 @@ public class HubFactory : MediatorSubscriberBase
     private bool _isDisposed = false;
     private readonly bool _isWine = false;
 
-    public HubFactory(ILogger<HubFactory> logger, LightlessMediator mediator,
+    public HubFactory(ILogger<HubFactory> logger, OnlyMareMediator mediator,
         ServerConfigurationManager serverConfigurationManager,
         TokenProvider tokenProvider, ILoggerProvider pluginLog,
         DalamudUtilService dalamudUtilService) : base(logger, mediator)

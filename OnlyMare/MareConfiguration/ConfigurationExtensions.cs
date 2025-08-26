@@ -1,10 +1,10 @@
-﻿using OnlyMare.LightlessConfiguration.Configurations;
+﻿using OnlyMare.OnlyMareConfiguration.Configurations;
 
-namespace OnlyMare.LightlessConfiguration;
+namespace OnlyMare.OnlyMareConfiguration;
 
 public static class ConfigurationExtensions
 {
-    public static bool HasValidSetup(this LightlessConfig configuration)
+    public static bool HasValidSetup(this OnlyMareConfig configuration)
     {
         return configuration.AcceptedAgreement && configuration.InitialScanComplete
                     && !string.IsNullOrEmpty(configuration.CacheFolder)

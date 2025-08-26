@@ -1,12 +1,12 @@
-﻿using OnlyMare.LightlessConfiguration.Configurations;
+﻿using OnlyMare.OnlyMareConfiguration.Configurations;
 
-namespace OnlyMare.LightlessConfiguration;
+namespace OnlyMare.OnlyMareConfiguration;
 
-public class LightlessConfigService : ConfigurationServiceBase<LightlessConfig>
+public class OnlyMareConfigService : ConfigurationServiceBase<OnlyMareConfig>
 {
     public const string ConfigName = "config.json";
 
-    public LightlessConfigService(string configDir) : base(configDir)
+    public OnlyMareConfigService(string configDir) : base(configDir)
     {
     }
 

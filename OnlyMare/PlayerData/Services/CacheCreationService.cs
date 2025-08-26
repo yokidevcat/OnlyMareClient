@@ -23,7 +23,7 @@ public sealed class CacheCreationService : DisposableMediatorSubscriberBase
     private bool _haltCharaDataCreation;
     private bool _isZoning = false;
 
-    public CacheCreationService(ILogger<CacheCreationService> logger, LightlessMediator mediator, GameObjectHandlerFactory gameObjectHandlerFactory,
+    public CacheCreationService(ILogger<CacheCreationService> logger, OnlyMareMediator mediator, GameObjectHandlerFactory gameObjectHandlerFactory,
         PlayerDataFactory characterDataFactory, DalamudUtilService dalamudUtil) : base(logger, mediator)
     {
         _characterDataFactory = characterDataFactory;

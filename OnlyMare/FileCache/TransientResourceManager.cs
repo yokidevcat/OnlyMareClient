@@ -1,6 +1,6 @@
 ﻿using OnlyMare.API.Data.Enum;
-using OnlyMare.LightlessConfiguration;
-using OnlyMare.LightlessConfiguration.Configurations;
+using OnlyMare.OnlyMareConfiguration;
+using OnlyMare.OnlyMareConfiguration.Configurations;
 using OnlyMare.PlayerData.Data;
 using OnlyMare.PlayerData.Handlers;
 using OnlyMare.Services;
@@ -26,7 +26,7 @@ public sealed class TransientResourceManager : DisposableMediatorSubscriberBase
     public bool IsTransientRecording { get; private set; } = false;
 
     public TransientResourceManager(ILogger<TransientResourceManager> logger, TransientConfigService configurationService,
-            DalamudUtilService dalamudUtil, LightlessMediator mediator) : base(logger, mediator)
+            DalamudUtilService dalamudUtil, OnlyMareMediator mediator) : base(logger, mediator)
     {
         _configurationService = configurationService;
         _dalamudUtil = dalamudUtil;

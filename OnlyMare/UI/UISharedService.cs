@@ -13,8 +13,8 @@ using Dalamud.Utility;
 using OnlyMare.FileCache;
 using OnlyMare.Interop.Ipc;
 using OnlyMare.Localization;
-using OnlyMare.LightlessConfiguration;
-using OnlyMare.LightlessConfiguration.Models;
+using OnlyMare.OnlyMareConfiguration;
+using OnlyMare.OnlyMareConfiguration.Models;
 using OnlyMare.PlayerData.Pairs;
 using OnlyMare.Services;
 using OnlyMare.Services.Mediator;
@@ -39,11 +39,11 @@ public partial class UiSharedService : DisposableMediatorSubscriberBase
                                            ImGuiWindowFlags.NoScrollWithMouse;
 
     public readonly FileDialogManager FileDialogManager;
-    private const string _notesEnd = "##LIGHTLESS_SYNC_USER_NOTES_END##";
-    private const string _notesStart = "##LIGHTLESS_SYNC_USER_NOTES_START##";
+    private const string _notesEnd = "##ONLYMARE_SYNC_USER_NOTES_END##";
+    private const string _notesStart = "##ONLYMARE_SYNC_USER_NOTES_START##";
     private readonly ApiController _apiController;
     private readonly CacheMonitor _cacheMonitor;
-    private readonly LightlessConfigService _configService;
+    private readonly OnlyMareConfigService _configService;
     private readonly DalamudUtilService _dalamudUtil;
     private readonly IpcManager _ipcManager;
     private readonly Dalamud.Localization _localization;
@@ -75,10 +75,10 @@ public partial class UiSharedService : DisposableMediatorSubscriberBase
     private int _serverSelectionIndex = -1;
     public UiSharedService(ILogger<UiSharedService> logger, IpcManager ipcManager, ApiController apiController,
         CacheMonitor cacheMonitor, FileDialogManager fileDialogManager,
-        LightlessConfigService configService, DalamudUtilService dalamudUtil, IDalamudPluginInterface pluginInterface,
+        OnlyMareConfigService configService, DalamudUtilService dalamudUtil, IDalamudPluginInterface pluginInterface,
         ITextureProvider textureProvider,
         Dalamud.Localization localization,
-        ServerConfigurationManager serverManager, TokenProvider tokenProvider, LightlessMediator mediator) : base(logger, mediator)
+        ServerConfigurationManager serverManager, TokenProvider tokenProvider, OnlyMareMediator mediator) : base(logger, mediator)
     {
         _ipcManager = ipcManager;
         _apiController = apiController;
@@ -453,16 +453,16 @@ public partial class UiSharedService : DisposableMediatorSubscriberBase
 
     public void DrawCacheDirectorySetting()
     {
-        ColorTextWrapped("Note: The storage folder should be somewhere close to root (i.e. C:\\LightlessStorage) in a new empty folder. DO NOT point this to your game folder. DO NOT point this to your Penumbra folder.", ImGuiColors.DalamudYellow);
+        ColorTextWrapped("Note: The storage folder should be somewhere close to root (i.e. C:\\OnlyMareStorage) in a new empty folder. DO NOT point this to your game folder. DO NOT point this to your Penumbra folder.", ImGuiColors.DalamudYellow);
         var cacheDirectory = _configService.Current.CacheFolder;
         ImGui.InputText("Storage Folder##cache", ref cacheDirectory, 255, ImGuiInputTextFlags.ReadOnly);
 
         ImGui.SameLine();
-        using (ImRaii.Disabled(_cacheMonitor.LightlessWatcher != null))
+        using (ImRaii.Disabled(_cacheMonitor.OnlyMareWatcher != null))
         {
             if (IconButton(FontAwesomeIcon.Folder))
             {
-                FileDialogManager.OpenFolderDialog("Pick Lightless Sync Storage Folder", (success, path) =>
+                FileDialogManager.OpenFolderDialog("Pick OnlyMare Storage Folder", (success, path) =>
                 {
                     if (!success) return;
 
@@ -484,7 +484,7 @@ public partial class UiSharedService : DisposableMediatorSubscriberBase
                     if (dirs.Any())
                     {
                         _cacheDirectoryHasOtherFilesThanCache = true;
-                        Logger.LogWarning("Found folders in {path} not belonging to Lightless: {dirs}", path, string.Join(", ", dirs));
+                        Logger.LogWarning("Found folders in {path} not belonging to OnlyMare: {dirs}", path, string.Join(", ", dirs));
                     }
 
                     _isDirectoryWritable = IsDirectoryWritable(path);
@@ -500,13 +500,13 @@ public partial class UiSharedService : DisposableMediatorSubscriberBase
                     {
                         _configService.Current.CacheFolder = path;
                         _configService.Save();
-                        _cacheMonitor.StartLightlessWatcher(path);
+                        _cacheMonitor.StartOnlyMareWatcher(path);
                         _cacheMonitor.InvokeScan();
                     }
                 }, _dalamudUtil.IsWine ? @"Z:\" : @"C:\");
             }
         }
-        if (_cacheMonitor.LightlessWatcher != null)
+        if (_cacheMonitor.OnlyMareWatcher != null)
         {
             AttachToolTip("Stop the Monitoring before changing the Storage folder. As long as monitoring is active, you cannot change the Storage folder location.");
         }
@@ -525,7 +525,7 @@ public partial class UiSharedService : DisposableMediatorSubscriberBase
         }
         else if (_cacheDirectoryHasOtherFilesThanCache)
         {
-            ColorTextWrapped("Your selected directory has files or directories inside that are not Lightless related. Use an empty directory or a previous Lightless storage directory only.", ImGuiColors.DalamudRed);
+            ColorTextWrapped("Your selected directory has files or directories inside that are not OnlyMare related. Use an empty directory or a previous OnlyMare storage directory only.", ImGuiColors.DalamudRed);
         }
         else if (!_cacheDirectoryIsValidPath)
         {
@@ -539,7 +539,7 @@ public partial class UiSharedService : DisposableMediatorSubscriberBase
             _configService.Current.MaxLocalCacheInGiB = maxCacheSize;
             _configService.Save();
         }
-        DrawHelpText("The storage is automatically governed by Lightless. It will clear itself automatically once it reaches the set capacity by removing the oldest unused files. You typically do not need to clear it yourself.");
+        DrawHelpText("The storage is automatically governed by OnlyMare. It will clear itself automatically once it reaches the set capacity by removing the oldest unused files. You typically do not need to clear it yourself.");
     }
 
     public T? DrawCombo<T>(string comboName, IEnumerable<T> comboItems, Func<T?, string> toName,
@@ -811,7 +811,7 @@ public partial class UiSharedService : DisposableMediatorSubscriberBase
 
         if (!_penumbraExists || !_glamourerExists)
         {
-            ImGui.TextColored(ImGuiColors.DalamudRed, "You need to install both Penumbra and Glamourer and keep them up to date to use Lightless Sync.");
+            ImGui.TextColored(ImGuiColors.DalamudRed, "You need to install both Penumbra and Glamourer and keep them up to date to use OnlyMare.");
             return false;
         }
 

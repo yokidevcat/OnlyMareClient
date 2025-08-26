@@ -5,8 +5,8 @@ using Dalamud.Interface.Utility.Raii;
 using Dalamud.Utility;
 using OnlyMare.FileCache;
 using OnlyMare.Localization;
-using OnlyMare.LightlessConfiguration;
-using OnlyMare.LightlessConfiguration.Models;
+using OnlyMare.OnlyMareConfiguration;
+using OnlyMare.OnlyMareConfiguration.Models;
 using OnlyMare.Services;
 using OnlyMare.Services.Mediator;
 using OnlyMare.Services.ServerConfiguration;
@@ -18,7 +18,7 @@ namespace OnlyMare.UI;
 
 public partial class IntroUi : WindowMediatorSubscriberBase
 {
-    private readonly LightlessConfigService _configService;
+    private readonly OnlyMareConfigService _configService;
     private readonly CacheMonitor _cacheMonitor;
     private readonly Dictionary<string, string> _languages = new(StringComparer.Ordinal) { { "English", "en" }, { "Deutsch", "de" }, { "Français", "fr" } };
     private readonly ServerConfigurationManager _serverConfigurationManager;
@@ -33,9 +33,9 @@ public partial class IntroUi : WindowMediatorSubscriberBase
     private string[]? _tosParagraphs;
     private bool _useLegacyLogin = false;
 
-    public IntroUi(ILogger<IntroUi> logger, UiSharedService uiShared, LightlessConfigService configService,
-        CacheMonitor fileCacheManager, ServerConfigurationManager serverConfigurationManager, LightlessMediator lightlessMediator,
-        PerformanceCollectorService performanceCollectorService, DalamudUtilService dalamudUtilService) : base(logger, lightlessMediator, "Lightless Sync Setup", performanceCollectorService)
+    public IntroUi(ILogger<IntroUi> logger, UiSharedService uiShared, OnlyMareConfigService configService,
+        CacheMonitor fileCacheManager, ServerConfigurationManager serverConfigurationManager, OnlyMareMediator onlymareMediator,
+        PerformanceCollectorService performanceCollectorService, DalamudUtilService dalamudUtilService) : base(logger, onlymareMediator, "OnlyMare Setup", performanceCollectorService)
     {
         _uiShared = uiShared;
         _configService = configService;
@@ -70,9 +70,9 @@ public partial class IntroUi : WindowMediatorSubscriberBase
 
         if (!_configService.Current.AcceptedAgreement && !_readFirstPage)
         {
-            _uiShared.BigText("Welcome to Lightless Sync");
+            _uiShared.BigText("Welcome to OnlyMare");
             ImGui.Separator();
-            UiSharedService.TextWrapped("Lightless Sync is a plugin that will replicate your full current character state including all Penumbra mods to other paired Lightless Sync users. " +
+            UiSharedService.TextWrapped("OnlyMare is a plugin that will replicate your full current character state including all Penumbra mods to other paired OnlyMare users. " +
                               "Note that you will have to have Penumbra as well as Glamourer installed to use this plugin.");
             UiSharedService.TextWrapped("We will have to setup a few things first before you can start using this plugin. Click on next to continue.");
 
@@ -167,11 +167,11 @@ public partial class IntroUi : WindowMediatorSubscriberBase
             }
             else
             {
-                UiSharedService.TextWrapped("To not unnecessary download files already present on your computer, Lightless Sync will have to scan your Penumbra mod directory. " +
-                                     "Additionally, a local storage folder must be set where Lightless Sync will download other character files to. " +
+                UiSharedService.TextWrapped("To not unnecessary download files already present on your computer, OnlyMare will have to scan your Penumbra mod directory. " +
+                                     "Additionally, a local storage folder must be set where OnlyMare will download other character files to. " +
                                      "Once the storage folder is set and the scan complete, this page will automatically forward to registration at a service.");
                 UiSharedService.TextWrapped("Note: The initial scan, depending on the amount of mods you have, might take a while. Please wait until it is completed.");
-                UiSharedService.ColorTextWrapped("Warning: once past this step you should not delete the FileCache.csv of Lightless Sync in the Plugin Configurations folder of Dalamud. " +
+                UiSharedService.ColorTextWrapped("Warning: once past this step you should not delete the FileCache.csv of OnlyMare in the Plugin Configurations folder of Dalamud. " +
                                           "Otherwise on the next launch a full re-scan of the file cache database will be initiated.", ImGuiColors.DalamudYellow);
                 UiSharedService.ColorTextWrapped("Warning: if the scan is hanging and does nothing for a long time, chances are high your Penumbra folder is not set up properly.", ImGuiColors.DalamudYellow);
                 _uiShared.DrawCacheDirectorySetting();
@@ -196,8 +196,8 @@ public partial class IntroUi : WindowMediatorSubscriberBase
                     _configService.Current.UseCompactor = useFileCompactor;
                     _configService.Save();
                 }
-                UiSharedService.ColorTextWrapped("The File Compactor can save a tremendeous amount of space on the hard disk for downloads through Lightless. It will incur a minor CPU penalty on download but can speed up " +
-                    "loading of other characters. It is recommended to keep it enabled. You can change this setting later anytime in the Lightless settings.", ImGuiColors.DalamudYellow);
+                UiSharedService.ColorTextWrapped("The File Compactor can save a tremendeous amount of space on the hard disk for downloads through OnlyMare. It will incur a minor CPU penalty on download but can speed up " +
+                    "loading of other characters. It is recommended to keep it enabled. You can change this setting later anytime in the OnlyMare settings.", ImGuiColors.DalamudYellow);
             }
         }
         else if (!_uiShared.ApiController.ServerAlive)
@@ -205,13 +205,13 @@ public partial class IntroUi : WindowMediatorSubscriberBase
             using (_uiShared.UidFont.Push())
                 ImGui.TextUnformatted("Service Registration");
             ImGui.Separator();
-            UiSharedService.TextWrapped("To be able to use Lightless Sync you will have to register an account.");
-            UiSharedService.TextWrapped("For the official Lightless Sync Servers the account creation will be handled on the official Lightless Sync Discord. Due to security risks for the server, there is no way to handle this sensibly otherwise.");
-            UiSharedService.TextWrapped("If you want to register at the main server \"" + WebAPI.ApiController.MainServer + "\" join the Discord and follow the instructions as described in #lightless-service.");
+            UiSharedService.TextWrapped("To be able to use OnlyMare you will have to register an account.");
+            UiSharedService.TextWrapped("For the official OnlyMare Servers the account creation will be handled on the official OnlyMare Discord. Due to security risks for the server, there is no way to handle this sensibly otherwise.");
+            UiSharedService.TextWrapped("If you want to register at the main server \"" + WebAPI.ApiController.MainServer + "\" join the Discord and follow the instructions as described in #onlymare-service.");
 
-            if (ImGui.Button("Join the Light Public Syncshells Discord"))
+            if (ImGui.Button("This button will not work! Discord is Private!"))
             {
-                Util.OpenLink("https://discord.gg/dsbjcXMnhA");
+                Util.OpenLink("");
             }
 
             UiSharedService.TextWrapped("For all other non official services you will have to contact the appropriate service provider how to obtain a secret key.");

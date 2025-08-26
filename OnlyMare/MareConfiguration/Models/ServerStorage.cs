@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.Connections;
 
-namespace OnlyMare.LightlessConfiguration.Models;
+namespace OnlyMare.OnlyMareConfiguration.Models;
 
 [Serializable]
 public class ServerStorage

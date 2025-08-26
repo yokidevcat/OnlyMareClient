@@ -1,7 +1,7 @@
 ﻿using FFXIVClientStructs.FFXIV.Client.Graphics.Scene;
 using OnlyMare.API.Data;
 using OnlyMare.Interop;
-using OnlyMare.LightlessConfiguration;
+using OnlyMare.OnlyMareConfiguration;
 using OnlyMare.Services.CharaData.Models;
 using OnlyMare.Services.Mediator;
 using OnlyMare.Services.ServerConfiguration;
@@ -29,7 +29,7 @@ public sealed class CharaDataNearbyManager : DisposableMediatorSubscriberBase
     private (Guid VfxId, PoseEntryExtended Pose)? _hoveredVfx = null;
     private DateTime _lastExecutionTime = DateTime.UtcNow;
     private SemaphoreSlim _sharedDataUpdateSemaphore = new(1, 1);
-    public CharaDataNearbyManager(ILogger<CharaDataNearbyManager> logger, LightlessMediator mediator,
+    public CharaDataNearbyManager(ILogger<CharaDataNearbyManager> logger, OnlyMareMediator mediator,
         DalamudUtilService dalamudUtilService, VfxSpawnManager vfxSpawnManager,
         ServerConfigurationManager serverConfigurationManager,
         CharaDataConfigService charaDataConfigService) : base(logger, mediator)

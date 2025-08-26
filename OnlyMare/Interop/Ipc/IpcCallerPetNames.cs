@@ -11,7 +11,7 @@ public sealed class IpcCallerPetNames : IIpcCaller
 {
     private readonly ILogger<IpcCallerPetNames> _logger;
     private readonly DalamudUtilService _dalamudUtil;
-    private readonly LightlessMediator _lightlessMediator;
+    private readonly OnlyMareMediator _onlymareMediator;
 
     private readonly ICallGateSubscriber<object> _petnamesReady;
     private readonly ICallGateSubscriber<object> _petnamesDisposing;
@@ -24,11 +24,11 @@ public sealed class IpcCallerPetNames : IIpcCaller
     private readonly ICallGateSubscriber<ushort, object> _clearPlayerData;
 
     public IpcCallerPetNames(ILogger<IpcCallerPetNames> logger, IDalamudPluginInterface pi, DalamudUtilService dalamudUtil,
-        LightlessMediator lightlessMediator)
+        OnlyMareMediator onlymareMediator)
     {
         _logger = logger;
         _dalamudUtil = dalamudUtil;
-        _lightlessMediator = lightlessMediator;
+        _onlymareMediator = onlymareMediator;
 
         _petnamesReady = pi.GetIpcSubscriber<object>("PetRenamer.Ready");
         _petnamesDisposing = pi.GetIpcSubscriber<object>("PetRenamer.Disposing");
@@ -68,12 +68,12 @@ public sealed class IpcCallerPetNames : IIpcCaller
     private void OnPetNicknamesReady()
     {
         CheckAPI();
-        _lightlessMediator.Publish(new PetNamesReadyMessage());
+        _onlymareMediator.Publish(new PetNamesReadyMessage());
     }
 
     private void OnPetNicknamesDispose()
     {
-        _lightlessMediator.Publish(new PetNamesMessage(string.Empty));
+        _onlymareMediator.Publish(new PetNamesMessage(string.Empty));
     }
 
     public string GetLocalNames()
@@ -146,7 +146,7 @@ public sealed class IpcCallerPetNames : IIpcCaller
 
     private void OnLocalPetNicknamesDataChange(string data)
     {
-        _lightlessMediator.Publish(new PetNamesMessage(data));
+        _onlymareMediator.Publish(new PetNamesMessage(data));
     }
 
     public void Dispose()

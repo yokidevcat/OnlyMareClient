@@ -4,7 +4,7 @@ namespace OnlyMare.Services.Mediator;
 
 public abstract class MediatorSubscriberBase : IMediatorSubscriber
 {
-    protected MediatorSubscriberBase(ILogger logger, LightlessMediator mediator)
+    protected MediatorSubscriberBase(ILogger logger, OnlyMareMediator mediator)
     {
         Logger = logger;
 
@@ -12,7 +12,7 @@ public abstract class MediatorSubscriberBase : IMediatorSubscriber
         Mediator = mediator;
     }
 
-    public LightlessMediator Mediator { get; }
+    public OnlyMareMediator Mediator { get; }
     protected ILogger Logger { get; }
 
     protected void UnsubscribeAll()

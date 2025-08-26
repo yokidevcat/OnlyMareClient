@@ -18,9 +18,9 @@ public class CreateSyncshellUI : WindowMediatorSubscriberBase
     private bool _errorGroupCreate;
     private GroupJoinDto? _lastCreatedGroup;
 
-    public CreateSyncshellUI(ILogger<CreateSyncshellUI> logger, LightlessMediator lightlessMediator, ApiController apiController, UiSharedService uiSharedService,
+    public CreateSyncshellUI(ILogger<CreateSyncshellUI> logger, OnlyMareMediator onlymareMediator, ApiController apiController, UiSharedService uiSharedService,
         PerformanceCollectorService performanceCollectorService)
-        : base(logger, lightlessMediator, "Create new Syncshell###OnlyMareCreateSyncshell", performanceCollectorService)
+        : base(logger, onlymareMediator, "Create new Syncshell###OnlyMareCreateSyncshell", performanceCollectorService)
     {
         _apiController = apiController;
         _uiSharedService = uiSharedService;
@@ -76,7 +76,7 @@ public class CreateSyncshellUI : WindowMediatorSubscriberBase
             ImGui.AlignTextToFramePadding();
             ImGui.TextUnformatted("- VFX");
             _uiSharedService.BooleanToColoredIcon(!_apiController.DefaultPermissions!.DisableGroupVFX);
-            UiSharedService.TextWrapped("(Those preferred permissions can be changed anytime after Syncshell creation, your defaults can be changed anytime in the Lightless Settings)");
+            UiSharedService.TextWrapped("(Those preferred permissions can be changed anytime after Syncshell creation, your defaults can be changed anytime in the OnlyMare Settings)");
         }
         else
         {

@@ -1,6 +1,6 @@
 ﻿using Dalamud.Interface.Utility.Raii;
 using OnlyMare.API.Dto.CharaData;
-using OnlyMare.LightlessConfiguration.Models;
+using OnlyMare.OnlyMareConfiguration.Models;
 using OnlyMare.Services.CharaData.Models;
 using System.Text;
 

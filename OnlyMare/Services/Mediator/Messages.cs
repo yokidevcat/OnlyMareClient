@@ -3,7 +3,7 @@ using OnlyMare.API.Data;
 using OnlyMare.API.Dto;
 using OnlyMare.API.Dto.CharaData;
 using OnlyMare.API.Dto.Group;
-using OnlyMare.LightlessConfiguration.Models;
+using OnlyMare.OnlyMareConfiguration.Models;
 using OnlyMare.PlayerData.Handlers;
 using OnlyMare.PlayerData.Pairs;
 using OnlyMare.Services.Events;

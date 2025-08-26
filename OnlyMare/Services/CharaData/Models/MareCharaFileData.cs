@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace OnlyMare.Services.CharaData.Models;
 
-public record LightlessCharaFileData
+public record OnlyMareCharaFileData
 {
     public string Description { get; set; } = string.Empty;
     public string GlamourerData { get; set; } = string.Empty;
@@ -15,8 +15,8 @@ public record LightlessCharaFileData
     public List<FileData> Files { get; set; } = [];
     public List<FileSwap> FileSwaps { get; set; } = [];
 
-    public LightlessCharaFileData() { }
-    public LightlessCharaFileData(FileCacheManager manager, string description, CharacterData dto)
+    public OnlyMareCharaFileData() { }
+    public OnlyMareCharaFileData(FileCacheManager manager, string description, CharacterData dto)
     {
         Description = description;
 
@@ -59,9 +59,9 @@ public record LightlessCharaFileData
         return Encoding.UTF8.GetBytes(JsonSerializer.Serialize(this));
     }
 
-    public static LightlessCharaFileData FromByteArray(byte[] data)
+    public static OnlyMareCharaFileData FromByteArray(byte[] data)
     {
-        return JsonSerializer.Deserialize<LightlessCharaFileData>(Encoding.UTF8.GetString(data))!;
+        return JsonSerializer.Deserialize<OnlyMareCharaFileData>(Encoding.UTF8.GetString(data))!;
     }
 
     public record FileSwap(IEnumerable<string> GamePaths, string FileSwapPath);
