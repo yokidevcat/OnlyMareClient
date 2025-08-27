@@ -209,7 +209,7 @@ public partial class IntroUi : WindowMediatorSubscriberBase
             UiSharedService.TextWrapped("For the official OnlyMare Servers the account creation will be handled on the official OnlyMare Discord. Due to security risks for the server, there is no way to handle this sensibly otherwise.");
             UiSharedService.TextWrapped("If you want to register at the main server \"" + WebAPI.ApiController.MainServer + "\" join the Discord and follow the instructions as described in #onlymare-service.");
 
-            if (ImGui.Button("This button will not work! Discord is Private!"))
+            if (ImGui.Button("This button is disabled! Discord is Invite Only!"))
             {
                 Util.OpenLink("");
             }

@@ -1950,7 +1950,7 @@ public class SettingsUi : WindowMediatorSubscriberBase
         ImGui.AlignTextToFramePadding();
         ImGui.TextUnformatted("Community and Support:");
         ImGui.SameLine();
-        if (ImGui.Button("This Dicord buttion will not work it is privtae"))
+        if (ImGui.Button("This button is disabled! Discord is Invite Only!"))
         {
             Util.OpenLink("");
         }
