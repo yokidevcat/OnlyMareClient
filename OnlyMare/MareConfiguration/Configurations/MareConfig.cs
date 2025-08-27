@@ -60,4 +60,5 @@ public class OnlyMareConfig : IOnlyMareConfiguration
     public int Version { get; set; } = 1;
     public NotificationLocation WarningNotification { get; set; } = NotificationLocation.Both;
     public bool UseFocusTarget { get; set; } = false;
+    public int UploadHttpTimeoutSeconds { get; set; } = 180; // 3 minutes
 }

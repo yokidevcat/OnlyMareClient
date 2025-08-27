@@ -164,17 +164,23 @@ public sealed class Plugin : IDalamudPlugin
             collection.AddSingleton((s) => new NotificationService(s.GetRequiredService<ILogger<NotificationService>>(),
                 s.GetRequiredService<OnlyMareMediator>(), s.GetRequiredService<DalamudUtilService>(),
                 notificationManager, chatGui, s.GetRequiredService<OnlyMareConfigService>()));
-            collection.AddSingleton((s) =>
+            collection.AddSingleton(sp =>
             {
+                var cfg = sp.GetRequiredService<OnlyMareConfigService>().Current;
+
+                var seconds = cfg.UploadHttpTimeoutSeconds;
+                if (seconds <= 0) seconds = 180;             // default if missing/old config
+                seconds = Math.Clamp(seconds, 100, 600);      // 100s..10mins safety range
+
                 var httpClient = new HttpClient
                 {
-                    Timeout = TimeSpan.FromMinutes(30) // set very high for testing
+                    Timeout = TimeSpan.FromSeconds(seconds)
                 };
 
-                var ver = Assembly.GetExecutingAssembly().GetName().Version;
+                var ver = Assembly.GetExecutingAssembly().GetName().Version!;
                 httpClient.DefaultRequestHeaders.UserAgent.Add(
-                    new ProductInfoHeaderValue("OnlyMare", $"{ver.Major}.{ver.Minor}.{ver.Build}"));
-
+                    new ProductInfoHeaderValue("OnlyMare", $"{ver.Major}.{ver.Minor}.{ver.Build}")
+                );
                 return httpClient;
             });
             collection.AddSingleton((s) => new OnlyMareConfigService(pluginInterface.ConfigDirectory.FullName));

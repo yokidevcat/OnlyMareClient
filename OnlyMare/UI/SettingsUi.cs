@@ -258,6 +258,16 @@ public class SettingsUi : WindowMediatorSubscriberBase
         }
         _uiShared.DrawHelpText("This will attempt to upload files in one go instead of a stream. Typically not necessary to enable. Use if you have upload issues.");
 
+        int timeoutSecs = _configService.Current.UploadHttpTimeoutSeconds;
+        ImGui.SetNextItemWidth(160 * ImGuiHelpers.GlobalScale);
+        if (ImGui.SliderInt("Upload HTTP timeout (sec)", ref timeoutSecs, 100, 600))
+        {
+            _configService.Current.UploadHttpTimeoutSeconds = timeoutSecs;
+            _configService.Save();
+        }
+        
+        _uiShared.DrawHelpText("How long (in seconds) the client will keep an upload request alive before giving up. (Pugin reload required to take effect)");
+
         ImGui.Separator();
         _uiShared.BigText("Transfer UI");
 
